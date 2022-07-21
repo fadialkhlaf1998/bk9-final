@@ -1,10 +1,16 @@
+import 'package:bk9/const/api.dart';
 import 'package:bk9/const/app-style.dart';
 import 'package:bk9/controller/home_controller.dart';
-import 'package:bk9/model/post.dart';
+import 'package:bk9/controller/intro_controller.dart';
+import 'package:bk9/view/home_screen.dart';
+import 'package:bk9/view/wishlist.dart';
 import 'package:bk9/widgets/background_image.dart';
 import 'package:bk9/widgets/container_with_image.dart';
 import 'package:bk9/widgets/custom_button.dart';
+import 'package:bk9/widgets/custom_container.dart';
 import 'package:bk9/widgets/custom_gridView_services.dart';
+import 'package:bk9/widgets/custom_listView_brands.dart';
+import 'package:bk9/widgets/custom_listView_container.dart';
 import 'package:bk9/widgets/search.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -15,53 +21,109 @@ class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
 
   HomeController homeController = Get.put(HomeController());
+  IntroController introController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          BackgroundImage(),
-          SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                _header(context),
-                SizedBox(height: 20),
-                _imagesSlider(context),
-                SizedBox(height: 20),
-                CustomButton(
-                    text: "Login / Sign Up",
-                    onPressed: () {
-                      Get.back();
-                    },
-                    color: AppStyle.primary,
-                    borderRadius: 30,
-                    border: Colors.transparent,
-                    width: AppStyle.getDeviceWidthPercent(80, context),
-                    height: AppStyle.getDeviceHeightPercent(7, context),
-                    textStyle: CommonTextStyle.textStyleForOrangeBigButton
-                ),
-                SizedBox(height: 20),
-                Container(
-                  width: AppStyle.getDeviceWidthPercent(90, context),
-                  child: Text("Services",
-                    style: CommonTextStyle.textStyleForDarkGreyXLargeButton
-                  ),
-                ),
-                _servicesList(context),
-              ],
+        body: Stack(
+          children: [
+            BackgroundImage(),
+            SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: AppStyle.getDeviceHeightPercent(20, context),),
+                  home(context)
+                ],
+              ),
             ),
-          )
-        ],
-      )
+            Positioned(
+              top: 0,
+              child: _header(context),
+            ),
+            introController.loading.value ?
+            Positioned(child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              color: Colors.white.withOpacity(0.5),
+              child: Center(
+                child: CircularProgressIndicator(color: AppStyle.primary,),
+              ),
+            )) : Center()
+          ],
+        )
     );
   }
-
+  home(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(height: 20),
+        _imagesSlider(context),
+        SizedBox(height: 15),
+        API.customer_id == -1 ?
+        CustomButton(
+            text: "Login / Sign Up",
+            onPressed: () {
+              Get.off(() => HomeScreen());
+            },
+            color: AppStyle.primary,
+            borderRadius: 30,
+            border: Colors.transparent,
+            width: AppStyle.getDeviceWidthPercent(80, context),
+            height: AppStyle.getDeviceHeightPercent(6.5, context),
+            textStyle: CommonTextStyle.textStyleForOrangeBigButton
+        ) : Text(""),
+        SizedBox(height:  API.customer_id == -1 ? 25 :  0),
+        Container(
+          width: AppStyle.getDeviceWidthPercent(90, context),
+          child: Text("Services",
+              style: CommonTextStyle.textStyleForDarkGreyBigButton
+          ),
+        ),
+        _servicesList(context,introController,homeController.selectedServices.value),
+        _brands(context,introController),
+        SizedBox(height: 20),
+        CustomContainer(
+            text: "OFFERS",
+            onTap: () {
+              /// offers page
+            },
+            radius: 25,
+            width: AppStyle.getDeviceWidthPercent(90, context),
+            height: AppStyle.getDeviceHeightPercent(20, context),
+            color: AppStyle.grey.withOpacity(0.5),
+            textStyle: CommonTextStyle.textStyleForWhiteXLargeButton
+        ),
+        SizedBox(height: 25),
+        Container(
+            width: AppStyle.getDeviceWidthPercent(85, context),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("News and Events",
+                    style: CommonTextStyle.textStyleForDarkGreyBigButton
+                ),
+                GestureDetector(
+                  onTap: () {
+                    /// News and Events page
+                  },
+                  child: Text("view all",
+                      style: CommonTextStyle.textStyleForWhiteMediumButton
+                  ),
+                )
+              ],
+            )
+        ),
+        SizedBox(height: 15),
+        _newsAndEventsList(context),
+        SizedBox(height: 20),
+      ],
+    );
+  }
   _header(BuildContext context) {
     return Container(
       width: AppStyle.getDeviceWidthPercent(100, context),
-      height: AppStyle.getDeviceHeightPercent(28, context),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
@@ -80,7 +142,6 @@ class Home extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(height: MediaQuery.of(context).viewPadding.top),
-          SizedBox(height: 15,),
           Container(
             width: AppStyle.getDeviceWidthPercent(95, context),
             child: Row(
@@ -90,12 +151,12 @@ class Home extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     ContainerWithImage(
-                        width: 90,
-                        height: 90,
+                        width: 80,
+                        height: 80,
                         image: "assets/icons/logo.svg",
                         option: 0),
                     Container(
-                      height: 80,
+                      height: 70,
                       padding: const EdgeInsets.only(bottom: 10),
                       child: const VerticalDivider(
                         color: Colors.black,
@@ -108,17 +169,19 @@ class Home extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [
-                        Text("The",
+                        Text("THE",
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 18
+                              fontSize: 12,
+                            letterSpacing: 0.5
                           ),
                         ),
                         Text("BARKLEY",
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 0.5
                           ),),
                         SizedBox(height: 6)
                       ],
@@ -127,11 +190,11 @@ class Home extends StatelessWidget {
                 ),
                 GestureDetector(
                     onTap: () {
-                      ///
+                      Get.to(() => Wishlist());
                     },
                     child: ContainerWithImage(
-                        width: 50,
-                        height: 100,
+                        width: 40,
+                        height: 70,
                         image: "assets/icons/wishlist.svg",
                         color: AppStyle.grey,
                         option: 0)
@@ -139,8 +202,9 @@ class Home extends StatelessWidget {
               ],
             ),
           ),
+          SizedBox(height: 10),
+          Search(width: AppStyle.getDeviceWidthPercent(90, context),introController: introController,),
           SizedBox(height: 15,),
-          Search(width: AppStyle.getDeviceWidthPercent(90, context)),
         ],
       ),
     );
@@ -165,14 +229,14 @@ class Home extends StatelessWidget {
                     onPageChanged: (index, reason) {
                       homeController.set_index(index);
                     }),
-                itemCount: homeController.carouselSliderImages.length,
+                itemCount: introController.banner.length,
                 itemBuilder: (BuildContext context, int index, int realIndex) {
                   return Container(
                     height: MediaQuery.of(context).size.height * 0.3,
                     width: MediaQuery.of(context).size.width,
                     decoration:BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage(homeController.carouselSliderImages[index]),
+                          image: NetworkImage(introController.banner[index].image!),
                           fit: BoxFit.fill,
                         )),
                   );
@@ -187,12 +251,12 @@ class Home extends StatelessWidget {
                       child: AnimatedSmoothIndicator(
                         duration: Duration(milliseconds: 500),
                         activeIndex: homeController.activeIndex.value,
-                        count: homeController.carouselSliderImages.length,
+                        count: introController.banner.length,
                         effect: SlideEffect(
-                          dotWidth: 10,
-                          dotHeight: 10,
-                          activeDotColor: Colors.white,
-                          dotColor: AppStyle.grey.withOpacity(0.5)
+                            dotWidth: 8,
+                            dotHeight: 8,
+                            activeDotColor: Colors.white,
+                            dotColor: AppStyle.grey.withOpacity(0.5)
                         ),
                       ),
                     ),
@@ -204,24 +268,35 @@ class Home extends StatelessWidget {
       ),
     ));
   }
-  _servicesList(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15),
+  _servicesList(BuildContext context,IntroController introController,int index) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      height: AppStyle.getDeviceHeightPercent(33, context),
       child: CustomGridViewServices(
         count: 3,
+        mainAxisSpacing: 10,
+        crossAxisSpacing: 10,
         childAspectRatio: 1,
-        myList: homeController.service,
-        onTap: () {
-          // services page
-        },
+        padding: 4,
+        introController: introController,
       ),
     );
   }
-  _offers(BuildContext context) {
-    return Container(
-      width: AppStyle.getDeviceWidthPercent(90, context),
-      height: AppStyle.getDeviceHeightPercent(10, context),
-
+  _brands(BuildContext context,IntroController introController) {
+    return CustomListViewBrands(
+      introController: introController,
     );
   }
+  _newsAndEventsList(BuildContext context) {
+    return CustomListViewContainer(
+        myList: homeController.events,
+        onTap: () {
+          ///news and events page
+        },
+        width: AppStyle.getDeviceWidthPercent(40, context),
+        height: AppStyle.getDeviceHeightPercent(20, context),
+      introController: introController,
+    );
+  }
+
 }

@@ -21,16 +21,10 @@ class MainPage extends StatelessWidget {
         body: SafeArea(
           child: PageView(
             controller: mainPageController.pageController,
-            // onPageChanged: (index){
-            //   mainPageController.changeIndexOfBottomBar(index);
-            // },
-            children: [
-              Home(),
-              Shop(),
-              Services(),
-              Cart(),
-              Account()
-            ],
+            onPageChanged: (index){
+              mainPageController.selectedIndex.value = index;
+            },
+            children: [ Home(), Shop(), Services(), Cart(), Account() ],
           ),
         ),
       );
@@ -60,44 +54,42 @@ class MainPage extends StatelessWidget {
         mainPageController.changeIndexOfBottomBar(index);
       },
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        width: AppStyle.getDeviceWidthPercent(20, context),
-        height: AppStyle.getDeviceHeightPercent(7, context),
-        decoration: BoxDecoration(
-          border: Border(
-            top: BorderSide(
-                width: mainPageController.selectedIndex.value == index ? 4 : 0,
-                color: AppStyle.primary)
-          )
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              margin: const EdgeInsets.all(5),
-              width: AppStyle.getDeviceWidthPercent(18, context),
-              height: AppStyle.getDeviceHeightPercent(3, context),
-              child: SvgPicture.asset(
+          duration: const Duration(milliseconds: 200),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          width: AppStyle.getDeviceWidthPercent(20, context),
+          height: AppStyle.getDeviceHeightPercent(7, context),
+          decoration: BoxDecoration(
+              border: Border(
+                  top: BorderSide( width: mainPageController.selectedIndex.value == index ? 3 : 0,
+                      color: mainPageController.selectedIndex.value == index ? AppStyle.primary : Colors.transparent
+                  )
+              )
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                margin: const EdgeInsets.all(5),
+                width: AppStyle.getDeviceWidthPercent(18, context),
+                height: AppStyle.getDeviceHeightPercent(3, context),
+                child: SvgPicture.asset(
                   'assets/icons/${mainPageController.iconList[index]}.svg',
-                fit: BoxFit.contain,
-                color: mainPageController.selectedIndex.value == index
-                ? AppStyle.primary
-                : AppStyle.grey,
+                  fit: BoxFit.contain,
+                  color: mainPageController.selectedIndex.value == index
+                      ? AppStyle.primary
+                      : AppStyle.grey,
+                ),
               ),
-            ),
-            Text(
-                mainPageController.iconList[index],
-                style: mainPageController.selectedIndex.value == index
-                    ? CommonTextStyle.textStyleForSelectBottomBar
-                    : CommonTextStyle.textStyleForBottomBar
-            ),
-
-          ],
-        )
+              Text(
+                  mainPageController.iconList[index],
+                  style: mainPageController.selectedIndex.value == index
+                      ? CommonTextStyle.textStyleForSelectBottomBar
+                      : CommonTextStyle.textStyleForBottomBar
+              )
+            ],
+          )
       ),
     );
   }
-
 
 }

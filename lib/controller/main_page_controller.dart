@@ -13,7 +13,7 @@ class MainPageController extends GetxController{
   changeIndexOfBottomBar(index){
     selectedIndex.value = index;
     pageController.animateToPage(index,
-        duration: const Duration(milliseconds: 600),
+        duration: const Duration(milliseconds: 700),
         curve: Curves.fastOutSlowIn);
   }
 

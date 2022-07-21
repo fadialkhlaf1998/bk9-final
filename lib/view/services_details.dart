@@ -1,0 +1,97 @@
+import 'package:bk9/const/app-style.dart';
+import 'package:bk9/controller/home_controller.dart';
+import 'package:bk9/controller/main_page_controller.dart';
+import 'package:bk9/model/post.dart';
+import 'package:bk9/widgets/background_image.dart';
+import 'package:bk9/widgets/custom_button.dart';
+import 'package:bk9/widgets/headers/two_items_header.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class ServicesDetails extends StatelessWidget {
+
+  Post? service;
+  ServicesDetails(this.service);
+
+  HomeController homeController = Get.put(HomeController());
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: SafeArea(
+          child: Stack(
+            children: [
+              BackgroundImage(),
+              SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    TwoItemsHeader(
+                      text: service!.title!,
+                      textStyle: CommonTextStyle.textStyleForDarkGreyMediumButton,
+                      onTap: () {
+                        Get.back();
+                      },
+                    ),
+                    SizedBox(height: 20),
+                    Stack(
+                        children: [
+                          Container(
+                            width: AppStyle.getDeviceWidthPercent(100, context),
+                            height: AppStyle.getDeviceHeightPercent(30, context),
+                            color: service!.color,
+                          ),
+                          Positioned(
+                            child: Hero(
+                              tag: "service" + service!.id.toString(),
+                              child: Container(
+                                  width: AppStyle.getDeviceWidthPercent(100, context),
+                                  height: AppStyle.getDeviceHeightPercent(30, context),
+                                  child: Image.network(service!.image!,fit: BoxFit.cover,alignment: Alignment.topCenter,)
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    SizedBox(height: 20),
+                    Container(
+                      width: AppStyle.getDeviceWidthPercent(100, context),
+                      color: service!.color,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 30),
+                        child: Center(
+                          child: Text(service!.stringDescription!,
+                              style: TextStyle(
+                                  fontSize: CommonTextStyle.smallTextStyle,
+                                  color: Colors.white,
+                                  letterSpacing: 0.5
+                              )
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 30),
+                    CustomButton(
+                        text: "Book Now",
+                        onPressed: () {
+                          AppStyle.lunchURL(context, "https://us.revelationpets.com/publicCustomer/3khkvtyvz0/profile");
+                        },
+                        color: AppStyle.primary,
+                        borderRadius: 30,
+                        border: AppStyle.primary,
+                        width: AppStyle.getDeviceWidthPercent(80, context),
+                        height: AppStyle.getDeviceHeightPercent(6.5, context),
+                        textStyle: CommonTextStyle.textStyleForOrangeMediumButtonBold
+                    ),
+                    SizedBox(height: 20),
+                  ],
+                ),
+              )
+            ],
+          ),
+        )
+    );
+  }
+
+}
