@@ -40,7 +40,7 @@ class IntroScreen extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 15),
                               child: ContainerWithImage(
-                                width: AppStyle.getDeviceWidthPercent(55, context),
+                                width: AppStyle.getDeviceWidthPercent(60, context),
                                 height: AppStyle.getDeviceHeightPercent(28, context),
                                 image: introScreenController.screens[index]["image"],
                                 option: 0,
@@ -49,13 +49,13 @@ class IntroScreen extends StatelessWidget {
                             SizedBox(height: 60,),
                             TextApp(text: introScreenController.screens[index]["title"],
                                 width: AppStyle.getDeviceWidthPercent(100, context),
-                                height: AppStyle.getDeviceWidthPercent(10, context),
+                                height: AppStyle.getDeviceWidthPercent(8, context),
                                 textStyle: CommonTextStyle.textStyleForDarkGreyXLargeButton
                             ),
                             TextForDescIntroScreen(text: introScreenController.screens[index]["description"],
-                                width: AppStyle.getDeviceWidthPercent(80, context),
+                                width: AppStyle.getDeviceWidthPercent(70, context),
                                 height: AppStyle.getDeviceWidthPercent(20, context),
-                                textStyle: CommonTextStyle.textStyleForGreyBigButton
+                                textStyle: CommonTextStyle.textStyleForGreySmallButton
                             ),
                           ],
                         );
@@ -70,7 +70,7 @@ class IntroScreen extends StatelessWidget {
                     color: AppStyle.grey.withOpacity(0.5),
                   ),
                 ),),
-                SizedBox(height: 50),
+                SizedBox(height: 30),
                 Container(
                   width: AppStyle.getDeviceWidthPercent(80, context),
                   child: Row(
@@ -86,7 +86,7 @@ class IntroScreen extends StatelessWidget {
                           border: Colors.transparent,
                           width: AppStyle.getDeviceWidthPercent(35, context),
                           height: AppStyle.getDeviceHeightPercent(6, context),
-                          textStyle: CommonTextStyle.textStyleForDarkGreyBigButton
+                          textStyle: CommonTextStyle.textStyleForDarkGreyMediumButton
                       ),
                       CustomButton(
                           text: "Next",
@@ -98,7 +98,7 @@ class IntroScreen extends StatelessWidget {
                           border: Colors.transparent,
                           width: AppStyle.getDeviceWidthPercent(35, context),
                           height: AppStyle.getDeviceHeightPercent(6, context),
-                          textStyle: CommonTextStyle.textStyleForOrangeBigButton
+                          textStyle: CommonTextStyle.textStyleForOrangeMediumButtonBold
                       ),
                     ],
                   ),

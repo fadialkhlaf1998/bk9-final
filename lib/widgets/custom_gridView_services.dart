@@ -1,20 +1,29 @@
 import 'package:bk9/const/app-style.dart';
+import 'package:bk9/controller/intro_controller.dart';
+import 'package:bk9/view/services_details.dart';
 import 'package:bk9/widgets/container_with_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CustomGridViewServices extends StatelessWidget {
 
   final int count;
+  final mainAxisSpacing;
+  final crossAxisSpacing;
   final double childAspectRatio;
-  final List<Object> myList;
-  final VoidCallback onTap;
 
+  final double? containerPadding;
+  final double padding;
+  final IntroController introController;
 
   const CustomGridViewServices({
     required this.count,
+    required this.mainAxisSpacing,
+    required this.crossAxisSpacing,
     required this.childAspectRatio,
-    required this.myList,
-    required this.onTap,
+    this.containerPadding,
+    required this.padding,
+    required this.introController,
   });
 
   @override
@@ -27,13 +36,18 @@ class CustomGridViewServices extends StatelessWidget {
             crossAxisSpacing: 10,
             childAspectRatio: childAspectRatio
         ),
+        physics: NeverScrollableScrollPhysics(),
         scrollDirection: Axis.vertical,
-        itemCount: 5,
+        itemCount: introController.service.length,
         shrinkWrap: true,
         itemBuilder: (context, index) {
           return GestureDetector(
-              onTap: () => onTap,
+              onTap:  (){
+                Get.to(()=>ServicesDetails(introController.service[index]));
+              },
               child: Container(
+                padding: EdgeInsets.all(containerPadding == null ?
+                0.0 : containerPadding!),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20),
@@ -42,28 +56,30 @@ class CustomGridViewServices extends StatelessWidget {
                 child: Column(
                   children: [
                     Expanded(
-                      child: Container(
-                          // width: AppStyle.getDeviceWidthPercent(100, context),
-                          // height: AppStyle.getDeviceHeightPercent(100, context),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(20),
-                                topLeft: Radius.circular(20)
+                      child: Hero(
+                        tag: "service" + introController.service[index].id.toString(),
+                        child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(20),
+                                  topLeft: Radius.circular(20)
+                              ),
+                              image: DecorationImage(
+                                image: NetworkImage(introController.service[index].image!),
+                                fit: BoxFit.cover
+                              ),
                             ),
-                            image: DecorationImage(
-                                image: AssetImage("assets/images/DayCare.png")
-                            ),
-                          ),
-                        child: Align(
-                          alignment: AlignmentDirectional.bottomCenter,
-                          child: Container(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 4),
-                              child: Text("Day Care",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: CommonTextStyle.smallTextStyle
+                          child: Align(
+                            alignment: AlignmentDirectional.bottomCenter,
+                            child: Container(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(vertical: padding),
+                                child: Text(introController.service[index].title!,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: CommonTextStyle.tinyTextStyle
+                                  ),
                                 ),
                               ),
                             ),

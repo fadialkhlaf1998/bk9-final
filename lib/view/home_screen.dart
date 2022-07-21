@@ -1,6 +1,6 @@
+import 'package:bk9/const/api.dart';
 import 'package:bk9/const/app-style.dart';
 import 'package:bk9/controller/home_screen_controller.dart';
-import 'package:bk9/view/home.dart';
 import 'package:bk9/view/login.dart';
 import 'package:bk9/view/main_page.dart';
 import 'package:bk9/widgets/background_image.dart';
@@ -16,6 +16,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(API.customer_id);
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -37,28 +38,29 @@ class HomeScreen extends StatelessWidget {
                     CustomButton(
                         text: "Login / Sign Up",
                         onPressed: () {
-                          Get.to(() => Login());
+                          Get.offAll(() => Login());
                         },
                         color: AppStyle.primary,
                         borderRadius: 30,
                         border: Colors.transparent,
                         width: AppStyle.getDeviceWidthPercent(80, context),
-                        height: AppStyle.getDeviceHeightPercent(8, context),
-                        textStyle: CommonTextStyle.textStyleForOrangeBigButton
+                        height: AppStyle.getDeviceHeightPercent(6.5, context),
+                        textStyle: CommonTextStyle.textStyleForOrangeMediumButtonBold
                     ),
+                    SizedBox(height: 10,),
                     CustomButton(
                         text: "Start Shopping",
                         onPressed: () {
-                          Get.to(() => MainPage());
+                          Get.offAll(() => MainPage());
                         },
                         color: Colors.white,
                         borderRadius: 30,
                         border: AppStyle.primary,
                         width: AppStyle.getDeviceWidthPercent(80, context),
-                        height: AppStyle.getDeviceHeightPercent(8, context),
-                        textStyle: CommonTextStyle.textStyleForWhiteBigButton
+                        height: AppStyle.getDeviceHeightPercent(6.5, context),
+                        textStyle: CommonTextStyle.textStyleForWhiteMediumButton
                     ),
-                    SizedBox(height: AppStyle.getDeviceHeightPercent(2, context))
+                    SizedBox(height: 20)
                   ],
                 )
               ],

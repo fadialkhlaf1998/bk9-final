@@ -1,3 +1,4 @@
+import 'package:bk9/const/app-style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -7,14 +8,14 @@ class CustomTextField extends StatelessWidget {
   final double borderRadius;
   final TextEditingController textEditingController;
   final TextInputType textInputType;
-  final Widget suffixIcon;
+  final Widget? suffixIcon;
   final Widget prefixIcon;
   final ValueChanged<String> onChanged;
   final bool obscureText;
-  final String labelText;
+  final String text;
   final int maxLength;
-  final Color borderColor;
-  final Color focusedBorderColor;
+  final Color labelColor;
+  final bool validate;
 
   const CustomTextField({
     required this.width,
@@ -22,14 +23,14 @@ class CustomTextField extends StatelessWidget {
     required this.borderRadius,
     required this.textEditingController,
     required this.textInputType,
-    required this.suffixIcon,
+    this.suffixIcon,
     required this.prefixIcon,
     required this.onChanged,
     required this.obscureText,
-    required this.labelText,
+    required this.text,
     required this.maxLength,
-    required this.borderColor,
-    required this.focusedBorderColor
+    required this.labelColor,
+    required this.validate
   });
 
 
@@ -40,23 +41,32 @@ class CustomTextField extends StatelessWidget {
       width: MediaQuery.of(context).size.width * (width / 100),
       height: MediaQuery.of(context).size.height * (height / 100),
       child: TextField(
+        textAlignVertical: TextAlignVertical.bottom,
+        cursorColor: AppStyle.darkGrey,
+        style: TextStyle(color: AppStyle.darkGrey,fontWeight: FontWeight.bold,fontSize: CommonTextStyle.smallTextStyle),
         keyboardType: textInputType,
+        obscureText: obscureText,
+        obscuringCharacter: "*",
         decoration: InputDecoration(
           fillColor: Colors.white,
-          focusColor: Colors.white,
-          hoverColor: Colors.white,
-          labelText: labelText,
+          filled: true,
+          hintText: text,
+          hintStyle: TextStyle(
+            color: labelColor,
+            fontSize: CommonTextStyle.mediumTextStyle,
+            fontWeight: FontWeight.normal
+          ),
           prefixIcon: prefixIcon,
-          suffixIcon: suffixIcon,
-          border: OutlineInputBorder(
+          suffixIcon: suffixIcon == null ? null : suffixIcon,
+          enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                color: borderColor,
+                color: validate ? AppStyle.grey.withOpacity(0.5) : Colors.red,
               ),
               borderRadius: BorderRadius.circular(borderRadius)
           ),
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                color: focusedBorderColor,
+                color: validate ?  AppStyle.primary : Colors.red,
               ),
               borderRadius: BorderRadius.circular(borderRadius)
           ),

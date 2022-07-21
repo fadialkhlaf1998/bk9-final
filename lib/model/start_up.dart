@@ -14,12 +14,11 @@ class StartUp {
     required this.blogs,
     required this.events,
     required this.reviews,
+    required this.best_sellers,
   });
 
   PostList banners;
-  //PostList categories;
   PostList services;
-  //PostList products;
   PostList brand;
   PostList gallary;
   PostList aboutHomePage;
@@ -28,6 +27,7 @@ class StartUp {
   PostList reviews;
   PostList events;
   PostList blogs;
+  PostList best_sellers;
 
   factory StartUp.fromJson(String str) => StartUp.fromMap(json.decode(str));
 
@@ -44,6 +44,7 @@ class StartUp {
     reviews: PostList.fromMap(json["reviews"]),
     blogs: PostList.fromMap(json["blogs"]),
     events: PostList.fromMap(json["events"]),
+    best_sellers: PostList.fromMap(json["best_sellers"]),
   );
 
   Map<String, dynamic> toMap() => {
@@ -56,6 +57,7 @@ class StartUp {
     "reviews": reviews.toMap(),
     "blogs": blogs.toMap(),
     "events": events.toMap(),
+    "best_sellers": best_sellers.toMap()
   };
 }
 
@@ -71,11 +73,11 @@ class PostList {
   String toJson() => json.encode(toMap());
 
   factory PostList.fromMap(Map<String, dynamic> json) => PostList(
-    posts: List<Post>.from(json["posts"].map((x) => Post.fromJson(x))),
+    posts: List<Post>.from(json["posts"].map((x) => Post.fromMap(x))),
   );
 
   Map<String, dynamic> toMap() => {
-    "posts": List<dynamic>.from(posts.map((x) => x.toJson())),
+    "posts": List<dynamic>.from(posts.map((x) => x.toMap())),
   };
 }
 
