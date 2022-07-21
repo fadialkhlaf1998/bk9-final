@@ -39,7 +39,10 @@ dependencies:
   flutter_svg: ^0.23.0
   http: 0.13.4
   flutter_screenutil: ^5.5.3+2
-
+  scrollable_positioned_list: ^0.3.2
+  dots_indicator: ^2.1.0
+  carousel_slider: ^4.1.1
+  smooth_page_indicator: ^1.0.0
 
 dev_dependencies:
   flutter_test:
