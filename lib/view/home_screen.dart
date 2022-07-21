@@ -1,6 +1,7 @@
 import 'package:bk9/const/app-style.dart';
 import 'package:bk9/controller/home_screen_controller.dart';
 import 'package:bk9/view/home.dart';
+import 'package:bk9/view/login.dart';
 import 'package:bk9/view/main_page.dart';
 import 'package:bk9/widgets/background_image.dart';
 import 'package:bk9/widgets/container_with_image.dart';
@@ -36,7 +37,7 @@ class HomeScreen extends StatelessWidget {
                     CustomButton(
                         text: "Login / Sign Up",
                         onPressed: () {
-                          ///
+                          Get.to(() => Login());
                         },
                         color: AppStyle.primary,
                         borderRadius: 30,
@@ -48,7 +49,7 @@ class HomeScreen extends StatelessWidget {
                     CustomButton(
                         text: "Start Shopping",
                         onPressed: () {
-                          Get.to(() => Home());
+                          Get.to(() => MainPage());
                         },
                         color: Colors.white,
                         borderRadius: 30,
