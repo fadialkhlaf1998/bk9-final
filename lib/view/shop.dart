@@ -2,6 +2,7 @@ import 'package:bk9/const/app-style.dart';
 import 'package:bk9/controller/intro_controller.dart';
 import 'package:bk9/controller/shop_controller.dart';
 import 'package:bk9/view/categories.dart';
+import 'package:bk9/view/new_arrivals.dart';
 import 'package:bk9/view/wishlist.dart';
 import 'package:bk9/widgets/background_image.dart';
 import 'package:bk9/widgets/container_with_image.dart';
@@ -29,7 +30,7 @@ class Shop extends StatelessWidget {
                 children: [
                   SizedBox( height: AppStyle.getDeviceHeightPercent(10, context),),
                   SizedBox(height: 20),
-                  _bestSellers(context),
+                  _newArrivals(context),
                   _super_category(context),
                   SizedBox(height: 20),
                 ],
@@ -90,10 +91,10 @@ class Shop extends StatelessWidget {
       ),
     );
   }
-  _bestSellers(BuildContext context) {
+  _newArrivals(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        ///best sellers page
+        Get.to(() => NewArrivals());
       },
       child: Stack(
         children: [
@@ -113,7 +114,7 @@ class Shop extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Padding(
                   padding: EdgeInsets.only(left: 40),
-                  child: Text("Best Sellers",
+                  child: Text("New Arrivals",
                     style: CommonTextStyle.textStyleForOrangeMediumButtonBold),
                 )
               ),

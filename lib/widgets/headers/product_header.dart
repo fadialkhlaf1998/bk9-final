@@ -1,4 +1,5 @@
 import 'package:bk9/const/app-style.dart';
+import 'package:bk9/controller/intro_controller.dart';
 import 'package:bk9/controller/main_page_controller.dart';
 import 'package:bk9/view/wishlist.dart';
 import 'package:bk9/widgets/container_with_image.dart';
@@ -13,12 +14,14 @@ class ProductHeader extends StatelessWidget {
   final TextStyle textStyle;
   final VoidCallback onTap;
   final MainPageController mainPageController;
+  IntroController introController;
 
-  const ProductHeader({
+   ProductHeader({
     required this.text,
     required this.textStyle,
     required this.onTap,
     required this.mainPageController,
+     required this.introController
   });
 
   @override
@@ -69,7 +72,7 @@ class ProductHeader extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    ///search delegate
+                    introController.pressedOnSearch(context);
                   },
                   child: Container(
                       height: AppStyle.getDeviceHeightPercent(5, context),

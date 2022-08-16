@@ -75,6 +75,7 @@ class ProductInformation extends StatelessWidget {
         Get.back();
       },
       mainPageController: mainPageController,
+      introController: introController,
     );
   }
   _body(BuildContext context) {

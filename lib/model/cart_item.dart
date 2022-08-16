@@ -1,8 +1,5 @@
 import 'dart:convert';
 
-import 'package:bk9/model/product.dart';
-
-
 class CartItems {
   List<CartItem>? cart;
 

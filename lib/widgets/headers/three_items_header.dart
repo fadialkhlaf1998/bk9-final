@@ -1,4 +1,5 @@
 import 'package:bk9/const/app-style.dart';
+import 'package:bk9/controller/intro_controller.dart';
 import 'package:bk9/view/wishlist.dart';
 import 'package:bk9/widgets/container_with_image.dart';
 import 'package:flutter/material.dart';
@@ -9,11 +10,13 @@ class ThreeItemsHeader extends StatelessWidget {
   final String text;
   final TextStyle textStyle;
   final VoidCallback onTap;
+  IntroController introController;
 
-  const ThreeItemsHeader({
+   ThreeItemsHeader({
     required this.text,
     required this.textStyle,
     required this.onTap,
+    required this.introController
   });
 
   @override
@@ -49,7 +52,7 @@ class ThreeItemsHeader extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    ///search delegate
+                    introController.pressedOnSearch(context);
                   },
                   child: Container(
                     height: AppStyle.getDeviceHeightPercent(5, context),

@@ -129,7 +129,7 @@ class API {
       return Brand.fromMap(jsonDecode(data)).brandInfo;
     }
     else {
-      print(response.reasonPhrase);
+      return <BrandInfo>[];
     }
 
   }

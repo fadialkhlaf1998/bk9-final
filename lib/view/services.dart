@@ -38,6 +38,7 @@ class Services extends StatelessWidget {
                   onTap: () {
                     mainPageController.changeIndexOfBottomBar(0);
                   },
+                  introController: introController,
                   text: "Services",
                   textStyle: CommonTextStyle.textStyleForGreyMediumButtonBold
               ),

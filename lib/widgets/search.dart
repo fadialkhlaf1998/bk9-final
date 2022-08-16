@@ -18,7 +18,7 @@ class Search extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // introController.pressedOnSearch(context);
+        introController.pressedOnSearch(context);
       },
       child: Container(
         width: width,

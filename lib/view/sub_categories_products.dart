@@ -205,15 +205,7 @@ class SubCategoriesProducts extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 5),
               child: GestureDetector(
                 onTap:  (){
-                  shopController.loading.value = true;
-                  API.checkInternet().then((internet) {
-                    if(internet) {
-                      API.getProductInfo(subCategories[shopController.selectedSubCategory.value].posts![index].id).then((value) {
-                        Get.to(()=> ProductInformation(value!.product![0]));
-                        shopController.loading.value = false;
-                      });
-                    }
-                  });
+                  introController.goToProductPage(subCategories[shopController.selectedSubCategory.value].posts![index].id);
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

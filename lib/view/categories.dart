@@ -52,6 +52,7 @@ class Categories extends StatelessWidget {
                         onTap: () {
                           Get.back();
                         },
+                        introController: introController,
                         text: introController.superCategory[shopController.selectedSuperCategory.value].title!,
                         textStyle: CommonTextStyle.textStyleForGreyMediumButtonBold
                     ),

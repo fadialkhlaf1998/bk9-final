@@ -15,6 +15,9 @@ class StartUp {
     required this.events,
     required this.reviews,
     required this.best_sellers,
+    required this.newArrivals,
+    required this.recomended,
+    required this.searchSuggestion,
   });
 
   PostList banners;
@@ -28,12 +31,16 @@ class StartUp {
   PostList events;
   PostList blogs;
   PostList best_sellers;
+  PostList newArrivals;
+  PostList recomended;
+  List<SearchSuggestion>? searchSuggestion;
 
   factory StartUp.fromJson(String str) => StartUp.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
   factory StartUp.fromMap(Map<String, dynamic> json) => StartUp(
+    searchSuggestion: json["search_suggestion"] == null ? null : List<SearchSuggestion>.from(json["search_suggestion"].map((x) => SearchSuggestion.fromMap(x))),
     banners: PostList.fromMap(json["banners"]),
     services: PostList.fromMap(json["services"]),
     brand: PostList.fromMap(json["brand"]),
@@ -45,9 +52,12 @@ class StartUp {
     blogs: PostList.fromMap(json["blogs"]),
     events: PostList.fromMap(json["events"]),
     best_sellers: PostList.fromMap(json["best_sellers"]),
+    newArrivals: PostList.fromMap(json["new_arrivals"]),
+    recomended: PostList.fromMap(json["recomended"]),
   );
 
   Map<String, dynamic> toMap() => {
+    "search_suggestion": searchSuggestion == null ? null : List<dynamic>.from(searchSuggestion!.map((x) => x.toJson())),
     "banners": banners.toMap(),
     "services": services.toMap(),
     "brand": brand.toMap(),
@@ -57,7 +67,29 @@ class StartUp {
     "reviews": reviews.toMap(),
     "blogs": blogs.toMap(),
     "events": events.toMap(),
-    "best_sellers": best_sellers.toMap()
+    "best_sellers": best_sellers.toMap(),
+    "new_arrivals": newArrivals.toJson(),
+    "recomended": recomended.toJson(),
+  };
+}
+
+class SearchSuggestion {
+  SearchSuggestion({
+    required this.title,
+  });
+
+  String title;
+
+  factory SearchSuggestion.fromJson(String str) => SearchSuggestion.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory SearchSuggestion.fromMap(Map<String, dynamic> json) => SearchSuggestion(
+    title: json["title"] == null ? "" : json["title"],
+  );
+
+  Map<String, dynamic> toMap() => {
+    "title": title == null ? null : title,
   };
 }
 
