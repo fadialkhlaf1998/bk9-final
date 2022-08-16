@@ -2,6 +2,7 @@ import 'package:bk9/const/api.dart';
 import 'package:bk9/const/app-style.dart';
 import 'package:bk9/const/store.dart';
 import 'package:bk9/controller/account_controller.dart';
+import 'package:bk9/controller/addresses_controller.dart';
 import 'package:bk9/controller/main_page_controller.dart';
 import 'package:bk9/view/FAQ.dart';
 import 'package:bk9/view/change_password.dart';
@@ -326,14 +327,14 @@ class Account extends StatelessWidget {
               children: [
                 API.customer!.image.length == 0 ?
                 Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: Colors.grey.withOpacity(0.2)),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(Icons.person,color: AppStyle.grey,size: 75,)
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(color: Colors.grey.withOpacity(0.2)),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(Icons.person,color: AppStyle.grey,size: 75,)
                 ) :
                 GestureDetector(
                   onTap: () =>
@@ -360,13 +361,13 @@ class Account extends StatelessWidget {
                       profileBottomSheet(context);
                     },
                     child: Container(
-                      width: 35,
-                      height: 35,
-                      decoration: BoxDecoration(
+                        width: 35,
+                        height: 35,
+                        decoration: BoxDecoration(
                           color: AppStyle.primary,
                           shape: BoxShape.circle,
-                      ),
-                      child: Icon(Icons.edit,color: Colors.white,size: 20)
+                        ),
+                        child: Icon(Icons.edit,color: Colors.white,size: 20)
                     ),
                   ),
                 )
@@ -381,11 +382,11 @@ class Account extends StatelessWidget {
                 ),
                 SizedBox(height: 10,),
                 Text("Manage your profile details here",
-                  style: TextStyle(
-                      color: AppStyle.grey,
-                      fontSize: CommonTextStyle.tinyTextStyle,
-                      fontWeight: FontWeight.normal
-                  )
+                    style: TextStyle(
+                        color: AppStyle.grey,
+                        fontSize: CommonTextStyle.tinyTextStyle,
+                        fontWeight: FontWeight.normal
+                    )
                 ),
               ],
             ),
@@ -458,18 +459,6 @@ class Account extends StatelessWidget {
             textStyle: CommonTextStyle.textStyleForOrangeMediumButtonBold
         ),
         CustomButton(
-            text: "My Pets",
-            onPressed: () {
-              ///
-            },
-            color: AppStyle.primary,
-            borderRadius: 30,
-            border: Colors.transparent,
-            width: AppStyle.getDeviceWidthPercent(80, context),
-            height: AppStyle.getDeviceHeightPercent(6.5, context),
-            textStyle: CommonTextStyle.textStyleForOrangeMediumButtonBold
-        ),
-        CustomButton(
             text: "My Returns",
             onPressed: () {
               ///
@@ -518,7 +507,7 @@ class Account extends StatelessWidget {
             textStyle: CommonTextStyle.textStyleForOrangeMediumButtonBold
         ),
         CustomButton(
-            text: "My Credits",
+            text: "My Vouchers",
             onPressed: () {
               ///
             },
@@ -659,10 +648,10 @@ class Account extends StatelessWidget {
                         SizedBox(height: 5,),
                         Center(
                           child: Text("Gallery",
-                            style: TextStyle(
-                              color: AppStyle.darkGrey,
-                              fontSize: CommonTextStyle.smallTextStyle
-                            )
+                              style: TextStyle(
+                                  color: AppStyle.darkGrey,
+                                  fontSize: CommonTextStyle.smallTextStyle
+                              )
                           ),
                         )
                       ],

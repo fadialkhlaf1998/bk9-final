@@ -111,14 +111,13 @@ class API {
     }
   }
 
-  ///shop by brand
+  /// product by brand
   static Future<List<BrandInfo>?> getProductsByBrand(int brandId) async {
     var headers = {
       'api-key': startUpKey,
       'locale': Store.languageCode,
     };
-
-    var request = http.Request('GET', Uri.parse(url + '/api/shopByBrand/'+brandId.toString()));
+    var request = http.Request('GET', Uri.parse(url + '/api/shopByBrand/'+ brandId.toString()));
 
     request.headers.addAll(headers);
 
@@ -130,7 +129,7 @@ class API {
       return Brand.fromMap(jsonDecode(data)).brandInfo;
     }
     else {
-      return <BrandInfo>[];
+      print(response.reasonPhrase);
     }
 
   }
@@ -144,8 +143,8 @@ class API {
       return true;
     }
     else {
-    print(response.reasonPhrase);
-    return false;
+      print(response.reasonPhrase);
+      return false;
     }
   }
   static Future<List<CartItem>?> addToCart(int productOptionId,int count) async {

@@ -1,5 +1,4 @@
 import 'package:bk9/const/api.dart';
-import 'package:bk9/const/app-style.dart';
 import 'package:bk9/const/store.dart';
 import 'package:bk9/controller/account_controller.dart';
 import 'package:bk9/controller/addresses_controller.dart';
@@ -14,7 +13,6 @@ import 'package:bk9/view/home_screen.dart';
 import 'package:bk9/view/intro_screens.dart';
 import 'package:bk9/view/main_page.dart';
 import 'package:bk9/view/no_internet.dart';
-import 'package:bk9/view/product_info.dart';
 import 'package:bk9/view/verification_code.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -39,7 +37,6 @@ class IntroController extends GetxController {
   var ready = false.obs;
   RxList<BrandInfo> brands = <BrandInfo>[].obs;
   var loading = false.obs;
-  BrandInfo? brandInfo;
 
 
   @override
@@ -88,7 +85,6 @@ class IntroController extends GetxController {
         });
       }
     }).catchError((err) {
-      // print(err.toString());
     });
   }
 
@@ -120,27 +116,22 @@ class IntroController extends GetxController {
     }
   }
 
-  get_products_by_brand(int brand_id,BuildContext context){
-    API.checkInternet().then((internet) {
-      if (internet) {
+  get_products_by_brand(int brandId, BuildContext context) {
+    API.checkInternet().then((internet){
+      if(internet){
         loading.value = true;
-        API.getProductsByBrand(brand_id).then((value) {
+        API.getProductsByBrand(brandId).then((value) {
           loading.value = false;
-          if(value!.isNotEmpty){
+          if(value!.isNotEmpty) {
             brands.addAll(value);
-            Get.to(() => BrandProducts());
-            print(brands.length);
-          }else{
-            AppStyle.errorMsg(context,"No elements for this search");
+            print(brands);
+            Get.to(()=> BrandProducts());
           }
-        });
-      }else{
-        Get.to(NoInternet())!.then((value) {
-          get_products_by_brand(brand_id,context);
         });
       }
     });
   }
+
 
 
 }

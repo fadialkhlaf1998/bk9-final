@@ -41,16 +41,7 @@ class Home extends StatelessWidget {
             Positioned(
               top: 0,
               child: _header(context),
-            ),
-            introController.loading.value ?
-            Positioned(child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              color: Colors.white.withOpacity(0.5),
-              child: Center(
-                child: CircularProgressIndicator(color: AppStyle.primary,),
-              ),
-            )) : Center()
+            )
           ],
         )
     );
@@ -173,7 +164,7 @@ class Home extends StatelessWidget {
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 12,
-                            letterSpacing: 0.5
+                              letterSpacing: 0.5
                           ),
                         ),
                         Text("BARKLEY",
@@ -289,12 +280,12 @@ class Home extends StatelessWidget {
   }
   _newsAndEventsList(BuildContext context) {
     return CustomListViewContainer(
-        myList: homeController.events,
-        onTap: () {
-          ///news and events page
-        },
-        width: AppStyle.getDeviceWidthPercent(40, context),
-        height: AppStyle.getDeviceHeightPercent(20, context),
+      myList: homeController.events,
+      onTap: () {
+        ///news and events page
+      },
+      width: AppStyle.getDeviceWidthPercent(40, context),
+      height: AppStyle.getDeviceHeightPercent(20, context),
       introController: introController,
     );
   }

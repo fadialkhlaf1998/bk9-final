@@ -1,3 +1,4 @@
+import 'package:bk9/const/api.dart';
 import 'package:bk9/model/post.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,6 @@ class HomeController extends GetxController {
   set_index(int selected){
     activeIndex.value=selected;
   }
-
 
 
 }

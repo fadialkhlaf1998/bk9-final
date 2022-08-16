@@ -59,16 +59,16 @@ class CustomGridViewServices extends StatelessWidget {
                       child: Hero(
                         tag: "service" + introController.service[index].id.toString(),
                         child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(20),
-                                  topLeft: Radius.circular(20)
-                              ),
-                              image: DecorationImage(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(20),
+                                topLeft: Radius.circular(20)
+                            ),
+                            image: DecorationImage(
                                 image: NetworkImage(introController.service[index].image!),
                                 fit: BoxFit.cover
-                              ),
                             ),
+                          ),
                           child: Align(
                             alignment: AlignmentDirectional.bottomCenter,
                             child: Container(
