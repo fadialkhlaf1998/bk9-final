@@ -2,7 +2,6 @@ import 'package:bk9/const/api.dart';
 import 'package:bk9/const/app-style.dart';
 import 'package:bk9/const/store.dart';
 import 'package:bk9/controller/account_controller.dart';
-import 'package:bk9/controller/addresses_controller.dart';
 import 'package:bk9/controller/main_page_controller.dart';
 import 'package:bk9/view/FAQ.dart';
 import 'package:bk9/view/change_password.dart';

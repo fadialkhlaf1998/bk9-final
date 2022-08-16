@@ -22,10 +22,11 @@ class Home extends StatelessWidget {
 
   HomeController homeController = Get.put(HomeController());
   IntroController introController = Get.find();
+  var loading = false.obs;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Obx(() => Scaffold(
         body: Stack(
           children: [
             BackgroundImage(),
@@ -38,7 +39,7 @@ class Home extends StatelessWidget {
                 ],
               ),
             ),
-            introController.loading.value ?
+            loading.value ?
             Positioned(child: Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
@@ -54,7 +55,7 @@ class Home extends StatelessWidget {
 
           ],
         )
-    );
+    ));
   }
   home(BuildContext context) {
     return Column(

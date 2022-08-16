@@ -10,6 +10,7 @@ import 'package:bk9/model/login_info.dart';
 import 'package:bk9/model/post.dart';
 import 'package:bk9/model/start_up.dart';
 import 'package:bk9/view/brand_products.dart';
+import 'package:bk9/view/custom_search_view.dart';
 import 'package:bk9/view/home_screen.dart';
 import 'package:bk9/view/intro_screens.dart';
 import 'package:bk9/view/main_page.dart';
@@ -42,6 +43,7 @@ class IntroController extends GetxController {
   var ready = false.obs;
   RxList<BrandInfo> brands = <BrandInfo>[].obs;
   var loading = false.obs;
+  var selectedPostFilter = 0.obs;
 
 
   @override
@@ -157,6 +159,18 @@ class IntroController extends GetxController {
     final result = await showSearch(
         context: context,
         delegate: SearchTextField(introController: this));
+  }
+
+  search(BuildContext context,String query){
+    if(query.isNotEmpty){
+      loading.value = true;
+      API.customSearch(query).then((value) {
+        loading.value = false;
+        if(value != null){
+          Get.to(()=>CustomSearchView(value.products.posts,value.services.posts));
+        }
+      });
+    }
   }
 
 

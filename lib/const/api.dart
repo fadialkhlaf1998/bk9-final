@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:bk9/const/store.dart';
 import 'package:bk9/model/address.dart';
 import 'package:bk9/model/brand.dart';
+import 'package:bk9/model/customSearch.dart';
 import 'package:bk9/model/customer.dart';
 import 'package:bk9/model/cart_item.dart';
 import 'package:bk9/model/customer_order.dart';
@@ -132,6 +133,28 @@ class API {
       return <BrandInfo>[];
     }
 
+  }
+
+  static Future<CustomSearch?> customSearch(String query) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('POST', Uri.parse(url + '/api/search-k9-web'));
+    request.body = json.encode({
+      "customer_id": customer_id,
+      "company_id": company_id,
+      "query": query,
+      "locale": Store.languageCode
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var data = await response.stream.bytesToString();
+      CustomSearch customSearch = CustomSearch.fromJson(data);
+      return customSearch;
+    } else {
+      return null;
+    }
   }
 
   ///cart

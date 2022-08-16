@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 
-
 class SearchTextField extends SearchDelegate<String> {
   String? result;
   IntroController introController;
@@ -21,7 +20,6 @@ class SearchTextField extends SearchDelegate<String> {
            GestureDetector(
              onTap: () {
                query = "";
-               Get.back();
              },
                child: Text("cancel",
                  style: TextStyle(
@@ -43,7 +41,6 @@ class SearchTextField extends SearchDelegate<String> {
       },
     );
   }
-
 
   @override
   ThemeData appBarTheme(BuildContext context) {
@@ -71,24 +68,29 @@ class SearchTextField extends SearchDelegate<String> {
     final suggestions = introController.searchSugg.where((elm) {
       return elm.title.toLowerCase().contains(query.toLowerCase());
     });
-    return Container(
-        height: AppStyle.getDeviceHeightPercent(100, context),
-        width: AppStyle.getDeviceWidthPercent(100, context),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/Background.png"),
-            fit: BoxFit.cover
-          )
+    return Stack(
+      children: [
+        Container(
+            height: AppStyle.getDeviceHeightPercent(100, context),
+            width: AppStyle.getDeviceWidthPercent(100, context),
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("assets/images/Background.png"),
+                    fit: BoxFit.cover
+                )
+            ),
+            child: introController.search(context, query)
         ),
-        child: Center(
-          child: Text("No result matched",
-          style: TextStyle(
-            fontSize: CommonTextStyle.mediumTextStyle,
-            fontWeight: FontWeight.bold,
-            color: AppStyle.productGrey
-          )
+        introController.loading.value ?
+        Positioned(child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          color: Colors.white.withOpacity(0.5),
+          child: Center(
+            child: CircularProgressIndicator(color: AppStyle.primary,),
           ),
-        )
+        )) : Center()
+      ],
     );
   }
 
@@ -97,7 +99,26 @@ class SearchTextField extends SearchDelegate<String> {
     final suggestions = introController.searchSugg.where((elm) {
       return elm.title.toLowerCase().contains(query.toLowerCase());
     });
-    return Container(
+    return suggestions.isEmpty ?
+        Container(
+          height: AppStyle.getDeviceHeightPercent(100, context),
+          width: AppStyle.getDeviceWidthPercent(100, context),
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/images/Background.png"),
+                  fit: BoxFit.cover
+              )
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("No results matched",
+                style: CommonTextStyle.textStyleForDarkGreyMediumButton,
+              )
+            ],
+          )
+        ) :
+      Container(
       decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage("assets/images/Background.png"),
@@ -113,38 +134,39 @@ class SearchTextField extends SearchDelegate<String> {
               children: [
                 SizedBox(height: 10,),
                 GestureDetector(
-                  onTap: () {
-                    ///go to service page ore service page
+                  onDoubleTap: () {
+                    ///go to service page ore service
+                    introController.search(context, query);
                   },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Column(
-                      children: [
-                        SizedBox(height: 5,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Text(suggestions.elementAt(index).title,
-                                maxLines: 1,
-                                style: TextStyle(
-                                    fontSize: CommonTextStyle.smallTextStyle,
-                                    color: AppStyle.darkGrey,
-                                    overflow: TextOverflow.ellipsis
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Column(
+                        children: [
+                          SizedBox(height: 5,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Text(suggestions.elementAt(index).title,
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                      fontSize: CommonTextStyle.smallTextStyle,
+                                      color: AppStyle.darkGrey,
+                                      overflow: TextOverflow.ellipsis
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 5,),
-                        Container(
-                          child: Divider(
-                            color: AppStyle.grey.withOpacity(0.5),
-                            thickness: 1,
+                            ],
                           ),
-                        )
-                      ],
-                    )
+                          SizedBox(height: 5,),
+                          Container(
+                            child: Divider(
+                              color: AppStyle.grey.withOpacity(0.3),
+                              thickness: 0.5,
+                            ),
+                          )
+                        ],
+                      )
                   ),
                 ),
               ],
