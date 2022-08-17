@@ -44,7 +44,7 @@ class SubCategoriesProducts extends StatelessWidget {
                         ),
                         Positioned(
                           bottom: 0,
-                          child:  CustomFilterSort(),
+                          child:  CustomFilterSort(shopController: shopController,),
                         ),
                         _header(context, shopController.selectedCategory.value)
                       ],

@@ -167,7 +167,7 @@ class IntroController extends GetxController {
       API.customSearch(query).then((value) {
         loading.value = false;
         if(value != null){
-          Get.to(()=>CustomSearchView(value.products.posts,value.services.posts));
+          Get.off(()=>CustomSearchView(value.products.posts,value.services.posts));
         }
       });
     }

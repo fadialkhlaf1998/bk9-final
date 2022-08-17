@@ -88,6 +88,28 @@ class API {
     }
   }
 
+  static Future<List<Post>> getPostByPostType(int postTypeId) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request =
+    http.Request('POST', Uri.parse(url + '/api/post-by-post-type-web'));
+    request.body = json.encode({
+      "id": postTypeId,
+      "customer_id": customer_id,
+      "company_id": company_id,
+      "locale": Store.languageCode
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var data = await response.stream.bytesToString();
+      return PostDecoder.fromMap(json.decode(data)).posts;
+    } else {
+      return <Post>[];
+    }
+  }
+
   ///ProductInfo
   static Future<Products?> getProductInfo(int id) async {
     var headers = {

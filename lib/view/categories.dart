@@ -46,7 +46,7 @@ class Categories extends StatelessWidget {
                     ),
                     Positioned(
                       bottom: 0,
-                      child:  CustomFilterSort(),
+                      child:  CustomFilterSort(shopController: shopController,),
                     ),
                     ThreeItemsHeader(
                         onTap: () {
