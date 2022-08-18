@@ -98,7 +98,7 @@ class ProductHeader extends StatelessWidget {
                     Get.back();
                     Get.back();
                     Get.back();
-                    mainPageController.changeIndexOfBottomBar(0);
+                    mainPageController.changeIndexOfBottomBar(3);
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 5),
