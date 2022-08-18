@@ -48,7 +48,7 @@ class ServicesDetails extends StatelessWidget {
                               child: Container(
                                   width: AppStyle.getDeviceWidthPercent(100, context),
                                   height: AppStyle.getDeviceHeightPercent(30, context),
-                                  child: Image.network(service!.image!,fit: BoxFit.cover,alignment: Alignment.topCenter,)
+                                  child: Image.network(service!.image!,fit: BoxFit.fitWidth,alignment: Alignment.topCenter,)
                               ),
                             ),
                           )

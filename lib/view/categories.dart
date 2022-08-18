@@ -29,8 +29,8 @@ class Categories extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(height: AppStyle.getDeviceHeightPercent(13, context),),
-                    SizedBox(height: 20),
+                    // SizedBox(height: AppStyle.getDeviceHeightPercent(13, context),),
+                    SizedBox(height: 80),
                     _cartegoryList(context),
                     SizedBox(height: 20),
                   ],
@@ -41,13 +41,13 @@ class Categories extends StatelessWidget {
                 child: Stack(
                   children: [
                     Container(
-                      height: AppStyle.getDeviceHeightPercent(15, context),
+                      height: 110,
                       color: AppStyle.primary,
                     ),
-                    Positioned(
-                      bottom: 0,
-                      child:  CustomFilterSort(shopController: shopController,),
-                    ),
+                    // Positioned(
+                    //   bottom: 0,
+                    //   child:  CustomFilterSort(shopController: shopController,off: false),
+                    // ),
                     ThreeItemsHeader(
                         onTap: () {
                           Get.back();

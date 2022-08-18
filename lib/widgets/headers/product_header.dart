@@ -29,7 +29,7 @@ class ProductHeader extends StatelessWidget {
     return Container(
         padding: EdgeInsets.symmetric(horizontal: 15),
         width: AppStyle.getDeviceWidthPercent(100, context),
-        // height: AppStyle.getDeviceHeightPercent(10, context),
+        height: 70,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(

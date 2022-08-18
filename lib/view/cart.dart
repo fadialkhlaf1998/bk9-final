@@ -3,6 +3,7 @@ import 'package:bk9/const/app-style.dart';
 import 'package:bk9/controller/cart_contoller.dart';
 import 'package:bk9/controller/main_page_controller.dart';
 import 'package:bk9/controller/productInfo_controller.dart';
+import 'package:bk9/model/product.dart';
 import 'package:bk9/view/checkout.dart';
 import 'package:bk9/view/wishlist.dart';
 import 'package:bk9/widgets/background_image.dart';
@@ -149,118 +150,134 @@ class Cart extends StatelessWidget {
             shrinkWrap: true,
             itemCount: cartController.cart.length,
             itemBuilder: (context, index) {
-              return Column(
+              return Stack(
                 children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.15,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          blurRadius: 4,
-                          offset: Offset(0, 4), // changes position of shadow
+                  Column(
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.15,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              blurRadius: 4,
+                              offset: Offset(0, 4), // changes position of shadow
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(cartController.cart[index].image),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(cartController.cart[index].image),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: Align(
-                                    alignment: Alignment.topRight,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        cartController.deleteFromCart(productInfoController.product!.options![productInfoController.selectedOption.value], context);
-                                      },
-                                        child: Icon(Icons.close,size: 23,color: Colors.grey,)),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Text(cartController.cart[index].title,
-                                    maxLines: 2,
-                                    style: TextStyle(
-                                        color: AppStyle.darkGrey,
-                                        fontSize: CommonTextStyle.smallTextStyle,
-                                        fontWeight: FontWeight.w500
+                            Expanded(
+                              flex: 2,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      flex: 1,
+                                      child: Align(
+                                        alignment: Alignment.topRight,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            print(index);
+                                              cartController.deleteFromCart(index, context);
+                                          },
+                                            child: Icon(Icons.close,size: 23,color: Colors.grey,)),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                                Expanded(
-                                    flex: 1,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(cartController.cart[index].price.toString()+ " " + "AED",
-                                          style: TextStyle(
-                                            color: AppStyle.productGrey,
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(cartController.cart[index].title,
+                                        maxLines: 2,
+                                        style: TextStyle(
+                                            color: AppStyle.darkGrey,
                                             fontSize: CommonTextStyle.smallTextStyle,
-                                          ),
+                                            fontWeight: FontWeight.w500
                                         ),
-                                        Container(
-                                          padding: EdgeInsets.symmetric(horizontal: 8),
-                                          width: AppStyle.getDeviceWidthPercent(25, context),
-                                          decoration: BoxDecoration(
-                                              color: AppStyle.primary,
-                                              borderRadius: BorderRadius.circular(30),
-                                              border: Border.all(color: AppStyle.primary)
-                                          ),
-                                          child: Center(
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                GestureDetector(
-                                                    onTap: () {
-                                                      cartController.decrease(productInfoController.product!.options![productInfoController.selectedOption.value], cartController.cart[index].count, context);
-                                                    },
-                                                    child: Icon(Icons.remove,color: Colors.white,size: 18)),
-                                                Text(cartController.cart[index].count.toString(),
-                                                  style: TextStyle(
-                                                      fontSize: CommonTextStyle.smallTextStyle,
-                                                      color: Colors.white
-                                                  ),
-                                                ),
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    cartController.increase(productInfoController.product!.options![productInfoController.selectedOption.value], cartController.cart[index].count, context);
-                                                  },
-                                                  child: Icon(Icons.add,color: Colors.white,size: 18,),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+                                      ),
                                     ),
+                                    Expanded(
+                                        flex: 1,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(cartController.cart[index].price.toString()+ " " + "AED",
+                                              style: TextStyle(
+                                                color: AppStyle.productGrey,
+                                                fontSize: CommonTextStyle.smallTextStyle,
+                                              ),
+                                            ),
+                                            Container(
+                                              padding: EdgeInsets.symmetric(horizontal: 8),
+                                              width: AppStyle.getDeviceWidthPercent(25, context),
+                                              decoration: BoxDecoration(
+                                                  color: AppStyle.primary,
+                                                  borderRadius: BorderRadius.circular(30),
+                                                  border: Border.all(color: AppStyle.primary)
+                                              ),
+                                              child: Center(
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    GestureDetector(
+                                                        onTap: () {
+                                                          Option option = Option(id: cartController.cart[index].productOptionsId, weightId: cartController.cart[index].weightId, sizeId: cartController.cart[index].sizeId, colorId: cartController.cart[index].colorId, productId: cartController.cart[index].productId, additionalPrice: cartController.cart[index].additionalPrice, stock: cartController.cart[index].stouck, weight: cartController.cart[index].weight, size: cartController.cart[index].size, color:cartController.cart[index].color, degree: cartController.cart[index].degree);
+                                                          cartController.decrease(option, -1, context);
+                                                        },
+                                                        child: Icon(Icons.remove,color: Colors.white,size: 18)),
+                                                    Text(cartController.cart[index].count.toString(),
+                                                      style: TextStyle(
+                                                          fontSize: CommonTextStyle.smallTextStyle,
+                                                          color: Colors.white
+                                                      ),
+                                                    ),
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        Option option = Option(id: cartController.cart[index].productOptionsId, weightId: cartController.cart[index].weightId, sizeId: cartController.cart[index].sizeId, colorId: cartController.cart[index].colorId, productId: cartController.cart[index].productId, additionalPrice: cartController.cart[index].additionalPrice, stock: cartController.cart[index].stouck, weight: cartController.cart[index].weight, size: cartController.cart[index].size, color:cartController.cart[index].color, degree: cartController.cart[index].degree);
+                                                        cartController.increase(option, 1, context);
+                                                      },
+                                                      child: Icon(Icons.add,color: Colors.white,size: 18,),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                    ],
                   ),
-                  const SizedBox(height: 10),
+                  Obx(() => cartController.cart[index].loading_op.value?Container(
+                    height: MediaQuery.of(context).size.height * 0.15,
+                    width: MediaQuery.of(context).size.width,
+                    color: Colors.white.withOpacity(0.5),
+                    child: Center(
+                      child: CircularProgressIndicator(color: AppStyle.primary,),
+                    ),
+                  ):Center())
+
                 ],
               );
             },
@@ -312,7 +329,7 @@ class Cart extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: 10,),
-                    Text("AED " + "35.00",
+                    Text("AED " + cartController.subTotal.value.toStringAsFixed(2),
                       style: TextStyle(
                         color: AppStyle.darkGrey,
                         fontSize: CommonTextStyle.smallTextStyle,
@@ -360,7 +377,7 @@ class Cart extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: 10,),
-                    Text("AED " + "10.00",
+                    Text("AED " + cartController.shipping.value.toStringAsFixed(2),
                       style: TextStyle(
                         color: AppStyle.darkGrey,
                         fontSize: CommonTextStyle.smallTextStyle,
@@ -408,7 +425,7 @@ class Cart extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: 10,),
-                    Text("AED " + "0.00",
+                    Text(cartController.discount.value.toStringAsFixed(0)+" %",
                       style: TextStyle(
                         color: AppStyle.darkGrey,
                         fontSize: CommonTextStyle.smallTextStyle,
@@ -456,7 +473,7 @@ class Cart extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: 10,),
-                    Text("AED " + "23.00",
+                    Text("AED " + cartController.total.value.toStringAsFixed(2),
                       style: TextStyle(
                         color: AppStyle.primary,
                         fontSize: CommonTextStyle.mediumTextStyle,

@@ -7,14 +7,15 @@ class NewArrivalsController extends GetxController {
   RxBool loading = false.obs;
 
   goToProductPage(int productId){
-    loading.value = true;
-    API.checkInternet().then((internet) {
-      if(internet) {
-        API.getProductInfo(productId).then((value) {
-          Get.to(()=> ProductInformation(value!.product![0]));
-          loading.value = false;
-        });
-      }
-    });
+    Get.to(()=> ProductInformation(productId));
+    // loading.value = true;
+    // API.checkInternet().then((internet) {
+    //   if(internet) {
+    //     API.getProductInfo(productId).then((value) {
+    //       Get.to(()=> ProductInformation(value!.product![0]));
+    //       loading.value = false;
+    //     });
+    //   }
+    // });
   }
 }

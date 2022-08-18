@@ -1,3 +1,5 @@
+import 'package:bk9/const/api.dart';
+import 'package:bk9/const/app-style.dart';
 import 'package:bk9/controller/cart_contoller.dart';
 import 'package:bk9/model/product.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -7,8 +9,10 @@ import 'package:get/get.dart';
 class ProductInfoController extends GetxController {
 
   ScrollController scrollController = ScrollController();
+  TextEditingController review = TextEditingController();
   CarouselController carouselController = CarouselController();
   var counter = 1.obs;
+  var last_rate = 0.obs;
   CartController cartController = Get.find();
   var sizeValue = "".obs;
   var colorValue = "".obs;
@@ -24,6 +28,14 @@ class ProductInfoController extends GetxController {
   Rx<bool> loading = false.obs;
 
   onStartInit(){
+    sizeValue.value="";
+    colorValue.value="";
+    weightValue.value="";
+    activeIndex.value=0;
+    selectedColorIndex.value=0;
+    selectedDesFea.value=0;
+    counter.value=1;
+    last_rate = product!.myRate.obs;
     if(product!.colors!=null&&product!.colors!.isNotEmpty){
       selectedColorId.value = product!.colors![0].colorId;
       selectedColorIndex.value = getIndexColorImages(selectedColorId.value,product!.colorsImages!);
@@ -36,25 +48,31 @@ class ProductInfoController extends GetxController {
     }
   }
   onSelectOption() {
-      for(int i=0;i<product!.options!.length;i++){
-        var tempSize = selectedSizeId==0?null:selectedSizeId;
-        var tempColor = selectedColorId==0?null:selectedColorId;
-        var tempWeight = selectedWeightId==0?null:selectedWeightId;
-        if(product!.options![i].colorId == tempColor && product!.options![i].sizeId == tempSize && product!.options![i].weightId == tempWeight){
+    print('size:' +selectedSizeId.toString());
+    print('color:' +selectedColorId.toString());
+    print('weight:' +selectedWeightId.toString());
+
+    for(int i=0;i<product!.options!.length;i++){
+        int? tempSize = selectedSizeId==0?null:selectedSizeId.value;
+        int? tempColor = selectedColorId==0?null:selectedColorId.value;
+        int? tempWeight = selectedWeightId==0?null:selectedWeightId.value;
+        print('------------');
+      if(product!.options![i].colorId == tempColor && product!.options![i].sizeId == tempSize && product!.options![i].weightId == tempWeight){
           selectedOption.value = i;
           return i;
         }
-        selectedOption.value = 0;
-        return 0;
-      }
+    }
+    selectedOption.value = -1;
+    return -1;
   }
 
   /// cart
   increase() {
-    counter++;
+
+    counter.value++;
   }
   decrease() {
-    counter--;
+    counter.value--;
   }
 
   /// for product images
@@ -77,5 +95,48 @@ class ProductInfoController extends GetxController {
     }
     return 0;
   }
+  getColorId(String title, List<MyColor> colors){
+    for(int i=0;i<colors.length;i++){
+      if(colors[i].title == title){
+        return colors[i].colorId;
+      }
+    }
+    return 0;
+  }
 
+  getWeightId(String title, List<Weight> list){
+    for(int i=0;i<list.length;i++){
+      if(list[i].title == title){
+        return list[i].weightId;
+      }
+    }
+    return 0;
+  }
+
+  getSizeId(String title, List<Size> list){
+    for(int i=0;i<list.length;i++){
+      if(list[i].title == title){
+        return list[i].sizeId;
+      }
+    }
+    return 0;
+  }
+
+  rateProduct(int rate){
+    print('rated for id ${product!.id}');
+    API.addRate(product!.id, rate);
+  }
+
+  reviewProduct(BuildContext context){
+    if(review.text.isNotEmpty){
+      API.addReview(product!.id, review.text);
+      product!.review!.insert(0,Review(body: review.text,customerId: API.customer_id,firstname: API.customer!.firstname,id: -1,lastname: "",postId: product!.id,rate: last_rate.value));
+      loading.value=true;
+      loading.value=false;
+      review.clear();
+    }else{
+      // AppStyle.errorMsg(context,"Please");
+    }
+
+  }
 }

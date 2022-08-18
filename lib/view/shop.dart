@@ -188,7 +188,7 @@ class Shop extends StatelessWidget {
                             margin: EdgeInsets.only(bottom: 15),
                             width: AppStyle.getDeviceWidthPercent(35, context),
                             height: AppStyle.getDeviceHeightPercent(17, context),
-                            child: Image.network(introController.superCategory[index].image!,fit: BoxFit.cover),
+                            child: Image.network(introController.superCategory[index].image!,fit: BoxFit.fitHeight),
                           ),
                         ],
                       ),

@@ -17,6 +17,7 @@ class SubCategoriesProducts extends StatelessWidget {
   List<Post> subCategories;
   SubCategoriesProducts(this.subCategories){
     shopController.selectedSubCategory.value = 0;
+    shopController.productsView.value = subCategories[shopController.selectedSubCategory.value].posts!;
   }
 
 
@@ -39,12 +40,12 @@ class SubCategoriesProducts extends StatelessWidget {
                     Stack(
                       children: [
                         Container(
-                          height: AppStyle.getDeviceHeightPercent(15, context),
+                          height: 110,
                           color: AppStyle.primary,
                         ),
                         Positioned(
                           bottom: 0,
-                          child:  CustomFilterSort(shopController: shopController,),
+                          child:  CustomFilterSort(shopController: shopController,off: false),
                         ),
                         _header(context, shopController.selectedCategory.value)
                       ],
@@ -76,7 +77,7 @@ class SubCategoriesProducts extends StatelessWidget {
     return  Container(
         padding: EdgeInsets.symmetric(horizontal: 15),
         width: AppStyle.getDeviceWidthPercent(100, context),
-        // height: AppStyle.getDeviceHeightPercent(10, context),
+        height: 70,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -139,6 +140,7 @@ class SubCategoriesProducts extends StatelessWidget {
             return Obx(() => GestureDetector(
               onTap:  (){
                 shopController.selectedSubCategory.value = index;
+                shopController.productsView.value = subCategories[shopController.selectedSubCategory.value].posts!;
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -197,7 +199,7 @@ class SubCategoriesProducts extends StatelessWidget {
     return Container(
       child: ListView.builder(
           scrollDirection: Axis.vertical,
-          itemCount: subCategories[shopController.selectedSubCategory.value].posts!.length,
+          itemCount: shopController.productsView.length,
           shrinkWrap: true,
           itemBuilder: (context, index) {
             // print( subCategories[shopController.selectedSubCategory.value].posts!.length);
@@ -205,7 +207,7 @@ class SubCategoriesProducts extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 5),
               child: GestureDetector(
                 onTap:  (){
-                  introController.goToProductPage(subCategories[shopController.selectedSubCategory.value].posts![index].id);
+                  introController.goToProductPage(shopController.productsView[index].id);
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -235,7 +237,7 @@ class SubCategoriesProducts extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(15),
                                   image: DecorationImage(
                                     fit: BoxFit.contain,
-                                    image: NetworkImage(subCategories[shopController.selectedSubCategory.value].posts![index].image!,),
+                                    image: NetworkImage(shopController.productsView[index].image!,),
                                   ),
                                 ),
                               ),
@@ -252,10 +254,10 @@ class SubCategoriesProducts extends StatelessWidget {
                                   child: Obx(() =>
                                       GestureDetector(
                                         onTap: () {
-                                          wishListController.wishlistFunction(subCategories[shopController.selectedSubCategory.value].posts![index], context);
+                                          wishListController.wishlistFunction(shopController.productsView[index], context);
                                         },
                                         child: Icon(
-                                          subCategories[shopController.selectedSubCategory.value].posts![index].favorite.value
+                                          shopController.productsView[index].favorite.value
                                               ? Icons.favorite
                                               : Icons.favorite_border,
                                           color: Colors.grey,
@@ -264,13 +266,13 @@ class SubCategoriesProducts extends StatelessWidget {
                                       ),),),
                                 Container(
                                   width: AppStyle.getDeviceWidthPercent(55, context),
-                                  child: Text(subCategories[shopController.selectedSubCategory.value].posts![index].title.toString(),
+                                  child: Text(shopController.productsView[index].title.toString(),
                                     maxLines: 2,
                                     style: CommonTextStyle.textStyleForDarkGreyMediumButton
                                   ),
                                 ),
                                 SizedBox(height: 5,),
-                                Text("AED " + subCategories[shopController.selectedSubCategory.value].posts![index].price.toString(),
+                                Text("AED " + shopController.productsView[index].price.toString(),
                                   style: CommonTextStyle.textStyleForGreySmallButton,
                                 ),
                                 SizedBox(height: 5,),

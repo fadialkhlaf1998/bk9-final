@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:get/get.dart';
+
 class CartItems {
   List<CartItem>? cart;
 
@@ -38,6 +40,7 @@ class CartItem {
   String weight;
   String color;
   String degree;
+  Rx<bool> loading_op=false.obs;
 
 
   CartItem({

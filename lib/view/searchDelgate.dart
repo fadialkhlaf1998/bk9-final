@@ -19,9 +19,9 @@ class SearchTextField extends SearchDelegate<String> {
          children: [
            GestureDetector(
              onTap: () {
-               query = "";
+               introController.search(context, query);
              },
-               child: Text("cancel",
+               child: Text("Search",
                  style: TextStyle(
                      color: AppStyle.primary,
                    fontSize: CommonTextStyle.mediumTextStyle
@@ -125,7 +125,7 @@ class SearchTextField extends SearchDelegate<String> {
               fit: BoxFit.cover
           )
       ),
-      child: ListView.builder(
+      child:Obx(() => introController.loadingSearch.value?Center(child: CircularProgressIndicator(color: AppStyle.primary,),): ListView.builder(
         itemCount: suggestions.length,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
@@ -134,6 +134,10 @@ class SearchTextField extends SearchDelegate<String> {
               children: [
                 SizedBox(height: 10,),
                 GestureDetector(
+                  onTap: (){
+                    query = suggestions.elementAt(index).title;
+                    // introController.search(context, query);
+                  },
                   onDoubleTap: () {
                     ///go to service page ore service
                     introController.search(context, query);
@@ -173,7 +177,7 @@ class SearchTextField extends SearchDelegate<String> {
             ),
           );
         },
-      ),
+      )),
     );
   }
 }

@@ -12,10 +12,11 @@ class CartController extends GetxController {
   RxList<CartItem> cart = <CartItem>[].obs;
   Rx<double> subTotal = 0.0.obs,
       total = 0.0.obs,
-      shipping = 0.0.obs,
-      discount = 0.0.obs,
+      shipping = 10.0.obs,
+      discount = API.discount.obs,
       coupon = 0.0.obs;
   Rx<bool> loading = false.obs;
+  Rx<bool> cart_op_loading = false.obs;
   TextEditingController discountCode = TextEditingController();
 
 
@@ -24,24 +25,50 @@ class CartController extends GetxController {
     super.onInit();
     getCartData();
   }
-
+  getTotal(){
+    total.value=0;
+    subTotal.value=0;
+    for(int i=0;i<cart.length;i++){
+      int sum = (cart[i].price + cart[i].additionalPrice)*cart[i].stouck;
+      subTotal.value += sum;
+    }
+    total.value=((subTotal.value*(100-discount.value))/100)+shipping.value;
+  }
   addToCart(Option option, int count, BuildContext context) {
     int oldCount = checkInCart(option);
+    int index = getOptionIndex(option);
+    print('add to index $index');
     if (option.stock >= (count + oldCount)) {
       if(API.customer_id == -1) {
         Get.to(() => Login());
         return;
       } else {
-        loading.value = true;
+        if(index>=0){
+          cart[index].loading_op.value = true;
+        }
+        cart_op_loading.value = true;
         API.addToCart(option.id, count).then((value) {
           cart.value = value!;
-          loading.value =false;
-          AppStyle.successMsg(context,"Product added to cart successfully");
+          if(oldCount>0){
+            AppStyle.successMsg(context,"Cart Updated to cart successfully");
+          }else{
+            AppStyle.successMsg(context,"Product added to cart successfully");
+          }
+          getTotal();
+          cart_op_loading.value =false;
+          if(index>=0){
+            cart[index].loading_op.value = false;
+          }
+
         });
       }
     } else {
       AppStyle.errorMsg(context,"Out of stock");
-      loading.value =false;
+      getTotal();
+      cart_op_loading.value =false;
+      if(index>=0){
+        cart[index].loading_op.value = false;
+      }
       return false;
     }
   }
@@ -55,34 +82,48 @@ class CartController extends GetxController {
     return 0;
   }
 
+  int getOptionIndex(Option option) {
+    for (int i = 0; i < cart.length; i++) {
+      if (cart[i].productOptionsId == option.id) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
   increase(Option option, int count, BuildContext context) {
     addToCart(option, count, context);
   }
 
   decrease(Option option, int count, BuildContext context) {
+    print(count);
     if(count>0){
       return;
     }
     int oldCount = checkInCart(option);
-    if(oldCount>=count.abs()){
-      deleteFromCart(option,context);
+    if(oldCount<=count.abs()){
+      //todo delete by option
+      deleteFromCart(getOptionIndex(option),context);
     }else{
       addToCart(option, count, context);
     }
   }
 
-  deleteFromCart(Option option, BuildContext context)async{
-    for(int i=0;i<cart.length;i++){
-      if(cart[i].productOptionsId == option.id){
-        loading.value = true;
-        bool succ = await API.deleteFromCart(cart[i].cartId);
-        loading.value = false;
-        if(succ){
-          cart.remove(i);
-        }else{
-          AppStyle.errorMsg(context,"Something went wrong");
-        }
-      }
+  deleteFromCart(int index, BuildContext context)async{
+    cart_op_loading.value = true;
+    cart[index].loading_op.value = true;
+    bool succ = await API.deleteFromCart(cart[index].cartId);
+
+    if(succ){
+      cart.removeAt(index);
+      getTotal();
+      cart_op_loading.value = false;
+      cart[index].loading_op.value = false;
+    }else{
+      AppStyle.errorMsg(context,"Something went wrong");
+      getTotal();
+      cart_op_loading.value = false;
+      cart[index].loading_op.value = false;
     }
   }
 
@@ -90,6 +131,7 @@ class CartController extends GetxController {
     Store.loadLogInInfo();
     API.getCart(API.customer_id).then((value){
       cart.addAll(value);
+      getTotal();
     });
   }
 

@@ -78,7 +78,7 @@ class Post {
   String? image;
   String? sku;
   String? slug;
-  double? price;
+  double price;
   double? regularPrice;
   Color color;
   dynamic likes;
@@ -90,7 +90,7 @@ class Post {
   int? position;
   String? locale;
   int? languageParent;
-  double? rate;
+  double rate;
   double? my_rate;
   String? stringDescription;
   int? wishlist;
@@ -100,6 +100,7 @@ class Post {
   int? count;
   Rx<int> cartCount;
   Rx<bool> favorite;
+  // Rx<bool> open=false.obs;
   List<Post>? posts;
 
   factory Post.fromJson(String str) => Post.fromMap(json.decode(str));
@@ -121,7 +122,7 @@ class Post {
     image: json["image"] == null ? "" : json["image"],
     sku: json["sku"],
     slug: json["slug"],
-    price: json["price"]==null?null:double.parse(json["price"].toString()),
+    price: json["price"]==null?-1:double.parse(json["price"].toString()),
     regularPrice: json["regular_price"]==null?null:double.parse(json["regular_price"].toString()),
     likes: json["likes"],
     color: AppStyle.hexToColor(json["color"]),

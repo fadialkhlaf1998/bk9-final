@@ -5,7 +5,6 @@ import 'package:bk9/view/signup.dart';
 import 'package:bk9/widgets/background_image.dart';
 import 'package:bk9/widgets/container_with_image.dart';
 import 'package:bk9/widgets/custom_button.dart';
-import 'package:bk9/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -26,10 +25,10 @@ class Login extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(height: MediaQuery.of(context).viewPadding.top - 10),
+                  SizedBox(height: MediaQuery.of(context).viewPadding.top - 20),
                   ContainerWithImage(
-                    width: AppStyle.getDeviceWidthPercent(50, context),
-                    height: AppStyle.getDeviceHeightPercent(30, context),
+                    width: AppStyle.getDeviceWidthPercent(40, context),
+                    height: AppStyle.getDeviceHeightPercent(25, context),
                     image: "assets/icons/logo.svg",
                     option: 0,
                   ),
@@ -93,6 +92,8 @@ class Login extends StatelessWidget {
                       textStyle: CommonTextStyle.textStyleForOrangeMediumButtonBold
                   ),
                   SizedBox(height: 20,),
+                  loginSocial(context),
+                  SizedBox(height: 20),
                   Container(
                     width: AppStyle.getDeviceWidthPercent(85, context),
                     child: Row(
@@ -233,5 +234,118 @@ class Login extends StatelessWidget {
       ),
     );
   }
-
+  loginSocial(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          width: AppStyle.getDeviceWidthPercent(85, context),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("--------------------------------- OR ---------------------------------",
+                style: TextStyle(
+                    color: AppStyle.grey.withOpacity(0.7),
+                    fontSize: CommonTextStyle.mediumTextStyle,
+                    fontWeight: FontWeight.normal
+                ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 20),
+        GestureDetector(
+          onTap: () {
+            /// todo login apple
+          },
+          child: Container(
+            width: AppStyle.getDeviceWidthPercent(80, context),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(color: AppStyle.grey.withOpacity(0.5)),
+              borderRadius: BorderRadius.circular(30)
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Image.asset("assets/images/apple-logo.png",width: 23,height: 23),
+                  Text("Continue with Apple",
+                    style: TextStyle(
+                        color: AppStyle.grey,
+                        fontSize: CommonTextStyle.mediumTextStyle,
+                        fontWeight: FontWeight.normal
+                    ),
+                  ),
+                  Container()
+                ],
+              ),
+            ),
+          ),
+        ),
+        SizedBox(height: 10,),
+        GestureDetector(
+          onTap: () {
+            /// todo login google
+          },
+          child: Container(
+            width: AppStyle.getDeviceWidthPercent(80, context),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: AppStyle.grey.withOpacity(0.5)),
+                borderRadius: BorderRadius.circular(30)
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SvgPicture.asset("assets/icons/google.svg",width: 25,height: 25),
+                  Text("Continue with Google",
+                    style: TextStyle(
+                        color: AppStyle.grey,
+                        fontSize: CommonTextStyle.mediumTextStyle,
+                        fontWeight: FontWeight.normal
+                    ),
+                  ),
+                  Container()
+                ],
+              ),
+            ),
+          ),
+        ),
+        SizedBox(height: 10,),
+        GestureDetector(
+          onTap: () {
+            /// todo login facebook
+          },
+          child: Container(
+            width: AppStyle.getDeviceWidthPercent(80, context),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: AppStyle.grey.withOpacity(0.5)),
+                borderRadius: BorderRadius.circular(30)
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SvgPicture.asset("assets/icons/facebook.svg",width: 25,height: 25),
+                  Text("Continue with Facebook",
+                    style: TextStyle(
+                        color: AppStyle.grey,
+                        fontSize: CommonTextStyle.mediumTextStyle,
+                        fontWeight: FontWeight.normal
+                    ),
+                  ),
+                  Container()
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 }

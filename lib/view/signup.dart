@@ -27,10 +27,10 @@ class SignUp extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(height: MediaQuery.of(context).viewPadding.top - 10),
+                    SizedBox(height: MediaQuery.of(context).viewPadding.top - 20),
                     ContainerWithImage(
-                      width: AppStyle.getDeviceWidthPercent(50, context),
-                      height: AppStyle.getDeviceHeightPercent(30, context),
+                      width: AppStyle.getDeviceWidthPercent(40, context),
+                      height: AppStyle.getDeviceHeightPercent(25, context),
                       image: "assets/icons/logo.svg",
                       option: 0,
                     ),

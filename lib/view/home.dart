@@ -4,6 +4,7 @@ import 'package:bk9/controller/home_controller.dart';
 import 'package:bk9/controller/intro_controller.dart';
 import 'package:bk9/view/home_screen.dart';
 import 'package:bk9/view/wishlist.dart';
+import 'package:bk9/view/events_blogs.dart';
 import 'package:bk9/widgets/background_image.dart';
 import 'package:bk9/widgets/container_with_image.dart';
 import 'package:bk9/widgets/custom_button.dart';
@@ -22,7 +23,7 @@ class Home extends StatelessWidget {
 
   HomeController homeController = Get.put(HomeController());
   IntroController introController = Get.find();
-  var loading = false.obs;
+  // var loading = false.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,7 @@ class Home extends StatelessWidget {
                 ],
               ),
             ),
-            loading.value ?
+            introController.loading.value ?
             Positioned(child: Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
@@ -85,30 +86,31 @@ class Home extends StatelessWidget {
         ),
         _servicesList(context,introController,homeController.selectedServices.value),
         _brands(context,introController),
-        SizedBox(height: 20),
-        CustomContainer(
-            text: "OFFERS",
-            onTap: () {
-              /// offers page
-            },
-            radius: 25,
-            width: AppStyle.getDeviceWidthPercent(90, context),
-            height: AppStyle.getDeviceHeightPercent(20, context),
-            color: AppStyle.grey.withOpacity(0.5),
-            textStyle: CommonTextStyle.textStyleForWhiteXLargeButton
-        ),
+        // SizedBox(height: 20),
+        // CustomContainer(
+        //     text: "OFFERS",
+        //     onTap: () {
+        //       /// offers page
+        //     },
+        //     radius: 25,
+        //     width: AppStyle.getDeviceWidthPercent(90, context),
+        //     height: AppStyle.getDeviceHeightPercent(20, context),
+        //     color: AppStyle.grey.withOpacity(0.5),
+        //     textStyle: CommonTextStyle.textStyleForWhiteXLargeButton
+        // ),
         SizedBox(height: 25),
         Container(
             width: AppStyle.getDeviceWidthPercent(85, context),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("News and Events",
+                Text("Events And Bolgs",
                     style: CommonTextStyle.textStyleForDarkGreyBigButton
                 ),
                 GestureDetector(
                   onTap: () {
                     /// News and Events page
+                    Get.to(()=>EventsBlogs(introController.events,introController.blogs));
                   },
                   child: Text("view all",
                       style: CommonTextStyle.textStyleForWhiteMediumButton
@@ -291,7 +293,7 @@ class Home extends StatelessWidget {
   }
   _newsAndEventsList(BuildContext context) {
     return CustomListViewContainer(
-      myList: homeController.events,
+      myList: introController.events,
       onTap: () {
         ///news and events page
       },

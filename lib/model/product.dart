@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:bk9/model/post.dart';
 import 'package:get/get.dart';
 
 class Products {
@@ -20,7 +21,7 @@ class Products {
   factory Products.fromMap(Map<String, dynamic> json) => Products(
     code: json["code"] == null ? -1 : json["code"],
     msg: json["msg"] == null ? "null" : json["msg"],
-    product: json["product"] == null ? null : List<Product>.from(json["product"].map((x) => Product.fromMap(x))),
+    product: json["data"] == null ? null : List<Product>.from(json["data"].map((x) => Product.fromMap(x))),
   );
 
   Map<String, dynamic> toMap() => {
@@ -83,13 +84,13 @@ class Product {
   dynamic position;
   String color;
   int languageParent;
-  dynamic myRate;
-  dynamic rate;
+  int myRate;
+  double rate;
   String stringDescription;
   int wishlist;
   RxBool favorite;
   List<Media>? media;
-  List<dynamic>? review;
+  List<Review>? review;
   List<dynamic>? jsonData;
   List<Option>? options;
   List<ColorsImage>? colorsImages;
@@ -101,38 +102,41 @@ class Product {
 
   String toJson() => json.encode(toMap());
 
-  factory Product.fromMap(Map<String, dynamic> json) => Product(
-    id: json["id"] == null ? -1 : json["id"],
-    postTypeId: json["post_type_id"] == null ? -1 : json["post_type_id"],
-    title: json["title"] == null ? "null" : json["title"],
-    subTitle: json["sub_title"] == null ? "null" : json["sub_title"],
-    image: json["image"] == null ? "" : json["image"],
-    sku: json["sku"] == null ? "null" : json["sku"],
-    slug: json["slug"] == null ? "null" : json["slug"],
-    price: json["price"] == null ? -1 : json["price"],
-    regularPrice: json["regular_price"] == null ? -1 : json["regular_price"],
-    likes: json["likes"] == null ? -1 : json["likes"],
-    availability: json["availability"] == null ? -1 : json["availability"],
-    companyId: json["company_id"] == null ? -1 : json["company_id"],
-    metaTitle: json["meta_title"] == null ? "null" : json["meta_title"],
-    metaDescription: json["meta_description"] == null ? "null" : json["meta_description"],
-    position: json["position"],
-    color: json["color"] == null ? "null" : json["color"],
-    languageParent: json["language_parent"] == null ? -1 : json["language_parent"],
-    myRate: json["my_rate"],
-    rate: json["rate"],
-    stringDescription: json["string_description"] == null ? "null" : json["string_description"],
-    wishlist: json["wishlist"] == null ? -1 : json["wishlist"],
-    favorite: json["wishlist"] == null ? false.obs : json["wishlist"] == 0 ?false.obs:true.obs,
-    media: json["media"] == null ? null : List<Media>.from(json["media"].map((x) => Media.fromMap(x))),
-    review: json["review"] == null ? null : List<dynamic>.from(json["review"].map((x) => x)),
-    jsonData: json["json_data"] == null ? null : List<dynamic>.from(json["json_data"].map((x) => x)),
-    options: json["options"] == null ? null : List<Option>.from(json["options"].map((x) => Option.fromMap(x))),
-    colorsImages: List<ColorsImage>.from(json["colorsImages"].map((x) => ColorsImage.fromMap(x))),
-    colors: List<MyColor>.from(json["colors"].map((x) => MyColor.fromMap(x))),
-    sizes: List<Size>.from(json["sizes"].map((x) => Size.fromMap(x))),
-    weights: List<Weight>.from(json["weights"].map((x) => Weight.fromMap(x))),
-  );
+  factory Product.fromMap(Map<String, dynamic> json) {
+    print(json["my_rate"]);
+    return Product(
+      id: json["id"] == null ? -1 : json["id"],
+      postTypeId: json["post_type_id"] == null ? -1 : json["post_type_id"],
+      title: json["title"] == null ? "null" : json["title"],
+      subTitle: json["sub_title"] == null ? "null" : json["sub_title"],
+      image: json["image"] == null ? "" : json["image"],
+      sku: json["sku"] == null ? "null" : json["sku"],
+      slug: json["slug"] == null ? "null" : json["slug"],
+      price: json["price"] == null ? -1 : json["price"],
+      regularPrice: json["regular_price"] == null ? -1 : json["regular_price"],
+      likes: json["likes"] == null ? -1 : json["likes"],
+      availability: json["availability"] == null ? -1 : json["availability"],
+      companyId: json["company_id"] == null ? -1 : json["company_id"],
+      metaTitle: json["meta_title"] == null ? "null" : json["meta_title"],
+      metaDescription: json["meta_description"] == null ? "null" : json["meta_description"],
+      position: json["position"],
+      color: json["color"] == null ? "null" : json["color"],
+      languageParent: json["language_parent"] == null ? -1 : json["language_parent"],
+      myRate: json["my_rate"] == null ?0:int.parse(json["my_rate"].toString()),
+      rate: json["rate"] == null ?0.0:double.parse(json["rate"].toString()),
+      stringDescription: json["string_description"] == null ? "null" : json["string_description"],
+      wishlist: json["wishlist"] == null ? -1 : json["wishlist"],
+      favorite: json["wishlist"] == null ? false.obs : json["wishlist"] == 0 ?false.obs:true.obs,
+      media: json["media"] == null ? null : List<Media>.from(json["media"].map((x) => Media.fromMap(x))),
+      review: json["review"] == null ? <Review>[] : List<Review>.from(json["review"].map((x) => Review.fromMap(x))),
+      jsonData: json["json_data"] == null ? null : List<dynamic>.from(json["json_data"].map((x) => x)),
+      options: json["options"] == null ? null : List<Option>.from(json["options"].map((x) => Option.fromMap(x))),
+      colorsImages: List<ColorsImage>.from(json["colorsImages"].map((x) => ColorsImage.fromMap(x))),
+      colors: List<MyColor>.from(json["colors"].map((x) => MyColor.fromMap(x))),
+      sizes: List<Size>.from(json["sizes"].map((x) => Size.fromMap(x))),
+      weights: List<Weight>.from(json["weights"].map((x) => Weight.fromMap(x))),
+    );
+  }
 
   Map<String, dynamic> toMap() => {
     "id": id == null ? null : id,
@@ -187,6 +191,51 @@ class Media {
     "link": link == null ? null : link,
   };
 }
+
+class Review {
+  Review({
+    required this.id,
+    required this.postId,
+    required this.customerId,
+    required this.body,
+    required this.rate,
+    required this.firstname,
+    required this.lastname,
+  });
+
+  int id;
+  int postId;
+  int customerId;
+  String body;
+  int rate;
+  String firstname;
+  String lastname;
+
+  factory Review.fromJson(String str) => Review.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory Review.fromMap(Map<String, dynamic> json) => Review(
+    id: json["id"],
+    postId: json["post_id"],
+    customerId: json["customer_id"],
+    body: json["body"],
+    rate: json["my_rate"]==null?0:json["my_rate"],
+    firstname: json["firstname"],
+    lastname: json["lastname"],
+  );
+
+  Map<String, dynamic> toMap() => {
+    "id": id,
+    "post_id": postId,
+    "customer_id": customerId,
+    "body": body,
+    "rate": rate,
+    "firstname": firstname,
+    "lastname": lastname,
+  };
+}
+
 
 class MyColor {
   MyColor({

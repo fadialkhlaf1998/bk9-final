@@ -17,16 +17,24 @@ class CustomListViewBrands extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10),
       width: AppStyle.getDeviceWidthPercent(100, context),
-      height: AppStyle.getDeviceHeightPercent(16, context),
+      height: AppStyle.getDeviceHeightPercent(16, context)+30,
       color: AppStyle.lightGrey,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TextApp(
-              text: "Brands",
-              width: AppStyle.getDeviceWidthPercent(100, context),
-              height: AppStyle.getDeviceHeightPercent(5, context),
-              textStyle: CommonTextStyle.textStyleForDarkGreyBigButton
+         SizedBox(height: 30,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: AppStyle.getDeviceWidthPercent(90, context),
+                child: Text("Shop By Brands",
+                    style: CommonTextStyle.textStyleForDarkGreyBigButton
+                ),
+              ),
+            ],
           ),
+          SizedBox(height: 15,),
           Container(
             width: AppStyle.getDeviceWidthPercent(100, context),
             height: AppStyle.getDeviceHeightPercent(10, context),
@@ -37,24 +45,33 @@ class CustomListViewBrands extends StatelessWidget {
               itemBuilder: (context,index) {
                 return GestureDetector(
                     onTap: () {
-                      introController.get_products_by_brand(introController.brand[index].id, context);
+                      introController.shopByBrand(context,introController.brand[index].id);
                     },
                     child:  Container(
                       padding: EdgeInsets.all(4),
                       decoration: BoxDecoration(
                           shape: BoxShape.circle
                       ),
-                      child: Container(
-                        width: AppStyle.getDeviceWidthPercent(21, context),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.grey),
-                        ),
+                      child: Center(
                         child: Container(
-                          margin: EdgeInsets.all(10),
-                          child: Image.network(introController.brand[index].image!,
-                            fit: BoxFit.contain,),
-                        )
+                          width: AppStyle.getDeviceWidthPercent(21, context),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(color: Colors.grey),
+
+                          ),
+                          child: Center(
+                            child: Container(
+                              margin: EdgeInsets.all(17),
+                             decoration: BoxDecoration(
+                                 image: DecorationImage(
+                                     image: NetworkImage(introController.brand[index].image!),
+                                     fit: BoxFit.contain
+                                 )
+                             ),
+                            ),
+                          )
+                        ),
                       ),
                     )
                 );

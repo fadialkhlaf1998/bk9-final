@@ -15,6 +15,7 @@ import 'package:bk9/view/home_screen.dart';
 import 'package:bk9/view/intro_screens.dart';
 import 'package:bk9/view/main_page.dart';
 import 'package:bk9/view/no_internet.dart';
+import 'package:bk9/view/product_filter.dart';
 import 'package:bk9/view/product_info.dart';
 import 'package:bk9/view/searchDelgate.dart';
 import 'package:bk9/view/verification_code.dart';
@@ -33,6 +34,8 @@ class IntroController extends GetxController {
   List<Post> events = <Post>[];
   List<Post> blogs = <Post>[];
   List<Post> newArrivals = <Post>[];
+  List<Post> recomended = <Post>[];
+  List<Post> bestSellers = <Post>[];
   List<SearchSuggestion> searchSugg = <SearchSuggestion>[];
   Post? aboutHomePage;
   Post? aboutPage;
@@ -43,6 +46,7 @@ class IntroController extends GetxController {
   var ready = false.obs;
   RxList<BrandInfo> brands = <BrandInfo>[].obs;
   var loading = false.obs;
+  var loadingSearch = false.obs;
   var selectedPostFilter = 0.obs;
 
 
@@ -64,29 +68,34 @@ class IntroController extends GetxController {
   get_data() {
     API.checkInternet().then((value) async {
       if (value) {
-        API.getCompanyIdTo().then((value) {
-          API.getCompanyId().then((value) async {
-            await login();
-            StartUp? startUp = await API.startUp();
-            if(startUp != null){
-              banner = startUp.banners.posts;
-              superCategory = startUp.super_category.posts;
-              service = startUp.services.posts;
-              brand = startUp.brand.posts;
-              gallery = startUp.gallary.posts;
-              reviews = startUp.reviews.posts;
-              events = startUp.events.posts;
-              blogs = startUp.blogs.posts;
-              newArrivals = startUp.newArrivals.posts;
-              aboutHomePage = startUp.aboutHomePage.posts.first;
-              aboutPage = startUp.aboutPage.posts.first;
-              searchSugg = startUp.searchSuggestion!;
-            }
-            wishListController.getWishlistData();
-            addressesController.getAddress();
-            get_nave();
-          });
+        // API.getCompanyIdTo().then((value) {
+        //
+        // });
+
+        API.getCompanyId().then((value) async {
+          await login();
+          StartUp? startUp = await API.startUp();
+          if(startUp != null){
+            banner = startUp.banners.posts;
+            superCategory = startUp.super_category.posts;
+            service = startUp.services.posts;
+            brand = startUp.brand.posts;
+            gallery = startUp.gallary.posts;
+            reviews = startUp.reviews.posts;
+            events = startUp.events.posts;
+            blogs = startUp.blogs.posts;
+            recomended = startUp.recomended.posts;
+            bestSellers = startUp.best_sellers.posts;
+            newArrivals = startUp.newArrivals.posts;
+            aboutHomePage = startUp.aboutHomePage.posts.first;
+            aboutPage = startUp.aboutPage.posts.first;
+            searchSugg = startUp.searchSuggestion!;
+          }
+          wishListController.getWishlistData();
+          addressesController.getAddress();
+          get_nave();
         });
+
       } else {
         Get.to(() => NoInternet())!.then((value) {
           get_data();
@@ -125,34 +134,48 @@ class IntroController extends GetxController {
     }
   }
 
-  get_products_by_brand(int brandId, BuildContext context) {
-    API.checkInternet().then((internet){
-      if(internet){
-        loading.value = true;
-        API.getProductsByBrand(brandId).then((value) {
-          loading.value = false;
-          if(value!.isNotEmpty) {
-            brands.addAll(value);
-            print(brands.length);
-            Get.to(()=> BrandProducts());
-          } else {
-            AppStyle.errorMsg(context, "No products in this brand");
-          }
-        });
+  // get_products_by_brand(int brandId, BuildContext context) {
+  //   API.checkInternet().then((internet){
+  //     if(internet){
+  //       loading.value = true;
+  //       API.getProductsByBrand(brandId).then((value) {
+  //         loading.value = false;
+  //         if(value.isNotEmpty) {
+  //           brands.addAll(value);
+  //           print(brands.length);
+  //           Get.to(()=> BrandProducts());
+  //         } else {
+  //           AppStyle.errorMsg(context, "No products in this brand");
+  //         }
+  //       });
+  //     }
+  //   });
+  // }
+
+  shopByBrand(BuildContext context,int brand_id){
+    loading.value = true;
+    API.getProductsByBrand(brand_id).then((value) {
+      loading.value = false;
+      if(value.isNotEmpty){
+        Get.to(ProductFilter(value));
+      }else{
+        AppStyle.errorMsg(context, "This Brand Has No Elements");
       }
     });
   }
 
   goToProductPage(int productId){
-    shopController.loading.value = true;
-    API.checkInternet().then((internet) {
-      if(internet) {
-        API.getProductInfo(productId).then((value) {
-          Get.to(()=> ProductInformation(value!.product![0]));
-          shopController.loading.value = false;
-        });
-      }
-    });
+    Get.to(()=> ProductInformation(productId));
+    // shopController.loading.value = true;
+    // API.checkInternet().then((internet) {
+    //   if(internet) {
+    //     // API.getProductInfo(productId).then((value) {
+    //     //   Get.to(()=> ProductInformation(value!.product![0]));
+    //     //   shopController.loading.value = false;
+    //     // });
+    //     Get.to(()=> ProductInformation(value!.product![0]));
+    //   }
+    // });
   }
 
   pressedOnSearch(BuildContext context) async {
@@ -163,9 +186,9 @@ class IntroController extends GetxController {
 
   search(BuildContext context,String query){
     if(query.isNotEmpty){
-      loading.value = true;
+      loadingSearch.value = true;
       API.customSearch(query).then((value) {
-        loading.value = false;
+        loadingSearch.value = false;
         if(value != null){
           Get.off(()=>CustomSearchView(value.products.posts,value.services.posts));
         }
