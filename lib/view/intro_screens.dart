@@ -7,6 +7,7 @@ import 'package:bk9/widgets/text_app.dart';
 import 'package:bk9/widgets/text_for_desc_intro_screen.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -35,16 +36,12 @@ class IntroScreen extends StatelessWidget {
                       itemBuilder: (context,index){
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             SizedBox(height: 70),
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 15),
-                              child: ContainerWithImage(
-                                width: AppStyle.getDeviceWidthPercent(60, context),
-                                height: AppStyle.getDeviceHeightPercent(28, context),
-                                image: introScreenController.screens[index]["image"],
-                                option: 0,
-                              ),
+                              child: SvgPicture.asset(introScreenController.screens[index]["image"],height: AppStyle.getDeviceWidthPercent(50, context),)
                             ),
                             SizedBox(height: 60,),
                             TextApp(text: introScreenController.screens[index]["title"],
@@ -108,6 +105,36 @@ class IntroScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+
+class ContainerWithImageWithFit extends StatelessWidget {
+  final double width;
+  final double height;
+  final String image;
+  final BoxFit fit;
+  final int option; /// 0 SVG /// 1 png
+  final Color? color;
+
+  const ContainerWithImageWithFit({
+    required this.width,
+    required this.height,
+    required this.image,
+    required this.option,
+    required this.fit,
+    this.color
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        width: width,
+        height: height,
+        child: option == 0 ?
+        color == null ? SvgPicture.asset(image,fit: BoxFit.cover,height: height,)  :  SvgPicture.asset(image,fit: BoxFit.cover,color: color,height: height,) :
+        Image.asset(image, fit: fit)
     );
   }
 }

@@ -119,6 +119,7 @@ class IntroController extends GetxController {
     newArrivals = newArrivals;
     searchSugg = searchSugg;
     ready.value=true;
+    // Get.offAll(() => IntroScreen());
     if (API.email.isNotEmpty && API.is_active == true) {
       Get.offAll(() => MainPage());
       ready.value=true;
