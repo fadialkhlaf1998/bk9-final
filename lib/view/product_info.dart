@@ -472,249 +472,377 @@ class ProductInformation extends StatelessWidget {
         alignment: WrapAlignment.center,
         children: [
           product!.sizes!.length == 0 ||product!.sizes==null? Center() :
-          Container(
-            width: AppStyle.getDeviceWidthPercent(40, context),
-            decoration: BoxDecoration(
-              color: AppStyle.greyButton,
-              borderRadius: BorderRadius.circular(30),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.grey.withOpacity(0.3),
-                    blurRadius: 3,
-                    offset: Offset(1,3),
-                    spreadRadius: 0
-                ),
-              ],
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Select Size*",
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: CommonTextStyle.tinyTextStyle
-                      )
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 22,
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton2(
-                            icon: const Visibility (visible:false, child: Icon(Icons.arrow_downward)),
-                            value: productInfoController.sizeValue.value == "" ? product!.sizes![0].title : productInfoController.sizeValue.value,
-                            onChanged: (newValue) {
-                              productInfoController.selectedSizeId.value =  productInfoController.getSizeId(newValue.toString(),product!.sizes!);
-                              productInfoController.sizeValue.value = newValue.toString();
-                              productInfoController.onSelectOption();
-
-                            },
-                            items: product!.sizes!.map((value) =>
-                                DropdownMenuItem(
-                                  value: value.title,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        value.title,
-                                        style: const TextStyle(
-                                          color: AppStyle.productGrey,
-                                          fontSize: CommonTextStyle.mediumTextStyle,
-                                          fontWeight: FontWeight.normal
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ))
-                                .toList(),
-                            alignment: Alignment.center,
-                            buttonPadding: EdgeInsets.symmetric(horizontal: 20),
-                            dropdownDecoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(30),
-                                bottomRight: Radius.circular(30),
-                              ),
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
+          _sizesList(context),
+          // Container(
+          //   width: AppStyle.getDeviceWidthPercent(40, context),
+          //   decoration: BoxDecoration(
+          //     color: AppStyle.greyButton,
+          //     borderRadius: BorderRadius.circular(30),
+          //     boxShadow: [
+          //       BoxShadow(
+          //           color: Colors.grey.withOpacity(0.3),
+          //           blurRadius: 3,
+          //           offset: Offset(1,3),
+          //           spreadRadius: 0
+          //       ),
+          //     ],
+          //   ),
+          //   child: Padding(
+          //     padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
+          //     child: Column(
+          //       crossAxisAlignment: CrossAxisAlignment.start,
+          //       children: [
+          //         Text("Select Size*",
+          //             style: TextStyle(
+          //                 color: Colors.grey,
+          //                 fontSize: CommonTextStyle.tinyTextStyle
+          //             )
+          //         ),
+          //         Row(
+          //           mainAxisAlignment: MainAxisAlignment.center,
+          //           children: [
+          //             Container(
+          //               height: 22,
+          //               child: DropdownButtonHideUnderline(
+          //                 child: DropdownButton2(
+          //                   icon: const Visibility (visible:false, child: Icon(Icons.arrow_downward)),
+          //                   value: productInfoController.sizeValue.value == "" ? product!.sizes![0].title : productInfoController.sizeValue.value,
+          //                   onChanged: (newValue) {
+          //                     productInfoController.selectedSizeId.value =  productInfoController.getSizeId(newValue.toString(),product!.sizes!);
+          //                     productInfoController.sizeValue.value = newValue.toString();
+          //                     productInfoController.onSelectOption();
+          //
+          //                   },
+          //                   items: product!.sizes!.map((value) =>
+          //                       DropdownMenuItem(
+          //                         value: value.title,
+          //                         child: Row(
+          //                           mainAxisAlignment: MainAxisAlignment.center,
+          //                           children: [
+          //                             Text(
+          //                               value.title,
+          //                               style: const TextStyle(
+          //                                 color: AppStyle.productGrey,
+          //                                 fontSize: CommonTextStyle.mediumTextStyle,
+          //                                 fontWeight: FontWeight.normal
+          //                               ),
+          //                             ),
+          //                           ],
+          //                         ),
+          //                       ))
+          //                       .toList(),
+          //                   alignment: Alignment.center,
+          //                   buttonPadding: EdgeInsets.symmetric(horizontal: 20),
+          //                   dropdownDecoration: BoxDecoration(
+          //                     borderRadius: BorderRadius.only(
+          //                       bottomLeft: Radius.circular(30),
+          //                       bottomRight: Radius.circular(30),
+          //                     ),
+          //                     color: Colors.white,
+          //                   ),
+          //                 ),
+          //               ),
+          //             ),
+          //           ],
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // ),
           product!.colors!.length == 0 ||product!.colors==null? Center() :
-          GestureDetector(
-            onTap: () {
-              //
-            },
-            child: Container(
-              width: AppStyle.getDeviceWidthPercent(40, context),
-              decoration: BoxDecoration(
-                color: AppStyle.greyButton,
-                borderRadius: BorderRadius.circular(30),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
-                      blurRadius: 3,
-                      offset: Offset(1,3),
-                      spreadRadius: 0
-                  ),
-                ],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Select Color*",
-                        style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: CommonTextStyle.tinyTextStyle
-                        )
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 22,
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton2(
-                              icon: const Visibility (visible:false, child: Icon(Icons.arrow_downward)),
-                              value: productInfoController.colorValue.value == "" ? product!.colors![0].title :
-                              productInfoController.colorValue.value,
-                              onChanged: (newValue) {
-                                productInfoController.selectedColorIndex.value =  productInfoController.getIndex(newValue.toString(),product!.colors!);
-                                productInfoController.selectedColorId.value =  productInfoController.getColorId(newValue.toString(),product!.colors!);
-                                productInfoController.colorValue.value = newValue.toString();
-                                productInfoController.onSelectOption();
-                              },
-                              items: product!.colors!.map((valueItem) {
-                                return DropdownMenuItem(
-                                  value: valueItem.title,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        valueItem.title,
-                                        style: TextStyle(
-                                            color: AppStyle.productGrey,
-                                            fontSize: CommonTextStyle.mediumTextStyle,
-                                            fontWeight: FontWeight.normal
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              }).toList(),
-                              alignment: Alignment.center,
-                              buttonPadding: EdgeInsets.symmetric(horizontal: 16),
-                              dropdownDecoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(30),
-                                  bottomRight: Radius.circular(30),
-                                ),
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+          _colorList(context),
+          // GestureDetector(
+          //   onTap: () {
+          //     //
+          //   },
+          //   child: Container(
+          //     width: AppStyle.getDeviceWidthPercent(40, context),
+          //     decoration: BoxDecoration(
+          //       color: AppStyle.greyButton,
+          //       borderRadius: BorderRadius.circular(30),
+          //       boxShadow: [
+          //         BoxShadow(
+          //             color: Colors.grey.withOpacity(0.3),
+          //             blurRadius: 3,
+          //             offset: Offset(1,3),
+          //             spreadRadius: 0
+          //         ),
+          //       ],
+          //     ),
+          //     child: Padding(
+          //       padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
+          //       child: Column(
+          //         crossAxisAlignment: CrossAxisAlignment.start,
+          //         children: [
+          //           Text("Select Color*",
+          //               style: TextStyle(
+          //                   color: Colors.grey,
+          //                   fontSize: CommonTextStyle.tinyTextStyle
+          //               )
+          //           ),
+          //           Row(
+          //             mainAxisAlignment: MainAxisAlignment.center,
+          //             children: [
+          //               Container(
+          //                 height: 22,
+          //                 child: DropdownButtonHideUnderline(
+          //                   child: DropdownButton2(
+          //                     icon: const Visibility (visible:false, child: Icon(Icons.arrow_downward)),
+          //                     value: productInfoController.colorValue.value == "" ? product!.colors![0].title :
+          //                     productInfoController.colorValue.value,
+          //                     onChanged: (newValue) {
+          //                       productInfoController.selectedColorIndex.value =  productInfoController.getIndex(newValue.toString(),product!.colors!);
+          //                       productInfoController.selectedColorId.value =  productInfoController.getColorId(newValue.toString(),product!.colors!);
+          //                       productInfoController.colorValue.value = newValue.toString();
+          //                       productInfoController.onSelectOption();
+          //                     },
+          //                     items: product!.colors!.map((valueItem) {
+          //                       return DropdownMenuItem(
+          //                         value: valueItem.title,
+          //                         child: Row(
+          //                           mainAxisAlignment: MainAxisAlignment.center,
+          //                           children: [
+          //                             Text(
+          //                               valueItem.title,
+          //                               style: TextStyle(
+          //                                   color: AppStyle.productGrey,
+          //                                   fontSize: CommonTextStyle.mediumTextStyle,
+          //                                   fontWeight: FontWeight.normal
+          //                               ),
+          //                             ),
+          //                           ],
+          //                         ),
+          //                       );
+          //                     }).toList(),
+          //                     alignment: Alignment.center,
+          //                     buttonPadding: EdgeInsets.symmetric(horizontal: 16),
+          //                     dropdownDecoration: BoxDecoration(
+          //                       borderRadius: BorderRadius.only(
+          //                         bottomLeft: Radius.circular(30),
+          //                         bottomRight: Radius.circular(30),
+          //                       ),
+          //                       color: Colors.white,
+          //                     ),
+          //                   ),
+          //                 ),
+          //               ),
+          //             ],
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // ),
           product!.weights!.length == 0 ||product!.weights==null? Center() :
-          Container(
-            width: AppStyle.getDeviceWidthPercent(40, context),
-            decoration: BoxDecoration(
-              color: AppStyle.greyButton,
-              borderRadius: BorderRadius.circular(28),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.grey.withOpacity(0.3),
-                    blurRadius: 3,
-                    offset: Offset(1,3),
-                    spreadRadius: 0
-                ),
-              ],
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
-              child: Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Select Weight*",
-                        style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: CommonTextStyle.tinyTextStyle
-                        )
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 22,
-                          width: AppStyle.getDeviceWidthPercent(40, context)-30,
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton2(
-                              icon: const Visibility (visible:false, child: Icon(Icons.arrow_downward)),
-                              value: productInfoController.weightValue.value == "" ? product!.weights![0].title : productInfoController.weightValue.value,
-                              onChanged: (newValue) {
-                                productInfoController.selectedWeightId.value =  productInfoController.getWeightId(newValue.toString(),product!.weights!);
-                                productInfoController.weightValue.value = newValue.toString();
-                                productInfoController.onSelectOption();
-
-                              },
-                              items: product!.weights!.map((valueItem) {
-                                return DropdownMenuItem(
-                                  value: valueItem.weightId == -1 ? "" : valueItem.title,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        valueItem.title,
-                                        style: TextStyle(
-                                            color: AppStyle.productGrey,
-                                            fontSize: CommonTextStyle.mediumTextStyle,
-                                            fontWeight: FontWeight.normal
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              }).toList(),
-                              alignment: Alignment.center,
-                              buttonPadding: EdgeInsets.symmetric(horizontal: 20),
-                              dropdownDecoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(30),
-                                  bottomRight: Radius.circular(30),
-                                ),
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+          _weightList(context),
+          // Container(
+          //   width: AppStyle.getDeviceWidthPercent(40, context),
+          //   decoration: BoxDecoration(
+          //     color: AppStyle.greyButton,
+          //     borderRadius: BorderRadius.circular(28),
+          //     boxShadow: [
+          //       BoxShadow(
+          //           color: Colors.grey.withOpacity(0.3),
+          //           blurRadius: 3,
+          //           offset: Offset(1,3),
+          //           spreadRadius: 0
+          //       ),
+          //     ],
+          //   ),
+          //   child: Padding(
+          //     padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
+          //     child: Container(
+          //       child: Column(
+          //         crossAxisAlignment: CrossAxisAlignment.start,
+          //         children: [
+          //           Text("Select Weight*",
+          //               style: TextStyle(
+          //                   color: Colors.grey,
+          //                   fontSize: CommonTextStyle.tinyTextStyle
+          //               )
+          //           ),
+          //           Row(
+          //             mainAxisAlignment: MainAxisAlignment.center,
+          //             children: [
+          //               Container(
+          //                 height: 22,
+          //                 width: AppStyle.getDeviceWidthPercent(40, context)-30,
+          //                 child: DropdownButtonHideUnderline(
+          //                   child: DropdownButton2(
+          //                     icon: const Visibility (visible:false, child: Icon(Icons.arrow_downward)),
+          //                     value: productInfoController.weightValue.value == "" ? product!.weights![0].title : productInfoController.weightValue.value,
+          //                     onChanged: (newValue) {
+          //                       productInfoController.selectedWeightId.value =  productInfoController.getWeightId(newValue.toString(),product!.weights!);
+          //                       productInfoController.weightValue.value = newValue.toString();
+          //                       productInfoController.onSelectOption();
+          //
+          //                     },
+          //                     items: product!.weights!.map((valueItem) {
+          //                       return DropdownMenuItem(
+          //                         value: valueItem.weightId == -1 ? "" : valueItem.title,
+          //                         child: Row(
+          //                           mainAxisAlignment: MainAxisAlignment.center,
+          //                           children: [
+          //                             Text(
+          //                               valueItem.title,
+          //                               style: TextStyle(
+          //                                   color: AppStyle.productGrey,
+          //                                   fontSize: CommonTextStyle.mediumTextStyle,
+          //                                   fontWeight: FontWeight.normal
+          //                               ),
+          //                             ),
+          //                           ],
+          //                         ),
+          //                       );
+          //                     }).toList(),
+          //                     alignment: Alignment.center,
+          //                     buttonPadding: EdgeInsets.symmetric(horizontal: 20),
+          //                     dropdownDecoration: BoxDecoration(
+          //                       borderRadius: BorderRadius.only(
+          //                         bottomLeft: Radius.circular(30),
+          //                         bottomRight: Radius.circular(30),
+          //                       ),
+          //                       color: Colors.white,
+          //                     ),
+          //                   ),
+          //                 ),
+          //               ),
+          //             ],
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
   }
+
+  _sizesList(BuildContext context){
+    return Container(
+      width: MediaQuery.of(context).size.width*0.9,
+      height: 60,
+      child: Column(
+        children: [
+          Text("Select Size"),
+          Container(
+            width: MediaQuery.of(context).size.width*0.9,
+            height: 40,
+            child: ListView.builder(
+                // shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: product!.sizes!.length,
+                itemBuilder: (context,index){
+                  return GestureDetector(
+                    onTap: (){
+                      productInfoController.selectedSizeId.value =  product!.sizes![index].sizeId;
+                      // productInfoController.sizeValue.value = newValue.toString();
+                      productInfoController.onSelectOption();
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 5),
+                      width: 120,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: productInfoController.selectedSizeId.value == product!.sizes![index].sizeId?AppStyle.primary:Colors.grey)
+                      ),
+                      child: Center(
+                        child: Text(product!.sizes![index].title,style: TextStyle(color: productInfoController.selectedSizeId.value == product!.sizes![index].sizeId?AppStyle.primary:Colors.grey),),
+                      ),
+                    ),
+                  );
+            }),
+          )
+        ],
+      ),
+    );
+  }
+
+  _colorList(BuildContext context){
+    return Container(
+      width: MediaQuery.of(context).size.width*0.9,
+      height: 60,
+      child: Column(
+        children: [
+          Text("Select colors"),
+          Container(
+            width: MediaQuery.of(context).size.width*0.9,
+            height: 40,
+            child: ListView.builder(
+              // shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: product!.colors!.length,
+                itemBuilder: (context,index){
+                  return GestureDetector(
+                    onTap: (){
+                      productInfoController.selectedColorIndex.value =  productInfoController.selectedColorIndex.value =  productInfoController.getIndex(product!.colors![index].title.toString(),product!.colors!);
+                      productInfoController.selectedColorId.value =  product!.colors![index].colorId;
+                      // productInfoController.colorValue.value = newValue.toString();
+                      productInfoController.onSelectOption();
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 5),
+                      width: 120,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(color: productInfoController.selectedColorId.value == product!.colors![index].colorId?AppStyle.primary:Colors.grey)
+                      ),
+                      child: Center(
+                        child: Text(product!.colors![index].title,style: TextStyle(color: productInfoController.selectedColorId.value == product!.colors![index].colorId?AppStyle.primary:Colors.grey),),
+                      ),
+                    ),
+                  );
+                }),
+          )
+        ],
+      ),
+    );
+  }
+
+  _weightList(BuildContext context){
+    return Container(
+      width: MediaQuery.of(context).size.width*0.9,
+      height: 60,
+      child: Column(
+        children: [
+          Text("Select Size"),
+          Container(
+            width: MediaQuery.of(context).size.width*0.9,
+            height: 40,
+            child: ListView.builder(
+              // shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: product!.weights!.length,
+                itemBuilder: (context,index){
+                  return GestureDetector(
+                    onTap: (){
+                      productInfoController.selectedWeightId.value =  product!.weights![index].weightId;
+                      // productInfoController.weightValue.value = newValue.toString();
+                      productInfoController.onSelectOption();
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 5),
+                      width: 120,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(color: productInfoController.selectedWeightId.value == product!.weights![index].weightId?AppStyle.primary:Colors.grey)
+                      ),
+                      child: Center(
+                        child: Text(product!.weights![index].title,style: TextStyle(color: productInfoController.selectedWeightId.value == product!.weights![index].weightId?AppStyle.primary:Colors.grey),),
+                      ),
+                    ),
+                  );
+                }),
+          )
+        ],
+      ),
+    );
+  }
+
   _description(BuildContext context) {
     return product!.stringDescription == "" ? Text("") :
       Container(
