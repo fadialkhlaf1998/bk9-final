@@ -464,12 +464,16 @@ class ProductInformation extends StatelessWidget {
 
     return Container(
       width: AppStyle.getDeviceWidthPercent(90, context),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Wrap(
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        runSpacing: 10,
+        spacing: MediaQuery.of(context).size.width*0.05,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        alignment: WrapAlignment.center,
         children: [
           product!.sizes!.length == 0 ||product!.sizes==null? Center() :
           Container(
-            width: AppStyle.getDeviceWidthPercent(28, context),
+            width: AppStyle.getDeviceWidthPercent(40, context),
             decoration: BoxDecoration(
               color: AppStyle.greyButton,
               borderRadius: BorderRadius.circular(30),
@@ -550,7 +554,7 @@ class ProductInformation extends StatelessWidget {
               //
             },
             child: Container(
-              width: AppStyle.getDeviceWidthPercent(28, context),
+              width: AppStyle.getDeviceWidthPercent(40, context),
               decoration: BoxDecoration(
                 color: AppStyle.greyButton,
                 borderRadius: BorderRadius.circular(30),
@@ -629,7 +633,7 @@ class ProductInformation extends StatelessWidget {
           ),
           product!.weights!.length == 0 ||product!.weights==null? Center() :
           Container(
-            width: AppStyle.getDeviceWidthPercent(30, context),
+            width: AppStyle.getDeviceWidthPercent(40, context),
             decoration: BoxDecoration(
               color: AppStyle.greyButton,
               borderRadius: BorderRadius.circular(28),
@@ -644,63 +648,66 @@ class ProductInformation extends StatelessWidget {
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Select Weight*",
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: CommonTextStyle.tinyTextStyle
-                      )
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 22,
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton2(
-                            icon: const Visibility (visible:false, child: Icon(Icons.arrow_downward)),
-                            value: productInfoController.weightValue.value == "" ? product!.weights![0].title : productInfoController.weightValue.value,
-                            onChanged: (newValue) {
-                              productInfoController.selectedWeightId.value =  productInfoController.getWeightId(newValue.toString(),product!.weights!);
-                              productInfoController.weightValue.value = newValue.toString();
-                              productInfoController.onSelectOption();
+              child: Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Select Weight*",
+                        style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: CommonTextStyle.tinyTextStyle
+                        )
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 22,
+                          width: AppStyle.getDeviceWidthPercent(40, context)-30,
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton2(
+                              icon: const Visibility (visible:false, child: Icon(Icons.arrow_downward)),
+                              value: productInfoController.weightValue.value == "" ? product!.weights![0].title : productInfoController.weightValue.value,
+                              onChanged: (newValue) {
+                                productInfoController.selectedWeightId.value =  productInfoController.getWeightId(newValue.toString(),product!.weights!);
+                                productInfoController.weightValue.value = newValue.toString();
+                                productInfoController.onSelectOption();
 
-                            },
-                            items: product!.weights!.map((valueItem) {
-                              return DropdownMenuItem(
-                                value: valueItem.weightId == -1 ? "" : valueItem.title,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      valueItem.title,
-                                      style: TextStyle(
-                                          color: AppStyle.productGrey,
-                                          fontSize: CommonTextStyle.mediumTextStyle,
-                                          fontWeight: FontWeight.normal
+                              },
+                              items: product!.weights!.map((valueItem) {
+                                return DropdownMenuItem(
+                                  value: valueItem.weightId == -1 ? "" : valueItem.title,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        valueItem.title,
+                                        style: TextStyle(
+                                            color: AppStyle.productGrey,
+                                            fontSize: CommonTextStyle.mediumTextStyle,
+                                            fontWeight: FontWeight.normal
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
+                                );
+                              }).toList(),
+                              alignment: Alignment.center,
+                              buttonPadding: EdgeInsets.symmetric(horizontal: 20),
+                              dropdownDecoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(30),
+                                  bottomRight: Radius.circular(30),
                                 ),
-                              );
-                            }).toList(),
-                            alignment: Alignment.center,
-                            buttonPadding: EdgeInsets.symmetric(horizontal: 20),
-                            dropdownDecoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(30),
-                                bottomRight: Radius.circular(30),
+                                color: Colors.white,
                               ),
-                              color: Colors.white,
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
