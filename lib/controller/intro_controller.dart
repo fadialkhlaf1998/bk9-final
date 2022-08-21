@@ -34,6 +34,7 @@ class IntroController extends GetxController {
   List<Post> events = <Post>[];
   List<Post> blogs = <Post>[];
   List<Post> newArrivals = <Post>[];
+  List<Post> offers = <Post>[];
   List<Post> recomended = <Post>[];
   List<Post> bestSellers = <Post>[];
   List<SearchSuggestion> searchSugg = <SearchSuggestion>[];
@@ -81,6 +82,7 @@ class IntroController extends GetxController {
             service = startUp.services.posts;
             brand = startUp.brand.posts;
             gallery = startUp.gallary.posts;
+            offers = startUp.offers.posts;
             reviews = startUp.reviews.posts;
             events = startUp.events.posts;
             blogs = startUp.blogs.posts;
@@ -90,6 +92,8 @@ class IntroController extends GetxController {
             aboutHomePage = startUp.aboutHomePage.posts.first;
             aboutPage = startUp.aboutPage.posts.first;
             searchSugg = startUp.searchSuggestion!;
+            print('********* offers *********');
+            print(startUp.offers.posts.length);
           }
           wishListController.getWishlistData();
           addressesController.getAddress();

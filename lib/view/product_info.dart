@@ -5,6 +5,8 @@ import 'package:bk9/controller/intro_controller.dart';
 import 'package:bk9/controller/main_page_controller.dart';
 import 'package:bk9/controller/productInfo_controller.dart';
 import 'package:bk9/controller/shop_controller.dart';
+import 'package:bk9/controller/wishlist_controller.dart';
+import 'package:bk9/model/post.dart';
 import 'package:bk9/model/product.dart';
 import 'package:bk9/widgets/background_image.dart';
 import 'package:bk9/widgets/headers/product_header.dart';
@@ -49,12 +51,13 @@ class ProductInformation extends StatelessWidget {
   IntroController introController = Get.find();
   ProductInfoController productInfoController = Get.find();
   CartController cartController = Get.find();
+  WishListController wishListController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Obx(() => SafeArea(
-          child:   productInfoController.loading.value ?
+          child: productInfoController.loading.value ?
           Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
@@ -62,7 +65,7 @@ class ProductInformation extends StatelessWidget {
             child: Center(
               child: CircularProgressIndicator(color: AppStyle.primary,),
             ),
-          ) :Stack(
+          ) : Stack(
             children: [
               BackgroundImage(),
               SingleChildScrollView(
@@ -70,14 +73,13 @@ class ProductInformation extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(height: 70),
+                      SizedBox(height: 90),
                       // SizedBox(height: 20),
                       _body(context),
                       SizedBox(height: 20),
                     ],
                   )
               ),
-
               Positioned(
                 top: 0,
                 child: _header(shopController.selectedSubCategory.value),
@@ -123,7 +125,7 @@ class ProductInformation extends StatelessWidget {
                         child:  product!.colorsImages!.length ==0 || product!.colorsImages![productInfoController.getIndexColorImages(product!.colors![productInfoController.selectedColorIndex.value].colorId,product!.colorsImages!)].images!.length == 0
                             || product!.media!.length == 0  ? Container(
                           width: AppStyle.getDeviceWidthPercent(85, context),
-                          height: AppStyle.getDeviceHeightPercent(25, context),
+                          height: AppStyle.getDeviceWidthPercent(85, context),
                           decoration:BoxDecoration(
                               borderRadius: BorderRadius.circular(30),
                               image: DecorationImage(
@@ -152,7 +154,7 @@ class ProductInformation extends StatelessWidget {
                     ),
                   ):const Text(""),
                   Positioned(
-                    top: AppStyle.getDeviceHeightPercent(22, context),
+                    top: AppStyle.getDeviceWidthPercent(85, context)-25,
                     child: Container(
                       width: AppStyle.getDeviceWidthPercent(85, context),
                       decoration: BoxDecoration(
@@ -189,6 +191,15 @@ class ProductInformation extends StatelessWidget {
                                 Obx(() => GestureDetector(
                                     onTap: () {
                                       //todo add wishlist function
+
+                                      Post p = Post(id: product!.id, parent1: -1, parent2: -1, parent3: -1, parent4: -1, parent5: -1, postTypeId: product!.postTypeId,
+                                          publish: 1, search: "", title: product!.title, subTitle: product!.subTitle, image: product!.image, sku: product!.sku, slug: product!.slug, price: product!.price!.toDouble(), regularPrice: product!.regularPrice.toDouble(), likes: product!.likes, availability:product!.availability,
+                                          companyId: product!.companyId, metaTitle:product!. metaTitle, metaDescription:product!. metaDescription, position: product!.position, locale: "",
+                                          languageParent: product!.languageParent, rate: product!.rate, stringDescription: product!.stringDescription, wishlist: product!.wishlist,
+                                          media: null, review: null, jsonData: null, count: 0, favorite: product!.wishlist ==1?true.obs:false.obs, my_rate: product!.myRate.toDouble(), cartCount: 0.obs, posts: null, color: Colors.red);
+                                      wishListController.wishlistFunction(p,context);
+                                      product!.favorite.value = ! product!.favorite.value;
+                                      print(product!.favorite.value);
                                     },
                                     child: Icon(
                                       product!.favorite.value
@@ -408,7 +419,7 @@ class ProductInformation extends StatelessWidget {
   _productImages(BuildContext context) {
     return Container(
       width: AppStyle.getDeviceWidthPercent(85, context),
-      height: AppStyle.getDeviceHeightPercent(25, context),
+      height:AppStyle.getDeviceWidthPercent(85, context),
       child: Column(
         children: [
           Stack(
@@ -416,7 +427,7 @@ class ProductInformation extends StatelessWidget {
               CarouselSlider.builder(
                 carouselController: productInfoController.carouselController,
                 options: CarouselOptions(
-                    height: AppStyle.getDeviceHeightPercent(25, context),
+                    height: AppStyle.getDeviceWidthPercent(85, context),
                     autoPlay: true,
                     enlargeCenterPage: true,
                     viewportFraction: 1,
@@ -431,7 +442,7 @@ class ProductInformation extends StatelessWidget {
                 itemBuilder: (BuildContext context, int photoIndex, int realIndex) {
                   return Container(
                     width: AppStyle.getDeviceWidthPercent(85, context),
-                    height: AppStyle.getDeviceHeightPercent(25, context),
+                    height:AppStyle.getDeviceWidthPercent(85, context),
                     decoration:BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
                         image: DecorationImage(

@@ -212,6 +212,40 @@ class FilterSelection extends StatelessWidget {
                                   ),
                                 ),
                               ),
+
+                              ///offers
+                              SizedBox(height: 20,),
+                              GestureDetector(
+                                onTap: (){
+                                  Get.off(ProductFilter(introController.offers));
+                                },
+                                child: Container(
+                                  height: 40,
+                                  width: MediaQuery.of(context).size.width*0.9,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(20),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Colors.grey.withOpacity(0.5),
+                                            offset: Offset(0,1),
+                                            blurRadius: 2,
+                                            spreadRadius: 0.1
+                                        )
+                                      ]
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 15),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text("Offers",style: TextStyle(color: Colors.black,fontSize: 16),),
+                                        Icon(Icons.keyboard_arrow_right_outlined)
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),

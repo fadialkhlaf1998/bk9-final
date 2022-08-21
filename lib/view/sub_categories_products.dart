@@ -18,6 +18,7 @@ class SubCategoriesProducts extends StatelessWidget {
   SubCategoriesProducts(this.subCategories){
     shopController.selectedSubCategory.value = 0;
     shopController.productsView.value = subCategories[shopController.selectedSubCategory.value].posts!;
+    wishListController.refreshProduct(subCategories[shopController.selectedSubCategory.value].posts!);
   }
 
 
@@ -114,7 +115,9 @@ class SubCategoriesProducts extends StatelessWidget {
               padding: EdgeInsets.only(top: 3),
               child: GestureDetector(
                   onTap: () {
-                    Get.to(() => Wishlist());
+                    Get.to(() => Wishlist())!.then((value) {
+                      wishListController.refreshProduct(subCategories[shopController.selectedSubCategory.value].posts!);
+                    });
                   },
                   child: ContainerWithImage(
                       width: 40,
@@ -207,7 +210,9 @@ class SubCategoriesProducts extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 5),
               child: GestureDetector(
                 onTap:  (){
-                  introController.goToProductPage(shopController.productsView[index].id);
+                  Get.to(()=> ProductInformation(shopController.productsView[index].id))!.then((value) {
+                    wishListController.refreshProduct(subCategories[shopController.selectedSubCategory.value].posts!);
+                  });
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

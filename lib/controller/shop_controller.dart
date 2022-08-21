@@ -9,6 +9,7 @@ class ShopController extends GetxController{
   Rx<int> selectedCategory = 0.obs;
   Rx<int> selectedSubCategory = 0.obs;
   RxBool loading = false.obs;
+  RxBool fake = false.obs;
   RxList<Post> productsView = <Post>[].obs;
 
   ///sort sate 0 newest | 1 top rated | 2 lowes price | 3 highest price
@@ -28,6 +29,7 @@ class ShopController extends GetxController{
       posts.sort((a,b)=>a.price.compareTo(b.price));
       posts = posts.reversed.toList();
     }
+    fake.value = !fake.value;
     return posts;
   }
 

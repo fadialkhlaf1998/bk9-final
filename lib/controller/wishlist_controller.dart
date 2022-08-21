@@ -56,4 +56,19 @@ class WishListController extends GetxController {
       wishlist.addAll(value);
     });
   }
+
+  refreshProduct(List<Post> products){
+    for(int i=0;i<products.length;i++){
+      for(int j=0;j<wishlist.length;j++){
+        if(products[i].id==wishlist[j].id){
+          products[i].favorite.value=true;
+          print('*************');
+          print(products[i].favorite.value);
+          break;
+        }else{
+          products[i].favorite.value=false;
+        }
+      }
+    }
+  }
 }

@@ -36,6 +36,7 @@ class ProductFilter extends StatelessWidget {
         body: Obx(() => SafeArea(
           child: Stack(
             children: [
+              shopController.fake.value?Center():Center(),
               BackgroundImage(),
               SingleChildScrollView(
                 physics: NeverScrollableScrollPhysics(),

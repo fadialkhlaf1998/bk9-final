@@ -18,6 +18,7 @@ class StartUp {
     required this.newArrivals,
     required this.recomended,
     required this.searchSuggestion,
+    required this.offers,
   });
 
   PostList banners;
@@ -31,6 +32,7 @@ class StartUp {
   PostList events;
   PostList blogs;
   PostList best_sellers;
+  PostList offers;
   PostList newArrivals;
   PostList recomended;
   List<SearchSuggestion>? searchSuggestion;
@@ -51,6 +53,7 @@ class StartUp {
     reviews: PostList.fromMap(json["reviews"]),
     blogs: PostList.fromMap(json["blogs"]),
     events: PostList.fromMap(json["events"]),
+    offers: PostList.fromMap(json["offers"]),
     best_sellers: PostList.fromMap(json["best_sellers"]),
     newArrivals: PostList.fromMap(json["new_arrivals"]),
     recomended: PostList.fromMap(json["recomended"]),
@@ -68,6 +71,7 @@ class StartUp {
     "blogs": blogs.toMap(),
     "events": events.toMap(),
     "best_sellers": best_sellers.toMap(),
+    "offers": offers.toMap(),
     "new_arrivals": newArrivals.toJson(),
     "recomended": recomended.toJson(),
   };
