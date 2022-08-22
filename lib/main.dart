@@ -9,7 +9,7 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  ///from maya 8/16
+  /// updates 8/22/2022
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -19,4 +19,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

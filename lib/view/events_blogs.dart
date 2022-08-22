@@ -1,8 +1,5 @@
 import 'package:bk9/const/app-style.dart';
-import 'package:bk9/controller/intro_controller.dart';
-import 'package:bk9/controller/wishlist_controller.dart';
 import 'package:bk9/model/post.dart';
-import 'package:bk9/view/services_details.dart';
 import 'package:bk9/widgets/background_image.dart';
 import 'package:bk9/widgets/container_with_image.dart';
 import 'package:flutter/material.dart';
@@ -102,7 +99,6 @@ class EventsBlogs extends StatelessWidget {
     return Column(
       children: [
         SizedBox(height: 20,),
-        // _posts(context),
         _selecter(context),
         selected_viewer.value == 0 ?
         _eventsList(context) : _blogsList(context)
@@ -112,7 +108,7 @@ class EventsBlogs extends StatelessWidget {
   _selecter(BuildContext context){
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: 35,
+      height: 30,
       // color: Colors.red,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -124,8 +120,16 @@ class EventsBlogs extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text("Events",style: TextStyle(color: selected_viewer.value == 0 ?AppStyle.primary:Colors.grey,fontSize: 16,fontWeight: FontWeight.bold),),
-                Container(height: 2,width: 50,color: selected_viewer.value == 0 ?AppStyle.primary:Colors.grey,)
+                Text("Events",
+                  style: TextStyle(
+                      color: selected_viewer.value == 0 ?
+                      AppStyle.primary:AppStyle.grey,
+                      fontSize: CommonTextStyle.mediumTextStyle,
+                      fontWeight: FontWeight.bold
+                  ),
+                ),
+                SizedBox(height: 2),
+                Container(height: 2,width: 70,color: selected_viewer.value == 0 ?AppStyle.primary:AppStyle.grey,)
               ],
             ),
           ),
@@ -136,8 +140,16 @@ class EventsBlogs extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text("Blogs",style: TextStyle(color: selected_viewer.value == 1 ?AppStyle.primary:Colors.grey,fontSize: 16,fontWeight: FontWeight.bold),),
-                Container(height: 2,width: 50,color: selected_viewer.value == 1 ?AppStyle.primary:Colors.grey,)
+                Text("Blogs",
+                  style: TextStyle(
+                      color: selected_viewer.value == 1 ?
+                      AppStyle.primary:AppStyle.grey,
+                      fontSize: CommonTextStyle.mediumTextStyle,
+                      fontWeight: FontWeight.bold
+                  ),
+                ),
+                SizedBox(height: 2),
+                Container(height: 2,width: 70,color: selected_viewer.value == 1 ?AppStyle.primary:AppStyle.grey,)
               ],
             ),
           )
@@ -149,10 +161,10 @@ class EventsBlogs extends StatelessWidget {
     return GridView.builder(
         padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 30),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10,
-          childAspectRatio: 5/7,
-          crossAxisCount: 2,
+            crossAxisCount: 1,
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 10,
+            childAspectRatio: 1.5
         ),
         physics: NeverScrollableScrollPhysics(),
         scrollDirection: Axis.vertical,
@@ -160,64 +172,78 @@ class EventsBlogs extends StatelessWidget {
         shrinkWrap: true,
         itemBuilder: (context, index) {
           return Container(
+            width: AppStyle.getDeviceWidthPercent(90, context),
+            height: AppStyle.getDeviceHeightPercent(25, context),
             decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(25),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: Offset(3,1)
-                  )
-                ]
+              borderRadius: BorderRadius.circular(25),
             ),
-            child: GestureDetector(
-
-              onTap: () {
-
-              },
-              child: Padding(
-                  padding: const EdgeInsets.all(0),
-                  child: Column(
-                    children: [
-                      Expanded(flex: 5,child: Container(
-                        // width: width,
-                        // height: height,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25)),
-                            image: DecorationImage(
-                                image: NetworkImage(blogs[index].image!),
-                                fit: BoxFit.cover
-                            )
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    width: AppStyle.getDeviceWidthPercent(90, context),
+                    height: AppStyle.getDeviceHeightPercent(18, context),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(25),
+                          topRight: Radius.circular(25),
                         ),
-                      ),),
-                      Expanded(flex: 2,child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        image: DecorationImage(
+                            image: NetworkImage(blogs[index].image!),
+                            fit: BoxFit.cover
+                        )
+                    ),
+                  ),
+                  Container(
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        color: AppStyle.blue,
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(25),
+                          bottomRight: Radius.circular(25),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(blogs[index].title!,textAlign: TextAlign.center,)
+                            Text(
+                              blogs[index].title!,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: CommonTextStyle.smallTextStyle,
+                                  overflow: TextOverflow.ellipsis
+                              ),
+                            ),
+                            SizedBox(height: 3),
+                            Text(
+                              blogs[index].subTitle!,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: CommonTextStyle.smallTextStyle,
+                                  overflow: TextOverflow.ellipsis
+                              ),
+                            ),
                           ],
                         ),
-                      )),
-
-                    ],
+                      )
                   )
+                ],
               ),
             ),
           );
         });
   }
-
   _eventsList(BuildContext context) {
     return GridView.builder(
         padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 30),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10,
-          childAspectRatio: 5/7,
-          crossAxisCount: 2,
+            crossAxisCount: 1,
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 10,
+            childAspectRatio: 1.5
         ),
         physics: NeverScrollableScrollPhysics(),
         scrollDirection: Axis.vertical,
@@ -225,56 +251,68 @@ class EventsBlogs extends StatelessWidget {
         shrinkWrap: true,
         itemBuilder: (context, index) {
           return Container(
+            width: AppStyle.getDeviceWidthPercent(90, context),
+            height: AppStyle.getDeviceHeightPercent(25, context),
             decoration: BoxDecoration(
-              color: Colors.white,
               borderRadius: BorderRadius.circular(25),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 1,
-                  blurRadius: 5,
-                  offset: Offset(3,1)
-                )
-              ]
             ),
-            child: GestureDetector(
-
-              onTap: () {
-
-              },
-              child: Padding(
-                  padding: const EdgeInsets.all(0),
-                  child: Column(
-                    children: [
-                      Expanded(flex: 5,child: Container(
-                        // width: width,
-                        // height: height,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25)),
-                            image: DecorationImage(
-                                image: NetworkImage(events[index].image!),
-                                fit: BoxFit.cover
-                            )
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    width: AppStyle.getDeviceWidthPercent(90, context),
+                    height: AppStyle.getDeviceHeightPercent(18, context),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(25),
+                          topRight: Radius.circular(25),
                         ),
-                      ),),
-                      Expanded(flex: 2,child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        image: DecorationImage(
+                            image: NetworkImage(events[index].image!),
+                            fit: BoxFit.cover
+                        )
+                    ),
+                  ),
+                  Container(
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        color: AppStyle.blue,
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(25),
+                          bottomRight: Radius.circular(25),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(events[index].title!,textAlign: TextAlign.center,)
+                            Text(
+                              events[index].title!,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: CommonTextStyle.smallTextStyle,
+                                  overflow: TextOverflow.ellipsis
+                              ),
+                            ),
+                            SizedBox(height: 3),
+                            Text(
+                              events[index].subTitle!,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: CommonTextStyle.smallTextStyle,
+                                  overflow: TextOverflow.ellipsis
+                              ),
+                            ),
                           ],
                         ),
-                      )),
-
-                    ],
+                      )
                   )
+                ],
               ),
             ),
           );
         });
   }
-
-
-
 }

@@ -2,6 +2,7 @@ import 'package:bk9/const/app-style.dart';
 import 'package:bk9/controller/intro_controller.dart';
 import 'package:bk9/controller/wishlist_controller.dart';
 import 'package:bk9/model/post.dart';
+import 'package:bk9/view/product_info.dart';
 import 'package:bk9/view/services_details.dart';
 import 'package:bk9/widgets/background_image.dart';
 import 'package:bk9/widgets/container_with_image.dart';
@@ -189,7 +190,10 @@ class CustomSearchView extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 5),
               child: GestureDetector(
                   onTap:  (){
-                    introController.goToProductPage(products[index].id);
+                    // introController.goToProductPage(products[index].id);
+                    Get.to(()=> ProductInformation(products[index].id))!.then((value) {
+                      wishListController.refreshProduct(products);
+                    });
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

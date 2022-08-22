@@ -104,7 +104,7 @@ class Home extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Events And Bolgs",
+                Text("Bolgs and Events",
                     style: CommonTextStyle.textStyleForDarkGreyBigButton
                 ),
                 GestureDetector(
@@ -120,7 +120,7 @@ class Home extends StatelessWidget {
             )
         ),
         SizedBox(height: 15),
-        _newsAndEventsList(context),
+        _blogsAndEventsList(context),
         SizedBox(height: 20),
       ],
     );
@@ -291,14 +291,11 @@ class Home extends StatelessWidget {
       introController: introController,
     );
   }
-  _newsAndEventsList(BuildContext context) {
+  _blogsAndEventsList(BuildContext context) {
     return CustomListViewContainer(
       myList: introController.events,
-      onTap: () {
-        ///news and events page
-      },
-      width: AppStyle.getDeviceWidthPercent(40, context),
-      height: AppStyle.getDeviceHeightPercent(20, context),
+      width: AppStyle.getDeviceWidthPercent(90, context),
+      height: AppStyle.getDeviceHeightPercent(25, context),
       introController: introController,
     );
   }

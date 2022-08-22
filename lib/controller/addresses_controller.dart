@@ -82,7 +82,7 @@ class AddressesController extends GetxController {
           });
         }else{
           Get.to(() => NoInternet())!.then((value) {
-            addAddress(context,nickName,defaultAddress,adrs1,adrs2,phone,apartment,emirate,country );
+            addAddress(context,nickName,defaultAddress,adrs1,adrs2,phone,apartment,emirate,country);
           });
         }
       });
@@ -97,7 +97,7 @@ class AddressesController extends GetxController {
         });
       }else {
         Get.to(() => NoInternet())!.then((value) {
-          getAddress();
+          setDefault(address);
         });
       }
     });
@@ -134,7 +134,7 @@ class AddressesController extends GetxController {
         });
       }else {
         Get.to(() => NoInternet())!.then((value) {
-          getAddress();
+          deleteAddress(context,address);
         });
       }
     });
@@ -152,7 +152,7 @@ class AddressesController extends GetxController {
         });
       }else{
         Get.to(() => NoInternet())!.then((value) {
-          addAddress(context,nickName,defaultAddress,adrs1,adrs2,phone,apartment,emirate,country );
+          editAddress(context,nickName,defaultAddress,adrs1,adrs2,apartment,phone,country,emirate,id);
         });
       }
     });

@@ -8,12 +8,10 @@ import 'package:get/get.dart';
 
 class ProductInfoController extends GetxController {
 
-  ScrollController scrollController = ScrollController();
   TextEditingController review = TextEditingController();
   CarouselController carouselController = CarouselController();
   var counter = 1.obs;
-  var last_rate = 0.obs;
-  CartController cartController = Get.find();
+  var lastRate = 0.obs;
   var sizeValue = "".obs;
   var colorValue = "".obs;
   var weightValue = "".obs;
@@ -35,7 +33,7 @@ class ProductInfoController extends GetxController {
     selectedColorIndex.value=0;
     selectedDesFea.value=0;
     counter.value=1;
-    last_rate = product!.myRate.obs;
+    lastRate = product!.myRate.obs;
     if(product!.colors!=null&&product!.colors!.isNotEmpty){
       selectedColorId.value = product!.colors![0].colorId;
       selectedColorIndex.value = getIndexColorImages(selectedColorId.value,product!.colorsImages!);
@@ -47,6 +45,7 @@ class ProductInfoController extends GetxController {
       selectedSizeId.value = product!.sizes![0].sizeId;
     }
   }
+
   onSelectOption() {
     print('size:' +selectedSizeId.toString());
     print('color:' +selectedColorId.toString());
@@ -68,7 +67,6 @@ class ProductInfoController extends GetxController {
 
   /// cart
   increase() {
-
     counter.value++;
   }
   decrease() {
@@ -103,7 +101,6 @@ class ProductInfoController extends GetxController {
     }
     return 0;
   }
-
   getWeightId(String title, List<Weight> list){
     for(int i=0;i<list.length;i++){
       if(list[i].title == title){
@@ -112,7 +109,6 @@ class ProductInfoController extends GetxController {
     }
     return 0;
   }
-
   getSizeId(String title, List<Size> list){
     for(int i=0;i<list.length;i++){
       if(list[i].title == title){
@@ -122,15 +118,17 @@ class ProductInfoController extends GetxController {
     return 0;
   }
 
+  /// rate
   rateProduct(int rate){
-    print('rated for id ${product!.id}');
+    // print('rated for id ${product!.id}');
     API.addRate(product!.id, rate);
   }
 
+  /// review
   reviewProduct(BuildContext context){
     if(review.text.isNotEmpty){
       API.addReview(product!.id, review.text);
-      product!.review!.insert(0,Review(body: review.text,customerId: API.customer_id,firstname: API.customer!.firstname,id: -1,lastname: "",postId: product!.id,rate: last_rate.value));
+      product!.review!.insert(0,Review(body: review.text,customerId: API.customer_id,firstname: API.customer!.firstname,id: -1,lastname: "",postId: product!.id,rate: lastRate.value));
       loading.value=true;
       loading.value=false;
       review.clear();

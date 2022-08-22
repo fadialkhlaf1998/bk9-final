@@ -1,21 +1,50 @@
+import 'package:bk9/const/api.dart';
 import 'package:bk9/const/app-style.dart';
 import 'package:bk9/controller/customer_order_controller.dart';
+import 'package:bk9/controller/main_page_controller.dart';
 import 'package:bk9/model/customer_order.dart';
+import 'package:bk9/view/no_internet.dart';
+import 'package:bk9/view/order_items.dart';
 import 'package:bk9/widgets/background_image.dart';
 import 'package:bk9/widgets/container_with_image.dart';
 import 'package:bk9/widgets/custom_button.dart';
+import 'package:bk9/widgets/text_app.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class CustomerOrderView extends StatelessWidget {
 
-  CustomerOrderView(List<CustomerOrder> orders) {
-    customerOrderController.orders = orders;
+  // CustomerOrderView(List<CustomerOrder> orders) {
+  //   customerOrderController.orders = orders;
+  // }
+  RxBool loading = false.obs;
+  CustomerOrderView(int id) {
+    loading.value = true;
+    API.checkInternet().then((internet) async {
+      if (internet) {
+        API.getCustomerOrders(API.customer_id).then((value) {
+          loading.value = false;
+          if (value.isNotEmpty) {
+            customerOrderController.orders = value;
+          } else {
+            //AppStyle.errorMsg(context,"You don't have any orders yet");
+          }
+        });
+      } else {
+        Get.to(() => NoInternet())!.then((value) {
+          Get.off(() => CustomerOrderView(id));
+        });
+      }
+    }).catchError((err) {
+      loading.value = false;
+      err.printError();
+    });
   }
 
   CustomerOrderController customerOrderController = Get.put(CustomerOrderController());
-
+  MainPageController mainPageController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +53,50 @@ class CustomerOrderView extends StatelessWidget {
           child: Stack(
             children: [
               BackgroundImage(),
-              SingleChildScrollView(
+              loading.value ?
+              Positioned(
+                  child: Column(
+                    children: [
+                      _header(context),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height * 0.8,
+                        color: Colors.white.withOpacity(0.5),
+                        child: Center(
+                          child: CircularProgressIndicator(color: AppStyle.primary,),
+                        ),
+                      ),
+                ],
+              )) :  SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     _header(context),
                     SizedBox(height: 30),
+                    customerOrderController.orders.isEmpty ?
+                    Column(
+                      children: [
+                        TextApp(text: "You don't have any orders yet",
+                            width: AppStyle.getDeviceWidthPercent(80, context),
+                            height: AppStyle.getDeviceHeightPercent(8, context),
+                            textStyle: CommonTextStyle.textStyleForDarkGreySmallButtonBold
+                        ),
+                        SizedBox(height: 10),
+                        CustomButton(
+                            text: "Continue Shopping",
+                            onPressed: () {
+                              Get.back();
+                              mainPageController.changeIndexOfBottomBar(1);
+                            },
+                            color: AppStyle.primary,
+                            borderRadius: 30,
+                            border: Colors.transparent,
+                            width: AppStyle.getDeviceWidthPercent(80, context),
+                            height: AppStyle.getDeviceHeightPercent(6.5, context),
+                            textStyle: CommonTextStyle.textStyleForOrangeMediumButtonBold
+                        ),
+                      ],
+                    ) :
                     Container(
                         child: ListView.builder(
                             itemCount: customerOrderController.orders.length,
@@ -42,15 +109,6 @@ class CustomerOrderView extends StatelessWidget {
                   ],
                 ),
               ),
-              customerOrderController.loading.value ?
-              Positioned(child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                color: Colors.white.withOpacity(0.5),
-                child: Center(
-                  child: CircularProgressIndicator(color: AppStyle.primary,),
-                ),
-              )) : Center()
             ],
           ),
         )
@@ -236,7 +294,8 @@ class CustomerOrderView extends StatelessWidget {
                       CustomButton(
                           text: "view order",
                           onPressed: () {
-                            customerOrderController.viewOrder(orderItem.id, context);
+                            // customerOrderController.viewOrder(orderItem.id, context);
+                            Get.to(() => OrderItems(orderItem.id));
                           },
                           color: AppStyle.primary,
                           borderRadius: 20,

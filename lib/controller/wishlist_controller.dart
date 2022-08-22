@@ -9,6 +9,7 @@ class WishListController extends GetxController {
 
   RxList<Post> wishlist = <Post>[].obs;
   var loading = false.obs;
+  var fake = false.obs;
 
   @override
   void onInit() {

@@ -10,11 +10,7 @@ import 'package:get/get.dart';
 
 class CartController extends GetxController {
   RxList<CartItem> cart = <CartItem>[].obs;
-  Rx<double> subTotal = 0.0.obs,
-      total = 0.0.obs,
-      shipping = 10.0.obs,
-      discount = API.discount.obs,
-      coupon = 0.0.obs;
+  Rx<double> subTotal = 0.0.obs, total = 0.0.obs, shipping = 10.0.obs, discount = API.discount.obs, coupon = 0.0.obs;
   Rx<bool> loading = false.obs;
   Rx<bool> cart_op_loading = false.obs;
   TextEditingController discountCode = TextEditingController();
@@ -59,7 +55,6 @@ class CartController extends GetxController {
           if(index>=0){
             cart[index].loading_op.value = false;
           }
-
         });
       }
     } else {
@@ -72,7 +67,6 @@ class CartController extends GetxController {
       return false;
     }
   }
-
   int checkInCart(Option option) {
     for (int i = 0; i < cart.length; i++) {
       if (cart[i].productOptionsId == option.id) {
@@ -81,7 +75,6 @@ class CartController extends GetxController {
     }
     return 0;
   }
-
   int getOptionIndex(Option option) {
     for (int i = 0; i < cart.length; i++) {
       if (cart[i].productOptionsId == option.id) {
@@ -90,11 +83,9 @@ class CartController extends GetxController {
     }
     return -1;
   }
-
   increase(Option option, int count, BuildContext context) {
     addToCart(option, count, context);
   }
-
   decrease(Option option, int count, BuildContext context) {
     print(count);
     if(count>0){
@@ -108,7 +99,6 @@ class CartController extends GetxController {
       addToCart(option, count, context);
     }
   }
-
   deleteFromCart(int index, BuildContext context)async{
     cart_op_loading.value = true;
     cart[index].loading_op.value = true;
@@ -126,7 +116,6 @@ class CartController extends GetxController {
       cart[index].loading_op.value = false;
     }
   }
-
   getCartData() async {
     Store.loadLogInInfo();
     API.getCart(API.customer_id).then((value){
@@ -134,7 +123,6 @@ class CartController extends GetxController {
       getTotal();
     });
   }
-
   clear() {
     cart.clear();
     discount.value = 0.0;

@@ -17,7 +17,7 @@ class Intro extends StatelessWidget {
         child: ContainerWithImage(
             width: AppStyle.getDeviceWidthPercent(100, context),
             height: AppStyle.getDeviceHeightPercent(100, context),
-            image: "assets/images/Loading.png",
+            image: "assets/images/BK9.gif",
             option: 1),
         // child: Container(
         //   width: AppStyle.getDeviceWidthPercent(100, context),

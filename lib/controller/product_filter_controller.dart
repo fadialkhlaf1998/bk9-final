@@ -1,4 +1,3 @@
-
 import 'package:bk9/model/post.dart';
 import 'package:get/get.dart';
 

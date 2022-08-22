@@ -3,6 +3,7 @@ import 'package:bk9/const/app-style.dart';
 import 'package:bk9/controller/account_controller.dart';
 import 'package:bk9/controller/addresses_controller.dart';
 import 'package:bk9/view/create_address.dart';
+import 'package:bk9/view/no_internet.dart';
 import 'package:bk9/widgets/background_image.dart';
 import 'package:bk9/widgets/container_with_image.dart';
 import 'package:bk9/widgets/custom_button.dart';
@@ -13,6 +14,30 @@ class MyAddress extends StatelessWidget {
 
   AddressesController addressesController = Get.find();
   AccountController accountController = Get.find();
+  // RxBool loading = false.obs;
+
+  MyAddress() {
+    API.checkInternet().then((internet) {
+      if(internet) {
+        addressesController.loading.value = true;
+        API.getAddress().then((value) {
+          if(value.isNotEmpty) {
+            addressesController.addresses.clear();
+            addressesController.addresses.addAll(value);
+            addressesController.loading.value = false;
+            // Get.to(() => MyAddress());
+            addressesController.clear();
+          }else{
+            addressesController.loading.value = false;
+          }
+        });
+      }else {
+        Get.to(() => NoInternet())!.then((value) {
+          Get.off(()=> MyAddress());
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +64,22 @@ class MyAddress extends StatelessWidget {
           child: Stack(
             children: [
               BackgroundImage(),
+              addressesController.loading.value?
+              Positioned(
+                child: Column(
+                  children: [
+                    _header(context),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.8,
+                      color: Colors.white.withOpacity(0.5),
+                      child: Center(
+                        child: CircularProgressIndicator(color: AppStyle.primary,),
+                      ),
+                    )
+                  ],
+                ),
+              ) :
               SingleChildScrollView(
                 physics: NeverScrollableScrollPhysics(),
                 child: Column(
@@ -51,15 +92,6 @@ class MyAddress extends StatelessWidget {
                   ],
                 ),
               ),
-              addressesController.loading.value?
-              Positioned(child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                color: Colors.white.withOpacity(0.5),
-                child: Center(
-                  child: CircularProgressIndicator(color: AppStyle.primary,),
-                ),
-              )) : Center()
             ],
           ),
         ))

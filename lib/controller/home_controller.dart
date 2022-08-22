@@ -13,11 +13,6 @@ class HomeController extends GetxController {
   var activeIndex = 0.obs;
   var selectedServices = 0.obs;
 
-
-  /// remove later
-  // List<Post> events = <Post>[];
-
-
   set_index(int selected){
     activeIndex.value=selected;
   }

@@ -36,25 +36,25 @@ class Search extends StatelessWidget {
                 height: 30,
                 textStyle: CommonTextStyle.textStyleForGreySmallButtonBold
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 5),
-              child: Container(
-                width: AppStyle.getDeviceWidthPercent(11, context),
-                decoration: BoxDecoration(
-                  color: AppStyle.primary,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: const Center(
-                  child: ContainerWithImage(
-                      width: 20,
-                      height: 20,
-                      image: "assets/icons/search.svg",
-                      color: Colors.white,
-                      option: 0
-                  ),
-                )
-              ),
-            )
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 5),
+            //   child: Container(
+            //     width: AppStyle.getDeviceWidthPercent(11, context),
+            //     decoration: BoxDecoration(
+            //       color: AppStyle.primary,
+            //       borderRadius: BorderRadius.circular(30),
+            //     ),
+            //     child: const Center(
+            //       child: ContainerWithImage(
+            //           width: 20,
+            //           height: 20,
+            //           image: "assets/icons/search.svg",
+            //           color: Colors.white,
+            //           option: 0
+            //       ),
+            //     )
+            //   ),
+            // )
           ],
         ),
       ),

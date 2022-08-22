@@ -2,10 +2,14 @@ import 'package:bk9/const/api.dart';
 import 'package:bk9/const/app-style.dart';
 import 'package:bk9/const/store.dart';
 import 'package:bk9/controller/account_controller.dart';
+import 'package:bk9/controller/intro_controller.dart';
 import 'package:bk9/controller/main_page_controller.dart';
 import 'package:bk9/view/FAQ.dart';
 import 'package:bk9/view/change_password.dart';
+import 'package:bk9/view/customer_order_view.dart';
 import 'package:bk9/view/login.dart';
+import 'package:bk9/view/my_address.dart';
+import 'package:bk9/view/product_filter.dart';
 import 'package:bk9/view/signup.dart';
 import 'package:bk9/view/wishlist.dart';
 import 'package:bk9/widgets/background_image.dart';
@@ -20,6 +24,7 @@ class Account extends StatelessWidget {
 
   MainPageController mainPageController = Get.find();
   AccountController accountController = Get.find();
+  IntroController introController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -236,7 +241,7 @@ class Account extends StatelessWidget {
               CustomButton(
                   text: "Offers",
                   onPressed: () {
-                    ///
+                    Get.to(() => ProductFilter(introController.offers));
                   },
                   color: AppStyle.greyButton,
                   borderRadius: 30,
@@ -448,7 +453,8 @@ class Account extends StatelessWidget {
         CustomButton(
             text: "Order History",
             onPressed: () {
-              accountController.getOrderHistory(context);
+              // accountController.getOrderHistory(context);
+              Get.to(() => CustomerOrderView(API.customer_id));
             },
             color: AppStyle.primary,
             borderRadius: 30,
@@ -472,7 +478,8 @@ class Account extends StatelessWidget {
         CustomButton(
             text: "My Addresses",
             onPressed: () {
-              accountController.getAddress();
+              // accountController.getAddress();
+              Get.to(() => MyAddress());
             },
             color: AppStyle.primary,
             borderRadius: 30,

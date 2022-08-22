@@ -1,7 +1,6 @@
 import 'package:bk9/const/app-style.dart';
 import 'package:bk9/controller/intro_controller.dart';
 import 'package:bk9/view/services_details.dart';
-import 'package:bk9/widgets/container_with_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

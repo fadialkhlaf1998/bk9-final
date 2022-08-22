@@ -13,6 +13,7 @@ class AppStyle {
   static const Color lightGrey = Color(0xffeeeeee);
   static const Color lightOrange = Color(0xffffe9d0);
   static const Color red = Color(0xffff0619);
+  static const Color blue = Color(0xff1d70b7);
 
 
   static getDeviceWidthPercent (percent, context){

@@ -24,6 +24,7 @@ class Wishlist extends StatelessWidget {
           child: Stack(
             children: [
               BackgroundImage(),
+              wishListController.fake.value ? Center() : Center(),
               SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,

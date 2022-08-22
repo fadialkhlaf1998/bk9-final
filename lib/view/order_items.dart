@@ -1,5 +1,7 @@
+import 'package:bk9/const/api.dart';
 import 'package:bk9/const/app-style.dart';
 import 'package:bk9/model/order_items.dart';
+import 'package:bk9/view/no_internet.dart';
 import 'package:bk9/widgets/background_image.dart';
 import 'package:bk9/widgets/container_with_image.dart';
 import 'package:flutter/material.dart';
@@ -7,15 +9,38 @@ import 'package:get/get.dart';
 
 class OrderItems extends StatelessWidget {
 
-  List<OrderItem> orderItem;
-  OrderItems(this.orderItem);
+  List<OrderItem> orderItem = <OrderItem>[];
+  RxBool loading = false.obs;
+  OrderItems(int id){
+    API.checkInternet().then((internet) async {
+      if (internet) {
+        loading.value = true;
+        API.orderItems(id).then((posts) {
+          if (posts.isNotEmpty) {
+            loading.value = false;
+            orderItem = posts;
+          } else {
+            // AppStyle.errorMsg(context, "something went wrong");
+          }
+        });
+      } else {
+        Get.to(() => NoInternet())!.then((value) {
+          Get.off(() => OrderItems(id));
+        });
+      }
+    }).catchError((err) {
+      loading.value = false;
+      err.printError();
+    });
+    orderItem = orderItem;
+  }
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-          child: Stack(
+          child: Obx(() => Stack(
             children: [
               BackgroundImage(),
               SingleChildScrollView(
@@ -24,7 +49,16 @@ class OrderItems extends StatelessWidget {
                   children: [
                     _header(context),
                     SizedBox(height: 30),
+                    loading.value?
                     Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height*0.8,
+                      color: Colors.white.withOpacity(0.5),
+                      child: Center(
+                        child: CircularProgressIndicator(color: AppStyle.primary,),
+                      ),
+                    )
+                        :Container(
                         child: ListView.builder(
                             itemCount: orderItem.length,
                             shrinkWrap: true,
@@ -37,7 +71,7 @@ class OrderItems extends StatelessWidget {
                 ),
               ),
             ],
-          ),
+          )),
         )
     );
   }

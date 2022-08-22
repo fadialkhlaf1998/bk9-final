@@ -105,28 +105,55 @@ class SubCategoriesProducts extends StatelessWidget {
                     },
                     child: Icon(Icons.arrow_back,size: 23,)
                 ),
-                SizedBox(width: 20,),
+                SizedBox(width: 25,),
                 Text(introController.superCategory[shopController.selectedSuperCategory.value].posts![index].title!,
                     style: CommonTextStyle.textStyleForDarkGreyMediumButton
                 ),
               ],
             ),
-            Padding(
-              padding: EdgeInsets.only(top: 3),
-              child: GestureDetector(
+            Row(
+              children: [
+                GestureDetector(
                   onTap: () {
-                    Get.to(() => Wishlist())!.then((value) {
-                      wishListController.refreshProduct(subCategories[shopController.selectedSubCategory.value].posts!);
-                    });
+                    introController.pressedOnSearch(context);
                   },
-                  child: ContainerWithImage(
-                      width: 40,
-                      height: 70,
-                      image: "assets/icons/wishlist.svg",
-                      color: AppStyle.grey,
-                      option: 0)
-              ),
-            )
+                  child: Container(
+                      height: AppStyle.getDeviceHeightPercent(5, context),
+                      width: AppStyle.getDeviceWidthPercent(10.5, context),
+                      decoration: BoxDecoration(
+                        color: AppStyle.primary,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: const Center(
+                        child: ContainerWithImage(
+                            width: 20,
+                            height: 20,
+                            image: "assets/icons/search.svg",
+                            color: Colors.white,
+                            option: 0
+                        ),
+                      )
+                  ),
+                ),
+                SizedBox(width: 5,),
+                Padding(
+                  padding: const EdgeInsets.only(top: 3),
+                  child: GestureDetector(
+                      onTap: () {
+                        Get.to(() => Wishlist())!.then((value) {
+                          wishListController.refreshProduct(subCategories[shopController.selectedSubCategory.value].posts!);
+                        });
+                      },
+                      child: ContainerWithImage(
+                          width: 40,
+                          height: 70,
+                          image: "assets/icons/wishlist.svg",
+                          color: AppStyle.grey,
+                          option: 0)
+                  ),
+                )
+              ],
+            ),
           ],
         )
     );

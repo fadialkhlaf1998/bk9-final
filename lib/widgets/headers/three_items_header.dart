@@ -43,12 +43,16 @@ class ThreeItemsHeader extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            GestureDetector(
-                onTap: onTap,
-                child: Icon(Icons.arrow_back,size: 23,)
+            Row(
+              children: [
+                GestureDetector(
+                    onTap: onTap,
+                    child: Icon(Icons.arrow_back,size: 23,)
+                ),
+                SizedBox(width: 25,),
+                Text(text, style: textStyle),
+              ],
             ),
-            SizedBox(),
-            Text(text, style: textStyle),
             Row(
               children: [
                 GestureDetector(

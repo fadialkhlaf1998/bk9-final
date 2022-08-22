@@ -9,18 +9,15 @@ import 'package:bk9/model/brand.dart';
 import 'package:bk9/model/login_info.dart';
 import 'package:bk9/model/post.dart';
 import 'package:bk9/model/start_up.dart';
-import 'package:bk9/view/brand_products.dart';
 import 'package:bk9/view/custom_search_view.dart';
 import 'package:bk9/view/home_screen.dart';
 import 'package:bk9/view/intro_screens.dart';
 import 'package:bk9/view/main_page.dart';
 import 'package:bk9/view/no_internet.dart';
 import 'package:bk9/view/product_filter.dart';
-import 'package:bk9/view/product_info.dart';
 import 'package:bk9/view/searchDelgate.dart';
 import 'package:bk9/view/verification_code.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class IntroController extends GetxController {
@@ -35,7 +32,7 @@ class IntroController extends GetxController {
   List<Post> blogs = <Post>[];
   List<Post> newArrivals = <Post>[];
   List<Post> offers = <Post>[];
-  List<Post> recomended = <Post>[];
+  List<Post> recommended = <Post>[];
   List<Post> bestSellers = <Post>[];
   List<SearchSuggestion> searchSugg = <SearchSuggestion>[];
   Post? aboutHomePage;
@@ -49,7 +46,6 @@ class IntroController extends GetxController {
   var loading = false.obs;
   var loadingSearch = false.obs;
   var selectedPostFilter = 0.obs;
-
 
   @override
   void onInit() async {
@@ -69,10 +65,6 @@ class IntroController extends GetxController {
   get_data() {
     API.checkInternet().then((value) async {
       if (value) {
-        // API.getCompanyIdTo().then((value) {
-        //
-        // });
-
         API.getCompanyId().then((value) async {
           await login();
           StartUp? startUp = await API.startUp();
@@ -86,20 +78,17 @@ class IntroController extends GetxController {
             reviews = startUp.reviews.posts;
             events = startUp.events.posts;
             blogs = startUp.blogs.posts;
-            recomended = startUp.recomended.posts;
+            recommended = startUp.recomended.posts;
             bestSellers = startUp.best_sellers.posts;
             newArrivals = startUp.newArrivals.posts;
             aboutHomePage = startUp.aboutHomePage.posts.first;
             aboutPage = startUp.aboutPage.posts.first;
             searchSugg = startUp.searchSuggestion!;
-            print('********* offers *********');
-            print(startUp.offers.posts.length);
           }
           wishListController.getWishlistData();
           addressesController.getAddress();
           get_nave();
         });
-
       } else {
         Get.to(() => NoInternet())!.then((value) {
           get_data();
@@ -123,7 +112,6 @@ class IntroController extends GetxController {
     newArrivals = newArrivals;
     searchSugg = searchSugg;
     ready.value=true;
-    // Get.offAll(() => IntroScreen());
     if (API.email.isNotEmpty && API.is_active == true) {
       Get.offAll(() => MainPage());
       ready.value=true;
@@ -139,24 +127,6 @@ class IntroController extends GetxController {
     }
   }
 
-  // get_products_by_brand(int brandId, BuildContext context) {
-  //   API.checkInternet().then((internet){
-  //     if(internet){
-  //       loading.value = true;
-  //       API.getProductsByBrand(brandId).then((value) {
-  //         loading.value = false;
-  //         if(value.isNotEmpty) {
-  //           brands.addAll(value);
-  //           print(brands.length);
-  //           Get.to(()=> BrandProducts());
-  //         } else {
-  //           AppStyle.errorMsg(context, "No products in this brand");
-  //         }
-  //       });
-  //     }
-  //   });
-  // }
-
   shopByBrand(BuildContext context,int brand_id){
     loading.value = true;
     API.getProductsByBrand(brand_id).then((value) {
@@ -164,23 +134,9 @@ class IntroController extends GetxController {
       if(value.isNotEmpty){
         Get.to(ProductFilter(value));
       }else{
-        AppStyle.errorMsg(context, "This Brand Has No Elements");
+        AppStyle.errorMsg(context, "This brand has no elements");
       }
     });
-  }
-
-  goToProductPage(int productId){
-    Get.to(()=> ProductInformation(productId));
-    // shopController.loading.value = true;
-    // API.checkInternet().then((internet) {
-    //   if(internet) {
-    //     // API.getProductInfo(productId).then((value) {
-    //     //   Get.to(()=> ProductInformation(value!.product![0]));
-    //     //   shopController.loading.value = false;
-    //     // });
-    //     Get.to(()=> ProductInformation(value!.product![0]));
-    //   }
-    // });
   }
 
   pressedOnSearch(BuildContext context) async {

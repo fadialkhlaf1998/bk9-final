@@ -1,4 +1,3 @@
-import 'package:bk9/const/api.dart';
 import 'package:bk9/const/app-style.dart';
 import 'package:bk9/controller/intro_controller.dart';
 import 'package:bk9/controller/product_filter_controller.dart';
@@ -22,11 +21,10 @@ class ProductFilter extends StatelessWidget {
   ProductFilterController productFilterController = Get.put(ProductFilterController());
   
   List<Post> posts;
-  ProductFilter(this.posts){
+  ProductFilter(this.posts) {
     Future.delayed(Duration(milliseconds: 50)).then((value) {
       productFilterController.posts.value = posts;
     });
-
   }
 
 
@@ -36,7 +34,7 @@ class ProductFilter extends StatelessWidget {
         body: Obx(() => SafeArea(
           child: Stack(
             children: [
-              shopController.fake.value?Center():Center(),
+              shopController.fake.value ? Center() : Center(),
               BackgroundImage(),
               SingleChildScrollView(
                 physics: NeverScrollableScrollPhysics(),
@@ -56,9 +54,8 @@ class ProductFilter extends StatelessWidget {
                         _header(context, shopController.selectedCategory.value)
                       ],
                     ),
-
                     SizedBox(height: 20,),
-                    productFilterController.loading.value?CircularProgressIndicator(color: Colors.white,):
+                    productFilterController.loading.value ? CircularProgressIndicator(color: Colors.white,):
                     _productsList(context),
                     SizedBox(height: 20),
                   ],
@@ -110,7 +107,7 @@ class ProductFilter extends StatelessWidget {
                     },
                     child: Icon(Icons.arrow_back,size: 23,)
                 ),
-                SizedBox(width: 20,),
+                SizedBox(width: 25),
                 Text(introController.superCategory[shopController.selectedSuperCategory.value].posts![index].title!,
                     style: CommonTextStyle.textStyleForDarkGreyMediumButton
                 ),
@@ -134,7 +131,6 @@ class ProductFilter extends StatelessWidget {
         )
     );
   }
-
   _productsList(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height-150,
@@ -148,7 +144,10 @@ class ProductFilter extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 5),
               child: GestureDetector(
                   onTap:  (){
-                    introController.goToProductPage(productFilterController.posts[index].id);
+                    // introController.goToProductPage(productFilterController.posts[index].id);
+                    Get.to(()=> ProductInformation(productFilterController.posts[index].id))!.then((value) {
+                      wishListController.refreshProduct(productFilterController.posts);
+                    });
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

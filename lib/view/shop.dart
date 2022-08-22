@@ -1,8 +1,9 @@
 import 'package:bk9/const/app-style.dart';
 import 'package:bk9/controller/intro_controller.dart';
+import 'package:bk9/controller/main_page_controller.dart';
 import 'package:bk9/controller/shop_controller.dart';
 import 'package:bk9/view/categories.dart';
-import 'package:bk9/view/new_arrivals.dart';
+import 'package:bk9/view/product_filter.dart';
 import 'package:bk9/view/wishlist.dart';
 import 'package:bk9/widgets/background_image.dart';
 import 'package:bk9/widgets/container_with_image.dart';
@@ -16,6 +17,7 @@ class Shop extends StatelessWidget {
 
   IntroController introController = Get.find();
   ShopController shopController = Get.put(ShopController());
+  MainPageController mainPageController = Get.find();
 
 
   @override
@@ -71,7 +73,13 @@ class Shop extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Search(width: AppStyle.getDeviceWidthPercent(78, context),introController: introController,),
+                GestureDetector(
+                    onTap: () {
+                      mainPageController.changeIndexOfBottomBar(0);
+                    },
+                    child: Icon(Icons.arrow_back,size: 23,)
+                ),
+                Search(width: AppStyle.getDeviceWidthPercent(70, context),introController: introController,),
                 GestureDetector(
                     onTap: () {
                       Get.to(() => Wishlist());
@@ -94,7 +102,7 @@ class Shop extends StatelessWidget {
   _newArrivals(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => NewArrivals());
+        Get.to(() => ProductFilter(introController.newArrivals));
       },
       child: Stack(
         children: [

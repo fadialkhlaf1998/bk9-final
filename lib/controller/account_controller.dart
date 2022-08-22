@@ -1,10 +1,6 @@
 import 'package:bk9/const/api.dart';
-import 'package:bk9/const/app-style.dart';
 import 'package:bk9/controller/addresses_controller.dart';
-import 'package:bk9/view/customer_order_view.dart';
-import 'package:bk9/view/my_address.dart';
 import 'package:bk9/view/no_internet.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -28,7 +24,9 @@ class AccountController extends GetxController {
             });
           });
         } else {
-          Get.to(() => NoInternet())!;
+          Get.to(() => NoInternet())!.then((value) {
+            Get.off(() => pickGalleyImage());
+          });
         }
       }).catchError((err) {
         loading.value = false;
@@ -50,7 +48,9 @@ class AccountController extends GetxController {
             });
           });
         } else {
-          Get.to(() => NoInternet())!;
+          Get.to(() => NoInternet())!.then((value) {
+            Get.off(() => pickCameraImage());
+          });
         }
       }).catchError((err) {
         loading.value = false;
@@ -68,55 +68,57 @@ class AccountController extends GetxController {
           loading.value = false;
         });
       } else {
-        Get.to(() => NoInternet())!;
-      }
-    }).catchError((err) {
-      loading.value = false;
-      err.printError();
-    });
-  }
-  getOrderHistory(BuildContext context) {
-    loading.value = true;
-    API.checkInternet().then((internet) async {
-      if (internet) {
-        API.getCustomerOrders(API.customer_id).then((value) {
-          loading.value = false;
-          if (value.isNotEmpty) {
-            // print(value.length);
-            Get.to(() => CustomerOrderView(value));
-          } else {
-            AppStyle.errorMsg(context,"You don't have any orders yet");
-          }
-        });
-      } else {
-        Get.to(() => NoInternet())!;
-      }
-    }).catchError((err) {
-      loading.value = false;
-      err.printError();
-    });
-  }
-  getAddress() {
-    API.checkInternet().then((internet) {
-      if(internet) {
-        loading.value = true;
-        API.getAddress().then((value) {
-          if(value.isNotEmpty) {
-            addressesController.addresses.clear();
-            addressesController.addresses.addAll(value);
-            loading.value = false;
-            Get.to(() => MyAddress());
-            addressesController.clear();
-          }else{
-            loading.value = false;
-          }
-        });
-      }else {
         Get.to(() => NoInternet())!.then((value) {
-          getAddress();
+          Get.off(() => deleteImage());
         });
       }
+    }).catchError((err) {
+      loading.value = false;
+      err.printError();
     });
   }
+  // getOrderHistory(BuildContext context) {
+  //   loading.value = true;
+  //   API.checkInternet().then((internet) async {
+  //     if (internet) {
+  //       API.getCustomerOrders(API.customer_id).then((value) {
+  //         loading.value = false;
+  //         if (value.isNotEmpty) {
+  //           // print(value.length);
+  //           Get.to(() => CustomerOrderView(value));
+  //         } else {
+  //           AppStyle.errorMsg(context,"You don't have any orders yet");
+  //         }
+  //       });
+  //     } else {
+  //       Get.to(() => NoInternet())!;
+  //     }
+  //   }).catchError((err) {
+  //     loading.value = false;
+  //     err.printError();
+  //   });
+  // }
+  // getAddress() {
+  //   API.checkInternet().then((internet) {
+  //     if(internet) {
+  //       loading.value = true;
+  //       API.getAddress().then((value) {
+  //         if(value.isNotEmpty) {
+  //           addressesController.addresses.clear();
+  //           addressesController.addresses.addAll(value);
+  //           loading.value = false;
+  //           Get.to(() => MyAddress());
+  //           addressesController.clear();
+  //         }else{
+  //           loading.value = false;
+  //         }
+  //       });
+  //     }else {
+  //       Get.to(() => NoInternet())!.then((value) {
+  //         getAddress();
+  //       });
+  //     }
+  //   });
+  // }
 
 }

@@ -15,7 +15,7 @@ class CreateAddress extends StatelessWidget {
     if(selectEdit == 0) {
       addressController.selectEdit.value = selectEdit;
       addressController.clear();
-    }else{
+    } else{
       addressController.nickName.text = nickName;
       addressController.defaultAddress.value = defaultAddress;
       addressController.adddress1.text = adrs1;

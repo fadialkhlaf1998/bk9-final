@@ -1,11 +1,10 @@
 import 'package:bk9/const/api.dart';
 import 'package:bk9/const/app-style.dart';
-import 'package:bk9/model/post.dart';
 import 'package:bk9/view/product_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class FilterSelectionControler extends GetxController{
+class FilterSelectionController extends GetxController{
   var loading = false.obs;
   var categoryOpen = false.obs;
   var brandOpen = false.obs;
@@ -30,9 +29,9 @@ class FilterSelectionControler extends GetxController{
     API.filter(selected_sub_category.value, selected_category.value, selected_super_category.value, selected_brand_id.value).then((value) {
       loading.value = false;
       if(value.isNotEmpty){
-        Get.off(ProductFilter(value));
+        Get.off(() => ProductFilter(value));
       }else{
-        AppStyle.errorMsg(context, "This Filter Has No Elements");
+        AppStyle.errorMsg(context, "This filter has no elements");
       }
 
     }).catchError((err){

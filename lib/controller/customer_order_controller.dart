@@ -10,25 +10,25 @@ class CustomerOrderController extends GetxController {
   var loading = false.obs;
   List<CustomerOrder> orders = <CustomerOrder>[];
 
-  viewOrder(int orderId, BuildContext context) {
-    API.checkInternet().then((internet) async {
-      if (internet) {
-        loading.value = true;
-        API.orderItems(orderId).then((posts) {
-          if (posts.isNotEmpty) {
-            loading.value = false;
-            Get.to(() => OrderItems(posts));
-          } else {
-            AppStyle.errorMsg(context, "something went wrong");
-          }
-        });
-      } else {
-        Get.to(() => NoInternet());
-      }
-    }).catchError((err) {
-      loading.value = false;
-      err.printError();
-    });
-  }
+  // viewOrder(int orderId, BuildContext context) {
+  //   API.checkInternet().then((internet) async {
+  //     if (internet) {
+  //       loading.value = true;
+  //       API.orderItems(orderId).then((posts) {
+  //         if (posts.isNotEmpty) {
+  //           loading.value = false;
+  //           Get.to(() => OrderItems(posts));
+  //         } else {
+  //           AppStyle.errorMsg(context, "something went wrong");
+  //         }
+  //       });
+  //     } else {
+  //       Get.to(() => NoInternet());
+  //     }
+  //   }).catchError((err) {
+  //     loading.value = false;
+  //     err.printError();
+  //   });
+  // }
 
 }

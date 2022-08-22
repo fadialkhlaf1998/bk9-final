@@ -35,16 +35,15 @@ class CustomFilterSort extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              // filterBottomSheet(context);
               if(this.off){
-                Get.off(FilterSelection());
+                Get.off(() => FilterSelection());
               }else{
-                Get.to(FilterSelection());
+                Get.to(() => FilterSelection());
               }
 
             },
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 10),
+              padding: const EdgeInsets.only(bottom: 8),
               child: Container(
                 color: Colors.transparent,
                 width: 150,
@@ -76,7 +75,7 @@ class CustomFilterSort extends StatelessWidget {
               sortBottomSheet(context);
             },
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 10),
+              padding: const EdgeInsets.only(bottom: 8),
               child: Container(
                 width: 150,
                 color: Colors.transparent,
@@ -141,8 +140,7 @@ class CustomFilterSort extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: 20),
-
+                  SizedBox(height: 15),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5),
                     child: Container(
@@ -355,7 +353,7 @@ class CustomFilterSort extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 15),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -370,17 +368,18 @@ class CustomFilterSort extends StatelessWidget {
                             shopController.loading.value = false;
                             Get.back();
                           }
-
                         },
                         child: Container(
                           width: MediaQuery.of(context).size.width*0.4,
                           height: 40,
                           decoration: BoxDecoration(
                             color: AppStyle.primary,
-                            borderRadius: BorderRadius.circular(5),
+                            borderRadius: BorderRadius.circular(25),
                           ),
                           child: Center(
-                            child: Text("Apply",style: TextStyle(color: Colors.white),),
+                            child: Text("Apply",
+                              style: CommonTextStyle.textStyleForOrangeMediumButton
+                            ),
                           ),
                         ),
                       )
@@ -391,311 +390,6 @@ class CustomFilterSort extends StatelessWidget {
             }),
           ),
         );
-      },
-    );
-  }
-  filterBottomSheet(BuildContext context) {
-    return showModalBottomSheet(
-      context: context,
-      shape:  RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(30),
-        ),
-      ),
-      isScrollControlled: true,
-      builder: (context) {
-        return Obx(() => FractionallySizedBox(
-          heightFactor: 0.75,
-          child: Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(30),
-                    topLeft: Radius.circular(30),
-                ),
-              image: DecorationImage(
-                image: AssetImage("assets/images/Background.png"),
-                fit: BoxFit.cover
-              )
-            ),
-            child: Column(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(30),
-                      topLeft: Radius.circular(30),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 25),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Filter By",
-                            style: TextStyle(
-                                color: AppStyle.grey,
-                                fontSize: CommonTextStyle.mediumTextStyle,
-                                fontWeight: FontWeight.bold
-                            )
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Get.back();
-                          },
-                          child: Icon(Icons.close,color: AppStyle.grey,size: 23,),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20),
-                Container(
-                  width: AppStyle.getDeviceWidthPercent(80, context),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
-                        blurRadius: 20,
-                        spreadRadius: 1,
-                        offset: Offset(5.0, 5.0,),
-                      )
-                    ],
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text("Category",
-                            style: TextStyle(
-                                color: AppStyle.productGrey,
-                                fontSize: CommonTextStyle.mediumTextStyle
-                            ),
-                            textAlign: TextAlign.start,
-                            maxLines: 1),
-                        GestureDetector(
-                            onTap: (){
-                              shopController.openCollection.value = !shopController.openCollection.value;
-                              },
-                            child: Icon(shopController.openCollection.value ?
-                            Icons.remove : Icons.add,color: AppStyle.primary))
-                      ],
-                    ),
-                  ),
-                ),
-                AnimatedContainer(
-                  width: AppStyle.getDeviceWidthPercent(65, context),
-                  height: shopController.openCollection.value ?
-                  (introController.superCategory.length + 1) *
-                      MediaQuery.of(context).size.width*0.16/2 : 0,
-                  duration: const Duration(milliseconds: 300),
-                  child: ScrollConfiguration(
-                    behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-                    child: SingleChildScrollView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(height: 10,),
-                          GestureDetector(
-                            onTap: (){
-                              shopController.filterPost(-1);
-                            },
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 18,
-                                  height: 18,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: shopController.selectedCategory.value == -1 ?
-                                        Colors.transparent : AppStyle.productGrey),
-                                    borderRadius: BorderRadius.circular(5),
-                                    color: shopController.selectedCategory.value == -1 ?
-                                        AppStyle.primary : Colors.transparent
-                                  ),
-                                ),
-                                SizedBox(width: 10,),
-                                Text("All",
-                                  style: TextStyle(
-                                      color: AppStyle.productGrey,
-                                      fontSize: CommonTextStyle.smallTextStyle
-                                  ),
-                                )
-                              ],
-                            )
-                          ),
-                          SizedBox(height: 5),
-                          Column(
-                            children: introController.superCategory.map((element) {
-                              return GestureDetector(
-                                onTap: (){
-                                  shopController.filterPost(element.id);
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 5),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        width: 18,
-                                        height: 18,
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: shopController.selectedCategory.value == element.id ?
-                                                Colors.transparent : AppStyle.productGrey),
-                                            borderRadius: BorderRadius.circular(5),
-                                            color: shopController.selectedCategory.value == element.id ?
-                                            AppStyle.primary : Colors.transparent
-                                        ),
-                                      ),
-                                      SizedBox(width: 10,),
-                                      Text(element.title!,
-                                        style: TextStyle(
-                                            color: AppStyle.productGrey,
-                                            fontSize: CommonTextStyle.smallTextStyle
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                )
-                              );
-                            }).toList(),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10,),
-                Container(
-                  width: AppStyle.getDeviceWidthPercent(80, context),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
-                        blurRadius: 20,
-                        spreadRadius: 1,
-                        offset: Offset(5.0, 5.0,),
-                      )
-                    ],
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text("Price",
-                            style: TextStyle(
-                                color: AppStyle.productGrey,
-                                fontSize: CommonTextStyle.mediumTextStyle
-                            ),
-                            textAlign: TextAlign.start,
-                            maxLines: 1),
-                        GestureDetector(
-                            onTap: (){
-                              shopController.openPrice.value = !shopController.openPrice.value;
-                            },
-                            child: Icon(shopController.openPrice.value ?
-                            Icons.remove : Icons.add,color: AppStyle.primary))
-                      ],
-                    ),
-                  ),
-                ),
-                AnimatedContainer(
-                  width: AppStyle.getDeviceWidthPercent(70, context),
-                  height: shopController.openPrice.value ? 70:0,
-                  duration: const Duration(milliseconds: 300),
-                  child: ScrollConfiguration(
-                    behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-                    child: SingleChildScrollView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      child: Column(
-                        children: [
-                          RangeSlider(
-                            min: 0,
-                            max: 5000,
-                            activeColor: AppStyle.primary,
-                            inactiveColor: Colors.grey,
-                            onChanged: (value){
-                              shopController.minPrice.value = value.start;
-                              shopController.maxPrice.value = value.end;
-                              shopController.price.value = value;
-                              shopController.priceLabel.value = RangeLabels("AED "+value.start.toStringAsFixed(2), "AED "+value.end.toStringAsFixed(2));
-                              shopController.filterPost(shopController.selectedCategory.value);
-                            },
-                            values: shopController.price.value,
-                            labels: shopController.priceLabel.value,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Center(
-                                  child: Text(
-                                    shopController.priceLabel.value.start,
-                                    style: TextStyle(
-                                        color: AppStyle.productGrey,
-                                        fontSize: CommonTextStyle.smallTextStyle
-                                    ),
-                                  ),
-                              ),
-                              Center(
-                                  child:
-                                  Text(shopController.priceLabel.value.end,
-                                    style: TextStyle(
-                                        color: AppStyle.productGrey,
-                                        fontSize: CommonTextStyle.smallTextStyle
-                                    )
-                                  )
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20),
-                Container(
-                  width: AppStyle.getDeviceWidthPercent(80, context),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CustomButton(
-                          text: "clear",
-                          onPressed: () {
-                            shopController.clearFilter();
-                          },
-                          color: AppStyle.greyButton,
-                          borderRadius: 30,
-                          border: Colors.transparent,
-                          width: AppStyle.getDeviceWidthPercent(35, context),
-                          height: AppStyle.getDeviceHeightPercent(6, context),
-                          textStyle: CommonTextStyle.textStyleForDarkGreyMediumButton
-                      ),
-                      CustomButton(
-                          text: "Apply",
-                          onPressed: () {
-                            ///todo
-                          },
-                          color: AppStyle.primary,
-                          borderRadius: 30,
-                          border: Colors.transparent,
-                          width: AppStyle.getDeviceWidthPercent(35, context),
-                          height: AppStyle.getDeviceHeightPercent(6, context),
-                          textStyle: CommonTextStyle.textStyleForOrangeMediumButtonBold
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ));
       },
     );
   }

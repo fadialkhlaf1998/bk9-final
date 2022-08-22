@@ -76,26 +76,30 @@ class Cart extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            GestureDetector(
-                onTap: () {
-                  mainPageController.changeIndexOfBottomBar(0);
-                },
-                child: Icon(Icons.arrow_back,size: 23,)
-            ),
-            SizedBox(width: 10),
-            Container(
-              width: AppStyle.getDeviceWidthPercent(45, context),
-              child: Text(
-                  cartController.cart.isEmpty ?
+            Row(
+              children: [
+                GestureDetector(
+                    onTap: () {
+                      mainPageController.changeIndexOfBottomBar(0);
+                    },
+                    child: Icon(Icons.arrow_back,size: 23,)
+                ),
+                SizedBox(width: 25),
+                Container(
+                  width: AppStyle.getDeviceWidthPercent(45, context),
+                  child: Text(
+                      cartController.cart.isEmpty ?
                       "Cart" :
-                  "Cart " + "( " + cartController.cart.length.toString() + " Product" + " )",
-                  maxLines: 2,
-                  style: TextStyle(
-                    fontSize: CommonTextStyle.mediumTextStyle,
-                    color: AppStyle.grey,
-                    fontWeight: FontWeight.bold,
-                  )
-              ),
+                      "Cart " + "( " + cartController.cart.length.toString() + " Product" + " )",
+                      maxLines: 2,
+                      style: TextStyle(
+                        fontSize: CommonTextStyle.mediumTextStyle,
+                        color: AppStyle.grey,
+                        fontWeight: FontWeight.bold,
+                      )
+                  ),
+                ),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.only(top: 3),
