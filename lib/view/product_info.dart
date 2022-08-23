@@ -126,21 +126,22 @@ class ProductInformation extends StatelessWidget {
                   child: Center(
                     child: Container(
                       margin: EdgeInsets.only(
-                        bottom: AppStyle.getDeviceHeightPercent(12, context),
+                        bottom: AppStyle.getDeviceHeightPercent(10, context),
                       ),
                       child:  (product!.colorsImages!.length ==0 || product!.colorsImages![productInfoController.getIndexColorImages(product!.colors![productInfoController.selectedColorIndex.value].colorId,product!.colorsImages!)].images!.length == 0)
                           && product!.media!.length == 0  ? Container(
                         width: AppStyle.getDeviceWidthPercent(85, context),
-                        height: AppStyle.getDeviceWidthPercent(50, context),
+                        height: AppStyle.getDeviceWidthPercent(60, context),
                         decoration:BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(30),
+                              topRight: Radius.circular(30),
+                            ),
                             image: DecorationImage(
                               image: NetworkImage(product!.image),
                               fit: BoxFit.fill,
                             )),
-                      )
-                          :
-                      _productImages(context),
+                      ) : _productImages(context),
                     ),
                   ),
                 ),
@@ -186,28 +187,28 @@ class ProductInformation extends StatelessWidget {
                 ),
                 product!.regularPrice >0?
                 Positioned(
-                  top: 25,
-                  child: Container(
-                    width: AppStyle.getDeviceWidthPercent(85, context),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          color: AppStyle.red,
-                          child: const Center(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20,vertical: 4),
-                              child: Text("Deal",
-                                  style: TextStyle(color: Colors.white,fontSize: CommonTextStyle.tinyTextStyle)),
+                    top: 25,
+                    child: Container(
+                      width: AppStyle.getDeviceWidthPercent(85, context),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            color: AppStyle.red,
+                            child: const Center(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 20,vertical: 4),
+                                child: Text("Deal",
+                                    style: TextStyle(color: Colors.white,fontSize: CommonTextStyle.tinyTextStyle)),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  )
+                        ],
+                      ),
+                    )
                 ):const Text(""),
                 Positioned(
-                  top: AppStyle.getDeviceHeightPercent(20, context),
+                  top: AppStyle.getDeviceHeightPercent(25, context),
                   child: Container(
                     width: AppStyle.getDeviceWidthPercent(85, context),
                     decoration: BoxDecoration(
@@ -312,7 +313,10 @@ class ProductInformation extends StatelessWidget {
               ],
             ),
             _colorsSizedWeight(context),
-            SizedBox(height: product!.stringDescription == "" ? 0 : 20),
+            SizedBox(height: product!.sizes!.length == 0 ||product!.sizes==null ||
+                product!.colors!.length == 0 ||product!.colors==null ||
+                product!.weights!.length == 0 ||product!.weights==null ?
+            0 : 10),
             _description(context),
             SizedBox(height: 20),
             // _addToCart(context,shopController.selectedSubCategory.value),
@@ -490,12 +494,14 @@ class ProductInformation extends StatelessWidget {
                     product!.media!.length :
                 product!.colorsImages![productInfoController.getIndexColorImages(product!.colors![productInfoController.selectedColorIndex.value].colorId,product!.colorsImages!)].images!.length,
                 itemBuilder: (BuildContext context, int photoIndex, int realIndex) {
-                  print('-----------');
                   return Container(
                     width: AppStyle.getDeviceWidthPercent(85, context),
                     height: AppStyle.getDeviceWidthPercent(60, context),
                     decoration:BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30),
+                          topRight: Radius.circular(30)
+                        ),
                         image: DecorationImage(
                           image: NetworkImage(product!.colorsImages!.length ==0 || product!.colorsImages![productInfoController.getIndexColorImages(product!.colors![productInfoController.selectedColorIndex.value].colorId,product!.colorsImages!)  ].images!.length == 0 ?
                           product!.media![photoIndex].link :
