@@ -102,7 +102,7 @@ class Shop extends StatelessWidget {
   _newArrivals(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => ProductFilter(introController.newArrivals));
+        Get.to(() => ProductFilter(introController.newArrivals,"New Arrivals"));
       },
       child: Stack(
         children: [

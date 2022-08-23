@@ -8,7 +8,7 @@ class MainPageController extends GetxController{
   RxInt selectedIndex = 0.obs;
   PageController pageController = PageController(initialPage: 0);
 
-  List<String> iconList = ['home', 'shop','services','cart','profile'];
+  List<String> iconList = ['home', 'shop','services','cart','account'];
 
   changeIndexOfBottomBar(index){
     selectedIndex.value = index;

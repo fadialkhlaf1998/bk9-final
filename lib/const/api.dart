@@ -25,7 +25,8 @@ class API {
   static Customer? customer;
   static String public_key = "6Md5Hi31ooTfpzJOUP76fVTM8DPsD5Zcq6v9TFsIxrlCnvf7sG";
   static String startUpKey = "7126dcfd5f2fdf83c0bca1b0b647f424172a78d818ad1508f0b78748378dfb914a9fc8cede2f525bab9f50ea02add1b030552f135c24fba09a4afa27182827c23e2c2b15cb676cf112e7280e4e97f82aa25853b1f05d4e9ba702625957eec1c93901";
-  static double discount=0;
+  static int discount=0;
+  static String discountCode="";
   ///StartUp
   static Future<int> getCompanyId() async {
     var headers = {'Content-Type': 'application/json'};
@@ -185,6 +186,32 @@ class API {
       return null;
     }
   }
+
+  static Future<int> activeDiscount(String code) async{
+    var headers = {
+      'Content-Type': 'application/json',
+    };
+    var request = http.Request('POST', Uri.parse(url + '/api/check-discount-code'));
+    request.body = json.encode({
+      "code": code
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      String data = (await response.stream.bytesToString());
+      Store.saveDiscountCode(code);
+      discount = json.decode(data)['amount'];
+      return discount;
+    }
+    else {
+      print(response.reasonPhrase);
+      discount = 0;
+      return 0;
+    }
+  }
+
 
   ///cart
   static Future<bool> deleteFromCart(int cart_id)async{
@@ -482,6 +509,7 @@ class API {
     http.StreamedResponse response = await request.send();
     if (response.statusCode == 200) {
       var data = await response.stream.bytesToString();
+      Store.clearCode();
       return true;
     } else {
       return false;

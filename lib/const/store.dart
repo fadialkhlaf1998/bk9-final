@@ -12,6 +12,10 @@ class Store {
   static String languageCode = "en";
   static final storage = FlutterSecureStorage();
 
+  ////////////////////////  Map  ////////////////////////
+  static double latitude = 25.1774539 ;
+  static double longitude = 55.3645627;
+
   /// introduction screen
   static saveIntroScreen(bool value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -75,4 +79,24 @@ class Store {
   }
 
 
+  static saveDiscountCode(String value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    API.discountCode = value;
+    prefs.setString("discountCode", value);
+  }
+
+
+  static Future<String> loadDiscountCode() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String code = prefs.getString("discountCode")??"";
+    API.activeDiscount(code);
+    API.discountCode = code;
+    return code;
+  }
+  static clearCode() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    API.discountCode = "";
+    API.discount = 0;
+    prefs.remove("discountCode");
+  }
 }

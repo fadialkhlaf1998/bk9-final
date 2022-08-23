@@ -87,6 +87,7 @@ class IntroController extends GetxController {
           }
           wishListController.getWishlistData();
           addressesController.getAddress();
+          Store.loadDiscountCode();
           get_nave();
         });
       } else {
@@ -127,12 +128,12 @@ class IntroController extends GetxController {
     }
   }
 
-  shopByBrand(BuildContext context,int brand_id){
+  shopByBrand(BuildContext context,int brand_id,String brand_title){
     loading.value = true;
     API.getProductsByBrand(brand_id).then((value) {
       loading.value = false;
       if(value.isNotEmpty){
-        Get.to(ProductFilter(value));
+        Get.to(ProductFilter(value,brand_title));
       }else{
         AppStyle.errorMsg(context, "This brand has no elements");
       }

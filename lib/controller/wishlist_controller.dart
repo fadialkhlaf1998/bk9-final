@@ -38,7 +38,9 @@ class WishListController extends GetxController {
 
   deleteFromWishlist(Post post) {
     post.favorite.value = false;
-    wishlist.removeAt(getWishlistIndex(post));
+    print(wishlist.length);
+    deleteById(post.id);
+    print(wishlist.length);
     API.deleteFromWishlist(post.id);
   }
 
@@ -58,17 +60,36 @@ class WishListController extends GetxController {
     });
   }
 
-  refreshProduct(List<Post> products){
-    for(int i=0;i<products.length;i++){
-      for(int j=0;j<wishlist.length;j++){
-        if(products[i].id==wishlist[j].id){
-          products[i].favorite.value=true;
-          print('*************');
-          print(products[i].favorite.value);
-          break;
-        }else{
-          products[i].favorite.value=false;
+  bool refreshProduct(List<Post> products){
+    if(wishlist.isNotEmpty){
+      for(int i=0;i<products.length;i++){
+        for(int j=0;j<wishlist.length;j++){
+          if(products[i].id==wishlist[j].id){
+            products[i].favorite.value=true;
+            print('*************');
+            print(products[i].favorite.value);
+            break;
+          }else{
+            print('********------*******');
+            print(products[i].favorite.value);
+            products[i].favorite.value=false;
+          }
         }
+      }
+    }else{
+      for(int i=0;i<products.length;i++){
+        products[i].favorite.value=false;
+      }
+    }
+
+    return true;
+  }
+
+  deleteById(int id){
+    for(int i=0;i<wishlist.length;i++){
+      if(id == wishlist[i].id){
+        wishlist.removeAt(i);
+        return;
       }
     }
   }

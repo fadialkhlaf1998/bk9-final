@@ -45,7 +45,7 @@ class CustomListViewBrands extends StatelessWidget {
               itemBuilder: (context,index) {
                 return GestureDetector(
                     onTap: () {
-                      introController.shopByBrand(context,introController.brand[index].id);
+                      introController.shopByBrand(context,introController.brand[index].id,introController.brand[index].title.toString());
                     },
                     child:  Container(
                       padding: EdgeInsets.all(4),

@@ -29,7 +29,7 @@ class FilterSelectionController extends GetxController{
     API.filter(selected_sub_category.value, selected_category.value, selected_super_category.value, selected_brand_id.value).then((value) {
       loading.value = false;
       if(value.isNotEmpty){
-        Get.off(() => ProductFilter(value));
+        Get.off(() => ProductFilter(value,"Filter"));
       }else{
         AppStyle.errorMsg(context, "This filter has no elements");
       }

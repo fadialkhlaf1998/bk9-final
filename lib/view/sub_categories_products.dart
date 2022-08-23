@@ -239,7 +239,7 @@ class SubCategoriesProducts extends StatelessWidget {
                 onTap:  (){
                   Get.to(()=> ProductInformation(shopController.productsView[index].id))!.then((value) {
                     wishListController.refreshProduct(subCategories[shopController.selectedSubCategory.value].posts!);
-                  });
+                    });
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

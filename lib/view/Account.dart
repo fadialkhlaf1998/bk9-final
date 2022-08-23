@@ -5,10 +5,13 @@ import 'package:bk9/controller/account_controller.dart';
 import 'package:bk9/controller/intro_controller.dart';
 import 'package:bk9/controller/main_page_controller.dart';
 import 'package:bk9/view/FAQ.dart';
+import 'package:bk9/view/about_us.dart';
 import 'package:bk9/view/change_password.dart';
 import 'package:bk9/view/customer_order_view.dart';
+import 'package:bk9/view/events_blogs.dart';
 import 'package:bk9/view/login.dart';
 import 'package:bk9/view/my_address.dart';
+import 'package:bk9/view/my_vouchers.dart';
 import 'package:bk9/view/product_filter.dart';
 import 'package:bk9/view/signup.dart';
 import 'package:bk9/view/wishlist.dart';
@@ -16,6 +19,7 @@ import 'package:bk9/widgets/background_image.dart';
 import 'package:bk9/widgets/custom_button.dart';
 import 'package:bk9/widgets/text_app.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
@@ -25,22 +29,53 @@ class Account extends StatelessWidget {
   MainPageController mainPageController = Get.find();
   AccountController accountController = Get.find();
   IntroController introController = Get.find();
+  ScrollController scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Obx(() => Stack(
+    return Obx(() => Scaffold(
+        floatingActionButton:
+        accountController.visibleFloatingButton.value ? null :
+            GestureDetector(
+              onTap: () {
+                scrollController.animateTo(scrollController.position.maxScrollExtent, duration: Duration(milliseconds: 1000), curve: Curves.fastOutSlowIn);
+                accountController.visibleFloatingButton.value = true;
+              },
+              child: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                  border: Border.all(color: AppStyle.primary)
+                ),
+                child: Center(
+                  child: Icon(Icons.arrow_downward,color: AppStyle.primary,),
+                ),
+              ),
+            ),
+        body: Stack(
           children: [
             BackgroundImage(),
-            SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  _header(context),
-                  SizedBox(height: 10,),
-                  _body(context),
-                  SizedBox(height: 20,)
-                ],
+            NotificationListener<UserScrollNotification>(
+              onNotification: (notification){
+                if(notification.direction == ScrollDirection.forward){
+                  accountController.visibleFloatingButton.value = false;
+                }
+                return true;
+              },
+
+              child: SingleChildScrollView(
+                controller: scrollController,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    _header(context),
+                    SizedBox(height: 10,),
+                    _body(context),
+                    SizedBox(height: 20,)
+                  ],
+                ),
               ),
             ),
             accountController.loading.value ?
@@ -53,8 +88,8 @@ class Account extends StatelessWidget {
               ),
             )) : Center()
           ],
-        ))
-    );
+        )
+    ));
   }
 
   _header(BuildContext context) {
@@ -163,41 +198,9 @@ class Account extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CustomButton(
-                  text: "Track Order",
-                  onPressed: () {
-                    ///
-                  },
-                  color: AppStyle.greyButton,
-                  borderRadius: 30,
-                  border: Colors.transparent,
-                  width: AppStyle.getDeviceWidthPercent(40, context),
-                  height: AppStyle.getDeviceHeightPercent(5, context),
-                  textStyle: CommonTextStyle.textStyleForGreySmallButton
-              ),
-              CustomButton(
                   text: "About Us",
                   onPressed: () {
-                    ///
-                  },
-                  color: AppStyle.greyButton,
-                  borderRadius: 30,
-                  border: Colors.transparent,
-                  width: AppStyle.getDeviceWidthPercent(40, context),
-                  height: AppStyle.getDeviceHeightPercent(5, context),
-                  textStyle: CommonTextStyle.textStyleForGreySmallButton
-              ),
-            ],
-          ),
-        ),
-        Container(
-          width: AppStyle.getDeviceWidthPercent(85, context),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomButton(
-                  text: "Shipping Order",
-                  onPressed: () {
-                    ///
+                    Get.to(() => AboutUs());
                   },
                   color: AppStyle.greyButton,
                   borderRadius: 30,
@@ -209,7 +212,7 @@ class Account extends StatelessWidget {
               CustomButton(
                   text: "Articles",
                   onPressed: () {
-                    ///
+                    Get.to(()=>EventsBlogs(introController.events,introController.blogs));
                   },
                   color: AppStyle.greyButton,
                   borderRadius: 30,
@@ -226,22 +229,10 @@ class Account extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CustomButton(
-                  text: "Return & Exchange",
-                  onPressed: () {
-                    ///
-                  },
-                  color: AppStyle.greyButton,
-                  borderRadius: 30,
-                  border: Colors.transparent,
-                  width: AppStyle.getDeviceWidthPercent(40, context),
-                  height: AppStyle.getDeviceHeightPercent(5, context),
-                  textStyle: CommonTextStyle.textStyleForGreySmallButton
-              ),
               CustomButton(
                   text: "Offers",
                   onPressed: () {
-                    Get.to(() => ProductFilter(introController.offers));
+                    Get.to(() => ProductFilter(introController.offers,"Offers"));
                   },
                   color: AppStyle.greyButton,
                   borderRadius: 30,
@@ -250,62 +241,10 @@ class Account extends StatelessWidget {
                   height: AppStyle.getDeviceHeightPercent(5, context),
                   textStyle: CommonTextStyle.textStyleForGreySmallButton
               ),
-            ],
-          ),
-        ),
-        Container(
-          width: AppStyle.getDeviceWidthPercent(85, context),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
               CustomButton(
                   text: "FAQ's",
                   onPressed: () {
                     Get.to(() => FAQ());
-                  },
-                  color: AppStyle.greyButton,
-                  borderRadius: 30,
-                  border: Colors.transparent,
-                  width: AppStyle.getDeviceWidthPercent(40, context),
-                  height: AppStyle.getDeviceHeightPercent(5, context),
-                  textStyle: CommonTextStyle.textStyleForGreySmallButton
-              ),
-              CustomButton(
-                  text: "Store Location",
-                  onPressed: () {
-                    ///
-                  },
-                  color: AppStyle.greyButton,
-                  borderRadius: 30,
-                  border: Colors.transparent,
-                  width: AppStyle.getDeviceWidthPercent(40, context),
-                  height: AppStyle.getDeviceHeightPercent(5, context),
-                  textStyle: CommonTextStyle.textStyleForGreySmallButton
-              ),
-            ],
-          ),
-        ),
-        Container(
-          width: AppStyle.getDeviceWidthPercent(85, context),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomButton(
-                  text: "Terms & Conditions",
-                  onPressed: () {
-                    ///
-                  },
-                  color: AppStyle.greyButton,
-                  borderRadius: 30,
-                  border: Colors.transparent,
-                  width: AppStyle.getDeviceWidthPercent(40, context),
-                  height: AppStyle.getDeviceHeightPercent(5, context),
-                  textStyle: CommonTextStyle.textStyleForGreySmallButton
-              ),
-              CustomButton(
-                  text: "Contact Us",
-                  onPressed: () {
-                    ///
                   },
                   color: AppStyle.greyButton,
                   borderRadius: 30,
@@ -464,6 +403,18 @@ class Account extends StatelessWidget {
             textStyle: CommonTextStyle.textStyleForOrangeMediumButtonBold
         ),
         CustomButton(
+            text: "About Us",
+            onPressed: () {
+              Get.to(() => AboutUs());
+            },
+            color: AppStyle.primary,
+            borderRadius: 30,
+            border: Colors.transparent,
+            width: AppStyle.getDeviceWidthPercent(80, context),
+            height: AppStyle.getDeviceHeightPercent(6.5, context),
+            textStyle: CommonTextStyle.textStyleForOrangeMediumButtonBold
+        ),
+        CustomButton(
             text: "My Returns",
             onPressed: () {
               ///
@@ -515,7 +466,7 @@ class Account extends StatelessWidget {
         CustomButton(
             text: "My Vouchers",
             onPressed: () {
-              ///
+              Get.to(() => MyVouchers());
             },
             color: AppStyle.primary,
             borderRadius: 30,

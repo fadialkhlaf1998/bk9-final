@@ -179,7 +179,7 @@ class CustomSearchView extends StatelessWidget {
   }
   _productList(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 30),
+      padding: const EdgeInsets.only(top: 30),
       child: ListView.builder(
           scrollDirection: Axis.vertical,
           itemCount: products.length,

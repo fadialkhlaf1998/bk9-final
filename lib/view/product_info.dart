@@ -152,10 +152,18 @@ class ProductInformation extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
+                        GestureDetector(
+                            onTap: () {
+                              /// share
+                            },
+                            child: Icon(
+                              Icons.share,
+                              color: AppStyle.darkGrey,
+                              size: 25,
+                            )),
+                        SizedBox(width: 10,),
                         Obx(() => GestureDetector(
                             onTap: () {
-                              //todo add wishlist function
-
                               Post p = Post(id: product!.id, parent1: -1, parent2: -1, parent3: -1, parent4: -1, parent5: -1, postTypeId: product!.postTypeId,
                                   publish: 1, search: "", title: product!.title, subTitle: product!.subTitle, image: product!.image, sku: product!.sku, slug: product!.slug, price: product!.price!.toDouble(), regularPrice: product!.regularPrice.toDouble(), likes: product!.likes, availability:product!.availability,
                                   companyId: product!.companyId, metaTitle:product!. metaTitle, metaDescription:product!. metaDescription, position: product!.position, locale: "",

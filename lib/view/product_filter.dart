@@ -21,10 +21,20 @@ class ProductFilter extends StatelessWidget {
   ProductFilterController productFilterController = Get.put(ProductFilterController());
   
   List<Post> posts;
-  ProductFilter(this.posts) {
-    Future.delayed(Duration(milliseconds: 50)).then((value) {
+  String title;
+  ProductFilter(this.posts,this.title) {
+    bool succ=wishListController.refreshProduct(posts);
+    if(succ){
       productFilterController.posts.value = posts;
-    });
+      for(int i=0 ; i < productFilterController.posts.value.length ; i ++) {
+        print('////////////////////////');
+        print(productFilterController.posts[i].favorite.value);
+      }
+    }
+    // Future.delayed(Duration(milliseconds: 500)).then((value) {
+    //
+    // });
+
   }
 
 
@@ -108,7 +118,7 @@ class ProductFilter extends StatelessWidget {
                     child: Icon(Icons.arrow_back,size: 23,)
                 ),
                 SizedBox(width: 25),
-                Text(introController.superCategory[shopController.selectedSuperCategory.value].posts![index].title!,
+                Text(title,
                     style: CommonTextStyle.textStyleForDarkGreyMediumButton
                 ),
               ],
@@ -144,9 +154,14 @@ class ProductFilter extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 5),
               child: GestureDetector(
                   onTap:  (){
-                    // introController.goToProductPage(productFilterController.posts[index].id);
                     Get.to(()=> ProductInformation(productFilterController.posts[index].id))!.then((value) {
-                      wishListController.refreshProduct(productFilterController.posts);
+                      bool succ=wishListController.refreshProduct(posts);
+                      if(succ){
+                        for(int i=0 ; i < productFilterController.posts.value.length ; i ++) {
+                          print('////////////////////////');
+                          print(productFilterController.posts[i].favorite.value);
+                        }
+                      }
                     });
                   },
                   child: Row(

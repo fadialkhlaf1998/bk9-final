@@ -10,11 +10,12 @@ import 'package:get/get.dart';
 
 class CartController extends GetxController {
   RxList<CartItem> cart = <CartItem>[].obs;
-  Rx<double> subTotal = 0.0.obs, total = 0.0.obs, shipping = 10.0.obs, discount = API.discount.obs, coupon = 0.0.obs;
+  Rx<double> subTotal = 0.0.obs, total = 0.0.obs, shipping = 10.0.obs,
+      discount = API.discount.toDouble().obs, coupon = 0.0.obs;
   Rx<bool> loading = false.obs;
   Rx<bool> cart_op_loading = false.obs;
   TextEditingController discountCode = TextEditingController();
-
+  RxDouble allPrice = 0.0.obs;
 
   @override
   void onInit() {
@@ -22,14 +23,18 @@ class CartController extends GetxController {
     getCartData();
   }
   getTotal(){
+    discount.value = double.parse(API.discount.toString());
     total.value=0;
     subTotal.value=0;
     for(int i=0;i<cart.length;i++){
-      int sum = (cart[i].price + cart[i].additionalPrice)*cart[i].stouck;
+      int sumAllPrice = cart[i].price + cart[i].additionalPrice;
+      int sum = (cart[i].price + cart[i].additionalPrice)*cart[i].count;
       subTotal.value += sum;
+      allPrice.value += sumAllPrice.toDouble();
     }
     total.value=((subTotal.value*(100-discount.value))/100)+shipping.value;
   }
+
   addToCart(Option option, int count, BuildContext context) {
     int oldCount = checkInCart(option);
     int index = getOptionIndex(option);

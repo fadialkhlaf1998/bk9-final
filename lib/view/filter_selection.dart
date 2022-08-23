@@ -128,7 +128,7 @@ class FilterSelection extends StatelessWidget {
                               ///best sellers
                               GestureDetector(
                                 onTap: (){
-                                  Get.off(() => ProductFilter(introController.bestSellers));
+                                  Get.off(() => ProductFilter(introController.bestSellers,"Best Sellers"));
                                 },
                                 child: Container(
                                   height: 45,
@@ -166,7 +166,7 @@ class FilterSelection extends StatelessWidget {
                               ///recommended
                               GestureDetector(
                                 onTap: (){
-                                  Get.off(() => ProductFilter(introController.recommended));
+                                  Get.off(() => ProductFilter(introController.recommended,"Recommended"));
                                 },
                                 child: Container(
                                   height: 45,
@@ -204,7 +204,7 @@ class FilterSelection extends StatelessWidget {
                               ///new Arrivals
                               GestureDetector(
                                 onTap: (){
-                                  Get.off(() => ProductFilter(introController.newArrivals));
+                                  Get.off(() => ProductFilter(introController.newArrivals,"New Arrivals"));
                                 },
                                 child: Container(
                                   height: 45,
@@ -242,7 +242,7 @@ class FilterSelection extends StatelessWidget {
                               ///offers
                               GestureDetector(
                                 onTap: (){
-                                  Get.off(() => ProductFilter(introController.offers));
+                                  Get.off(() => ProductFilter(introController.offers,"Offers"));
                                 },
                                 child: Container(
                                   height: 45,

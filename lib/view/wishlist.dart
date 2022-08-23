@@ -17,6 +17,7 @@ class Wishlist extends StatelessWidget {
   MainPageController mainPageController = Get.find();
   WishListController wishListController = Get.find();
 
+
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(

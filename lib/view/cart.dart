@@ -219,7 +219,7 @@ class Cart extends StatelessWidget {
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text(cartController.cart[index].price.toString()+ " " + "AED",
+                                            Text(cartController.allPrice.value.toString() +  " " + "AED",
                                               style: TextStyle(
                                                 color: AppStyle.productGrey,
                                                 fontSize: CommonTextStyle.smallTextStyle,
@@ -429,7 +429,7 @@ class Cart extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: 10,),
-                    Text(cartController.discount.value.toStringAsFixed(0)+" %",
+                    Text(API.discount.toStringAsFixed(0)+" %",
                       style: TextStyle(
                         color: AppStyle.darkGrey,
                         fontSize: CommonTextStyle.smallTextStyle,
