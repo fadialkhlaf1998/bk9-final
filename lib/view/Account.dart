@@ -61,6 +61,8 @@ class Account extends StatelessWidget {
               onNotification: (notification){
                 if(notification.direction == ScrollDirection.forward){
                   accountController.visibleFloatingButton.value = false;
+                } else if(notification.direction == ScrollDirection.reverse) {
+                  accountController.visibleFloatingButton.value = true;
                 }
                 return true;
               },
