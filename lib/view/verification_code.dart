@@ -37,14 +37,14 @@ class VerificationCode extends StatelessWidget {
                       ),
                     ),
                     ContainerWithImage(
-                      width: AppStyle.getDeviceWidthPercent(50, context),
-                      height: AppStyle.getDeviceHeightPercent(30, context),
+                      width: AppStyle.getDeviceWidthPercent(40, context),
+                      height: AppStyle.getDeviceHeightPercent(25, context),
                       image: "assets/icons/logo.svg",
                       option: 0,
                     ),
                     Container(
                       width: AppStyle.getDeviceWidthPercent(80, context),
-                      height: AppStyle.getDeviceHeightPercent(5.5, context),
+                      // height: AppStyle.getDeviceHeightPercent(5.5, context),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -55,6 +55,7 @@ class VerificationCode extends StatelessWidget {
                         ],
                       ),
                     ),
+                    SizedBox(height: 20),
                     normalTextField(80,6.5,"Code",verificationCodeController.code,Text(""),"assets/icons/verification_code.svg",verificationCodeController.verifyValidate.value,context),
                     SizedBox(height: 15),
                     GestureDetector(
@@ -123,7 +124,7 @@ class VerificationCode extends StatelessWidget {
           prefixIcon: Container(
             width: 60,
             child: Padding(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.all(MediaQuery.of(context).size.height * ((height - 4.7) / 100),),
               child: SvgPicture.asset(prefix,
                 color: AppStyle.darkGrey,),
             ),

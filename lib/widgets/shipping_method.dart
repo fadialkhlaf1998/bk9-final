@@ -6,7 +6,6 @@ class ShippingMethod extends StatelessWidget {
   final Callback onTap;
   final Color color;
   final BoxShadow boxShadow;
-  final double height;
   final Widget child1;
   final Widget child2;
   final Widget child3;
@@ -15,7 +14,6 @@ class ShippingMethod extends StatelessWidget {
     required this.onTap,
     required this.color,
     required this.boxShadow,
-    required this.height,
     required this.child1,
     required this.child2,
     required this.child3
@@ -26,7 +24,6 @@ class ShippingMethod extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: height,
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(20),
@@ -35,7 +32,7 @@ class ShippingMethod extends StatelessWidget {
           ],
         ),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15),
+          padding: EdgeInsets.symmetric(horizontal: 15,vertical: 15),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

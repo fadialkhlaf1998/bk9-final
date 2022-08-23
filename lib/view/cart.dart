@@ -149,7 +149,7 @@ class Cart extends StatelessWidget {
       children: [
         Container(
           width: AppStyle.getDeviceWidthPercent(100, context),
-          height: AppStyle.getDeviceHeightPercent(55, context),
+          height: AppStyle.getDeviceHeightPercent(100, context) - 370,
           child: ListView.builder(
             shrinkWrap: true,
             itemCount: cartController.cart.length,
@@ -288,219 +288,221 @@ class Cart extends StatelessWidget {
           ),
         ),
         Container(
-          width: AppStyle.getDeviceWidthPercent(100, context),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30,vertical: 15),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Subtotal",
-                      style: TextStyle(
-                        color: AppStyle.darkGrey,
-                        fontSize: CommonTextStyle.smallTextStyle,
+            width: AppStyle.getDeviceWidthPercent(100, context),
+            height: 170,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 30,vertical: 0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Subtotal",
+                        style: TextStyle(
+                          color: AppStyle.darkGrey,
+                          fontSize: CommonTextStyle.smallTextStyle,
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 10,),
-                    Flexible(
-                      flex: 1,
-                      fit: FlexFit.loose,
-                      child: LayoutBuilder(
-                        builder: (BuildContext context,
-                            BoxConstraints constraints) {
-                          final boxWidth = constraints.constrainWidth();
-                          final dashWidth = 4.0;
-                          final dashHeight = 2.0;
-                          final dashCount =
-                          (boxWidth / (2 * dashWidth)).floor();
-                          return Flex(
-                            children: List.generate(dashCount, (_) {
-                              return SizedBox(
-                                width: dashWidth,
-                                height: dashHeight,
-                                child: const DecoratedBox(
-                                  decoration:
-                                  BoxDecoration(color: AppStyle.darkGrey),
-                                ),
-                              );
-                            }),
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-                            direction: Axis.horizontal,
-                          );
-                        },
+                      SizedBox(width: 10,),
+                      Flexible(
+                        flex: 1,
+                        fit: FlexFit.loose,
+                        child: LayoutBuilder(
+                          builder: (BuildContext context,
+                              BoxConstraints constraints) {
+                            final boxWidth = constraints.constrainWidth();
+                            final dashWidth = 4.0;
+                            final dashHeight = 2.0;
+                            final dashCount =
+                            (boxWidth / (2 * dashWidth)).floor();
+                            return Flex(
+                              children: List.generate(dashCount, (_) {
+                                return SizedBox(
+                                  width: dashWidth,
+                                  height: dashHeight,
+                                  child: const DecoratedBox(
+                                    decoration:
+                                    BoxDecoration(color: AppStyle.darkGrey),
+                                  ),
+                                );
+                              }),
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              direction: Axis.horizontal,
+                            );
+                          },
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 10,),
-                    Text("AED " + cartController.subTotal.value.toStringAsFixed(2),
-                      style: TextStyle(
-                        color: AppStyle.darkGrey,
-                        fontSize: CommonTextStyle.smallTextStyle,
+                      SizedBox(width: 10,),
+                      Text("AED " + cartController.subTotal.value.toStringAsFixed(2),
+                        style: TextStyle(
+                          color: AppStyle.darkGrey,
+                          fontSize: CommonTextStyle.smallTextStyle,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Shipping Fee",
-                      style: TextStyle(
-                        color: AppStyle.darkGrey,
-                        fontSize: CommonTextStyle.smallTextStyle,
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Shipping Fee",
+                        style: TextStyle(
+                          color: AppStyle.darkGrey,
+                          fontSize: CommonTextStyle.smallTextStyle,
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 10,),
-                    Flexible(
-                      flex: 1,
-                      fit: FlexFit.loose,
-                      child: LayoutBuilder(
-                        builder: (BuildContext context,
-                            BoxConstraints constraints) {
-                          final boxWidth = constraints.constrainWidth();
-                          final dashWidth = 4.0;
-                          final dashHeight = 2.0;
-                          final dashCount =
-                          (boxWidth / (2 * dashWidth)).floor();
-                          return Flex(
-                            children: List.generate(dashCount, (_) {
-                              return SizedBox(
-                                width: dashWidth,
-                                height: dashHeight,
-                                child: const DecoratedBox(
-                                  decoration:
-                                  BoxDecoration(color: AppStyle.darkGrey),
-                                ),
-                              );
-                            }),
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-                            direction: Axis.horizontal,
-                          );
-                        },
+                      SizedBox(width: 10,),
+                      Flexible(
+                        flex: 1,
+                        fit: FlexFit.loose,
+                        child: LayoutBuilder(
+                          builder: (BuildContext context,
+                              BoxConstraints constraints) {
+                            final boxWidth = constraints.constrainWidth();
+                            final dashWidth = 4.0;
+                            final dashHeight = 2.0;
+                            final dashCount =
+                            (boxWidth / (2 * dashWidth)).floor();
+                            return Flex(
+                              children: List.generate(dashCount, (_) {
+                                return SizedBox(
+                                  width: dashWidth,
+                                  height: dashHeight,
+                                  child: const DecoratedBox(
+                                    decoration:
+                                    BoxDecoration(color: AppStyle.darkGrey),
+                                  ),
+                                );
+                              }),
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              direction: Axis.horizontal,
+                            );
+                          },
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 10,),
-                    Text("AED " + cartController.shipping.value.toStringAsFixed(2),
-                      style: TextStyle(
-                        color: AppStyle.darkGrey,
-                        fontSize: CommonTextStyle.smallTextStyle,
+                      SizedBox(width: 10,),
+                      Text("AED " + cartController.shipping.value.toStringAsFixed(2),
+                        style: TextStyle(
+                          color: AppStyle.darkGrey,
+                          fontSize: CommonTextStyle.smallTextStyle,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Discount",
-                      style: TextStyle(
-                        color: AppStyle.darkGrey,
-                        fontSize: CommonTextStyle.smallTextStyle,
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Discount",
+                        style: TextStyle(
+                          color: AppStyle.darkGrey,
+                          fontSize: CommonTextStyle.smallTextStyle,
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 10,),
-                    Flexible(
-                      flex: 1,
-                      fit: FlexFit.loose,
-                      child: LayoutBuilder(
-                        builder: (BuildContext context,
-                            BoxConstraints constraints) {
-                          final boxWidth = constraints.constrainWidth();
-                          final dashWidth = 4.0;
-                          final dashHeight = 2.0;
-                          final dashCount =
-                          (boxWidth / (2 * dashWidth)).floor();
-                          return Flex(
-                            children: List.generate(dashCount, (_) {
-                              return SizedBox(
-                                width: dashWidth,
-                                height: dashHeight,
-                                child: const DecoratedBox(
-                                  decoration:
-                                  BoxDecoration(color: AppStyle.darkGrey),
-                                ),
-                              );
-                            }),
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-                            direction: Axis.horizontal,
-                          );
-                        },
+                      SizedBox(width: 10,),
+                      Flexible(
+                        flex: 1,
+                        fit: FlexFit.loose,
+                        child: LayoutBuilder(
+                          builder: (BuildContext context,
+                              BoxConstraints constraints) {
+                            final boxWidth = constraints.constrainWidth();
+                            final dashWidth = 4.0;
+                            final dashHeight = 2.0;
+                            final dashCount =
+                            (boxWidth / (2 * dashWidth)).floor();
+                            return Flex(
+                              children: List.generate(dashCount, (_) {
+                                return SizedBox(
+                                  width: dashWidth,
+                                  height: dashHeight,
+                                  child: const DecoratedBox(
+                                    decoration:
+                                    BoxDecoration(color: AppStyle.darkGrey),
+                                  ),
+                                );
+                              }),
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              direction: Axis.horizontal,
+                            );
+                          },
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 10,),
-                    Text(API.discount.toStringAsFixed(0)+" %",
-                      style: TextStyle(
-                        color: AppStyle.darkGrey,
-                        fontSize: CommonTextStyle.smallTextStyle,
+                      SizedBox(width: 10,),
+                      Text(API.discount.toStringAsFixed(0)+" %",
+                        style: TextStyle(
+                          color: AppStyle.darkGrey,
+                          fontSize: CommonTextStyle.smallTextStyle,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Cart Total",
-                      style: TextStyle(
-                        color: AppStyle.darkGrey,
-                        fontSize: CommonTextStyle.mediumTextStyle,
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Cart Total",
+                        style: TextStyle(
+                          color: AppStyle.darkGrey,
+                          fontSize: CommonTextStyle.mediumTextStyle,
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 10,),
-                    Flexible(
-                      flex: 1,
-                      fit: FlexFit.loose,
-                      child: LayoutBuilder(
-                        builder: (BuildContext context,
-                            BoxConstraints constraints) {
-                          final boxWidth = constraints.constrainWidth();
-                          final dashWidth = 4.0;
-                          final dashHeight = 2.0;
-                          final dashCount =
-                          (boxWidth / (2 * dashWidth)).floor();
-                          return Flex(
-                            children: List.generate(dashCount, (_) {
-                              return SizedBox(
-                                width: dashWidth,
-                                height: dashHeight,
-                                child: const DecoratedBox(
-                                  decoration:
-                                  BoxDecoration(color: AppStyle.darkGrey),
-                                ),
-                              );
-                            }),
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-                            direction: Axis.horizontal,
-                          );
-                        },
+                      SizedBox(width: 10,),
+                      Flexible(
+                        flex: 1,
+                        fit: FlexFit.loose,
+                        child: LayoutBuilder(
+                          builder: (BuildContext context,
+                              BoxConstraints constraints) {
+                            final boxWidth = constraints.constrainWidth();
+                            final dashWidth = 4.0;
+                            final dashHeight = 2.0;
+                            final dashCount =
+                            (boxWidth / (2 * dashWidth)).floor();
+                            return Flex(
+                              children: List.generate(dashCount, (_) {
+                                return SizedBox(
+                                  width: dashWidth,
+                                  height: dashHeight,
+                                  child: const DecoratedBox(
+                                    decoration:
+                                    BoxDecoration(color: AppStyle.darkGrey),
+                                  ),
+                                );
+                              }),
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              direction: Axis.horizontal,
+                            );
+                          },
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 10,),
-                    Text("AED " + cartController.total.value.toStringAsFixed(2),
-                      style: TextStyle(
-                        color: AppStyle.primary,
-                        fontSize: CommonTextStyle.mediumTextStyle,
+                      SizedBox(width: 10,),
+                      Text("AED " + cartController.total.value.toStringAsFixed(2),
+                        style: TextStyle(
+                          color: AppStyle.primary,
+                          fontSize: CommonTextStyle.mediumTextStyle,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10,),
-                CustomButton(
-                    text: "CHECKOUT",
-                    onPressed: () {
-                      Get.to(() => Checkout());
-                    },
-                    color: AppStyle.primary,
-                    borderRadius: 30,
-                    border: Colors.transparent,
-                    width: AppStyle.getDeviceWidthPercent(57, context),
-                    height: AppStyle.getDeviceHeightPercent(6, context),
-                    textStyle: CommonTextStyle.textStyleForOrangeMediumButtonBold
-                ),
-              ],
-            ),
-          )
+                    ],
+                  ),
+                  SizedBox(height: 10,),
+                  CustomButton(
+                      text: "CHECKOUT",
+                      onPressed: () {
+                        Get.to(() => Checkout());
+                      },
+                      color: AppStyle.primary,
+                      borderRadius: 30,
+                      border: Colors.transparent,
+                      width: AppStyle.getDeviceWidthPercent(57, context),
+                      height: AppStyle.getDeviceHeightPercent(6, context),
+                      textStyle: CommonTextStyle.textStyleForOrangeMediumButtonBold
+                  ),
+                ],
+              ),
+            )
         ),
       ],
     );

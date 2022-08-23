@@ -36,7 +36,6 @@ class SignUp extends StatelessWidget {
                     ),
                     Container(
                       width: AppStyle.getDeviceWidthPercent(80, context),
-                      height: AppStyle.getDeviceHeightPercent(5.5, context),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -44,6 +43,7 @@ class SignUp extends StatelessWidget {
                           Text("Sign Up",
                             style: CommonTextStyle.textStyleForDarkGreyBigButton,
                           ),
+                          SizedBox(height: 5),
                           Text("Enter your credentials to continue",
                               style: CommonTextStyle.textStyleForGreySmallButton
                           ),
@@ -168,7 +168,7 @@ class SignUp extends StatelessWidget {
           prefixIcon: Container(
             width: 60,
             child: Padding(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.all(MediaQuery.of(context).size.height * ((height - 4.7) / 100),),
               child: SvgPicture.asset(prefix,
                 color: AppStyle.darkGrey,),
             ),
@@ -240,7 +240,7 @@ class SignUp extends StatelessWidget {
           prefixIcon: Container(
             width: 60,
             child: Padding(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.all(MediaQuery.of(context).size.height * ((height - 4.7) / 100),),
               child: SvgPicture.asset("assets/icons/password.svg",),
             ),
           ),

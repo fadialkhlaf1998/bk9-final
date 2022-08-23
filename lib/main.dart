@@ -9,7 +9,7 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  /// updates 8/23/2022
+  /// after test
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(

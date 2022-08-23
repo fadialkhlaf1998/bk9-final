@@ -35,7 +35,7 @@ class Home extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: AppStyle.getDeviceHeightPercent(20, context),),
+                  _header(context),
                   home(context)
                 ],
               ),
@@ -53,7 +53,6 @@ class Home extends StatelessWidget {
               top: 0,
               child: _header(context),
             ),
-
           ],
         )
     ));
@@ -77,7 +76,7 @@ class Home extends StatelessWidget {
             height: AppStyle.getDeviceHeightPercent(6.5, context),
             textStyle: CommonTextStyle.textStyleForOrangeBigButton
         ) : Text(""),
-        SizedBox(height:  API.customer_id == -1 ? 25 :  0),
+        SizedBox(height: API.customer_id == -1 ? 25 :  0),
         Container(
           width: AppStyle.getDeviceWidthPercent(90, context),
           child: Text("Services",
@@ -86,19 +85,7 @@ class Home extends StatelessWidget {
         ),
         _servicesList(context,introController,homeController.selectedServices.value),
         _brands(context,introController),
-        // SizedBox(height: 20),
-        // CustomContainer(
-        //     text: "OFFERS",
-        //     onTap: () {
-        //       /// offers page
-        //     },
-        //     radius: 25,
-        //     width: AppStyle.getDeviceWidthPercent(90, context),
-        //     height: AppStyle.getDeviceHeightPercent(20, context),
-        //     color: AppStyle.grey.withOpacity(0.5),
-        //     textStyle: CommonTextStyle.textStyleForWhiteXLargeButton
-        // ),
-        SizedBox(height: 25),
+        SizedBox(height: 20),
         Container(
             width: AppStyle.getDeviceWidthPercent(85, context),
             child: Row(
@@ -119,7 +106,7 @@ class Home extends StatelessWidget {
               ],
             )
         ),
-        SizedBox(height: 15),
+        SizedBox(height: 20),
         _blogsAndEventsList(context),
         SizedBox(height: 20),
       ],
@@ -275,7 +262,6 @@ class Home extends StatelessWidget {
   _servicesList(BuildContext context,IntroController introController,int index) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20),
-      height: AppStyle.getDeviceHeightPercent(33, context),
       child: CustomGridViewServices(
         count: 3,
         mainAxisSpacing: 10,
@@ -295,7 +281,6 @@ class Home extends StatelessWidget {
     return CustomListViewContainer(
       myList: introController.events,
       width: AppStyle.getDeviceWidthPercent(90, context),
-      height: AppStyle.getDeviceHeightPercent(25, context),
       introController: introController,
     );
   }

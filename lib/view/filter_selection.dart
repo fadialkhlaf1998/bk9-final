@@ -4,7 +4,6 @@ import 'package:bk9/controller/intro_controller.dart';
 import 'package:bk9/view/product_filter.dart';
 import 'package:bk9/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class FilterSelection extends StatelessWidget {
@@ -483,6 +482,7 @@ class FilterSelection extends StatelessWidget {
                   }
                 },
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Obx((){
                       return GestureDetector(
@@ -512,8 +512,9 @@ class FilterSelection extends StatelessWidget {
                     }),
                     SizedBox(width: 5),
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.5,
+                      width: MediaQuery.of(context).size.width * 0.45,
                       child: Text(introController.superCategory[super_index].posts![index-1].title!,
+                          maxLines: 2,
                           style: TextStyle(
                               fontSize: CommonTextStyle.smallTextStyle,
                               color: AppStyle.darkGrey,
@@ -664,15 +665,18 @@ class FilterSelection extends StatelessWidget {
               filterSelectionController.selected_brand_id.value= introController.brand[index-1].id;
             },
             child: Container(
-              // color: Colors.black,
               width: MediaQuery.of(context).size.width*0.8,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 35),
-                    child: Text(introController.brand[index-1].title!,
-                      style: CommonTextStyle.textStyleForDarkGreySmallButtonNormal,
+                    child: Container(
+                      width: AppStyle.getDeviceWidthPercent(50, context),
+                      child: Text(introController.brand[index-1].title!,
+                        maxLines: 2,
+                        style: CommonTextStyle.textStyleForDarkGreySmallButtonNormal,
+                      ),
                     ),
                   ),
                   Obx(() => Padding(

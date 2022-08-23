@@ -121,17 +121,14 @@ class Wishlist extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextApp(
-                  text: "Create an account and save your wishlist!",
-                  width: AppStyle.getDeviceWidthPercent(80, context),
-                  height: AppStyle.getDeviceHeightPercent(5, context),
-                  textStyle: CommonTextStyle.textStyleForGreyMediumButtonBold,
+                Text("Create an account and save your wishlist!",
+                  style: CommonTextStyle.textStyleForGreyMediumButtonBold,
                 ),
                 SizedBox(height: 15,),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(width: 8),
+                    SizedBox(width: 5),
                     Container(
                       width: 7,
                       height: 20,
@@ -153,7 +150,7 @@ class Wishlist extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(width: 8),
+                    SizedBox(width: 5),
                     Container(
                       width: 7,
                       height: 20,
@@ -175,7 +172,7 @@ class Wishlist extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(width: 8),
+                    SizedBox(width: 5),
                     Container(
                       width: 7,
                       height: 20,
@@ -251,7 +248,6 @@ class Wishlist extends StatelessWidget {
     );
   }
   _notEmptyWishlist(BuildContext context) {
-    print(wishListController.wishlist.length);
     return Container(
       width: AppStyle.getDeviceWidthPercent(90, context),
       child: ListView.builder(
@@ -283,7 +279,7 @@ class Wishlist extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           image: DecorationImage(
-                            fit: BoxFit.cover,
+                            fit: BoxFit.contain,
                             image: NetworkImage(wishListController.wishlist[index].image!),
                           ),
                         ),
@@ -319,7 +315,7 @@ class Wishlist extends StatelessWidget {
                               ),
                             ),
                             Expanded(
-                              flex: 1,
+                              flex: 2,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [

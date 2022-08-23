@@ -25,7 +25,14 @@ class Services extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: AppStyle.getDeviceHeightPercent(10, context),),
+                  ThreeItemsHeader(
+                      onTap: () {
+                        mainPageController.changeIndexOfBottomBar(0);
+                      },
+                      introController: introController,
+                      text: "Services",
+                      textStyle: CommonTextStyle.textStyleForGreyMediumButtonBold
+                  ),
                   SizedBox(height: 10,),
                   _servicesList(context,introController),
                   SizedBox(height: 20),

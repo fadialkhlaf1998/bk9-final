@@ -131,7 +131,7 @@ class ProductInformation extends StatelessWidget {
                       child:  (product!.colorsImages!.length ==0 || product!.colorsImages![productInfoController.getIndexColorImages(product!.colors![productInfoController.selectedColorIndex.value].colorId,product!.colorsImages!)].images!.length == 0)
                           && product!.media!.length == 0  ? Container(
                         width: AppStyle.getDeviceWidthPercent(85, context),
-                        height: AppStyle.getDeviceWidthPercent(60, context),
+                        height: AppStyle.getDeviceWidthPercent(50, context),
                         decoration:BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
                             image: DecorationImage(
@@ -207,7 +207,7 @@ class ProductInformation extends StatelessWidget {
                   )
                 ):const Text(""),
                 Positioned(
-                  top: AppStyle.getDeviceWidthPercent(60, context)-25,
+                  top: AppStyle.getDeviceHeightPercent(20, context),
                   child: Container(
                     width: AppStyle.getDeviceWidthPercent(85, context),
                     decoration: BoxDecoration(
@@ -218,9 +218,10 @@ class ProductInformation extends StatelessWidget {
                       ),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20,vertical: 16),
+                      padding: EdgeInsets.symmetric(horizontal: 18,vertical: 15),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -238,7 +239,6 @@ class ProductInformation extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(height: 5,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -253,7 +253,7 @@ class ProductInformation extends StatelessWidget {
                               _rate(context),
                             ],
                           ),
-                          SizedBox(height: 10,),
+                          SizedBox(height: 10),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [

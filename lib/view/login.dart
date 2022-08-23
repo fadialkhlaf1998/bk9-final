@@ -34,7 +34,6 @@ class Login extends StatelessWidget {
                   ),
                   Container(
                     width: AppStyle.getDeviceWidthPercent(80, context),
-                    height: AppStyle.getDeviceHeightPercent(5.5, context),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -42,6 +41,7 @@ class Login extends StatelessWidget {
                         Text("Login",
                           style: CommonTextStyle.textStyleForDarkGreyBigButton,
                         ),
+                        SizedBox(height: 5),
                         Text("Enter you email and password",
                             style: CommonTextStyle.textStyleForGreySmallButton
                         ),
@@ -154,9 +154,9 @@ class Login extends StatelessWidget {
           prefixIcon: Container(
             width: 60,
             child: Padding(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.all(MediaQuery.of(context).size.height * ((height - 4.7) / 100),),
               child: SvgPicture.asset(prefix,
-                color: AppStyle.darkGrey,),
+                color: AppStyle.darkGrey),
             ),
           ),
           labelText: text,
@@ -226,7 +226,7 @@ class Login extends StatelessWidget {
           prefixIcon: Container(
             width: 60,
             child: Padding(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.all(MediaQuery.of(context).size.height * ((height - 4.7) / 100),),
               child: SvgPicture.asset("assets/icons/password.svg",),
             ),
           ),
@@ -240,13 +240,71 @@ class Login extends StatelessWidget {
         Container(
           width: AppStyle.getDeviceWidthPercent(85, context),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("--------------------------------- OR ---------------------------------",
+              Flexible(
+                flex: 1,
+                fit: FlexFit.loose,
+                child: LayoutBuilder(
+                  builder: (BuildContext context,
+                      BoxConstraints constraints) {
+                    final boxWidth = constraints.constrainWidth();
+                    final dashWidth = 2.0;
+                    final dashHeight = 1.5;
+                    final dashCount =
+                    (boxWidth / (2 * dashWidth)).floor();
+                    return Flex(
+                      children: List.generate(dashCount, (_) {
+                        return SizedBox(
+                          width: dashWidth,
+                          height: dashHeight,
+                          child: DecoratedBox(
+                            decoration:
+                            BoxDecoration(color: AppStyle.grey.withOpacity(0.7),),
+                          ),
+                        );
+                      }),
+                      mainAxisAlignment:
+                      MainAxisAlignment.spaceBetween,
+                      direction: Axis.horizontal,
+                    );
+                  },
+                ),
+              ),
+              Text(" OR ",
                 style: TextStyle(
                     color: AppStyle.grey.withOpacity(0.7),
                     fontSize: CommonTextStyle.mediumTextStyle,
                     fontWeight: FontWeight.normal
+                ),
+              ),
+              Flexible(
+                flex: 1,
+                fit: FlexFit.loose,
+                child: LayoutBuilder(
+                  builder: (BuildContext context,
+                      BoxConstraints constraints) {
+                    final boxWidth = constraints.constrainWidth();
+                    final dashWidth = 2.0;
+                    final dashHeight = 1.5;
+                    final dashCount =
+                    (boxWidth / (2 * dashWidth)).floor();
+                    return Flex(
+                      children: List.generate(dashCount, (_) {
+                        return SizedBox(
+                          width: dashWidth,
+                          height: dashHeight,
+                          child: DecoratedBox(
+                            decoration:
+                            BoxDecoration(color: AppStyle.grey.withOpacity(0.7),),
+                          ),
+                        );
+                      }),
+                      mainAxisAlignment:
+                      MainAxisAlignment.spaceBetween,
+                      direction: Axis.horizontal,
+                    );
+                  },
                 ),
               ),
             ],

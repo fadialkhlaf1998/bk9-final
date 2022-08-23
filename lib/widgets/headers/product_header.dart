@@ -92,7 +92,7 @@ class ProductHeader extends StatelessWidget {
                       )
                   ),
                 ),
-                SizedBox(width: 10),
+                SizedBox(width: 5),
                 GestureDetector(
                   onTap: () {
                     Get.back();
@@ -110,7 +110,7 @@ class ProductHeader extends StatelessWidget {
                       Get.to(() => Wishlist());
                     },
                     child: ContainerWithImage(
-                        width: 40,
+                        width: 35,
                         height: 70,
                         image: "assets/icons/wishlist.svg",
                         color: AppStyle.grey,

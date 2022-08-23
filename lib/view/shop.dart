@@ -30,7 +30,7 @@ class Shop extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox( height: AppStyle.getDeviceHeightPercent(10, context),),
+                  _header(context),
                   SizedBox(height: 20),
                   _newArrivals(context),
                   _super_category(context),
@@ -69,7 +69,7 @@ class Shop extends StatelessWidget {
         children: [
           SizedBox(height: MediaQuery.of(context).viewPadding.top),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -79,6 +79,7 @@ class Shop extends StatelessWidget {
                     },
                     child: Icon(Icons.arrow_back,size: 23,)
                 ),
+                SizedBox(width: 8),
                 Search(width: AppStyle.getDeviceWidthPercent(70, context),introController: introController,),
                 GestureDetector(
                     onTap: () {

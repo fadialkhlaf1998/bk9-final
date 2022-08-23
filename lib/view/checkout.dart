@@ -25,7 +25,7 @@ class Checkout extends StatelessWidget {
             children: [
               BackgroundImage(),
               SingleChildScrollView(
-                physics: NeverScrollableScrollPhysics(),
+                // physics: NeverScrollableScrollPhysics(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -36,15 +36,15 @@ class Checkout extends StatelessWidget {
                   ],
                 ),
               ),
-              addressesController.loading.value?
-              Positioned(child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                color: Colors.white.withOpacity(0.5),
-                child: Center(
-                  child: CircularProgressIndicator(color: AppStyle.primary,),
-                ),
-              )) : Center()
+              // addressesController.loading.value?
+              // Positioned(child: Container(
+              //   width: MediaQuery.of(context).size.width,
+              //   height: MediaQuery.of(context).size.height,
+              //   color: Colors.white.withOpacity(0.5),
+              //   child: Center(
+              //     child: CircularProgressIndicator(color: AppStyle.primary,),
+              //   ),
+              // )) : Center()
             ],
           ),
         ))
@@ -142,13 +142,14 @@ class Checkout extends StatelessWidget {
   }
   _body(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         checkoutController.selected.value == 0 ?
             _shippingPaymentMethod(context) : checkoutController.selected.value == 1 ?
         _addressesList(context) : Center() ,
         SizedBox(height: 50),
-        _nextBackButtons(context)
+        _nextBackButtons(context),
+
       ],
     );
   }
@@ -164,7 +165,7 @@ class Checkout extends StatelessWidget {
         ),
         SizedBox(height: 20),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.symmetric(horizontal: 20,vertical: 5),
           child: ShippingMethod(
             onTap: () {
               checkoutController.shippingMethod.value = 0 ;
@@ -177,7 +178,6 @@ class Checkout extends StatelessWidget {
               spreadRadius: 1,
               offset: Offset(1,3),
             ),
-            height: AppStyle.getDeviceHeightPercent(13, context),
             child1: Row(
               children: [
                 Container(
@@ -213,7 +213,7 @@ class Checkout extends StatelessWidget {
                 ),
                 SizedBox(width: 10,),
                 Container(
-                  width: AppStyle.getDeviceWidthPercent(70, context),
+                  width: AppStyle.getDeviceWidthPercent(65, context),
                   child: Text("Your items will be delivered to your door step. Additionalfee will be applied.",
                     style: CommonTextStyle.textStyleForDarkGreySmallButtonNormal,
                   ),
@@ -237,7 +237,6 @@ class Checkout extends StatelessWidget {
               spreadRadius: 1,
               offset: Offset(1,3),
             ),
-            height: AppStyle.getDeviceHeightPercent(13, context),
             child1: Row(
               children: [
                 Container(
@@ -273,7 +272,7 @@ class Checkout extends StatelessWidget {
                 ),
                 SizedBox(width: 10,),
                 Container(
-                  width: AppStyle.getDeviceWidthPercent(70, context),
+                  width: AppStyle.getDeviceWidthPercent(65, context),
                   child: Text("Save on delivery cost. You will receive an SMS when yourorder is ready for collection.",
                     style: CommonTextStyle.textStyleForDarkGreySmallButtonNormal,
                   ),
@@ -282,10 +281,43 @@ class Checkout extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 15),
+        SizedBox(height: 20),
         Container(
+          width: AppStyle.getDeviceWidthPercent(90, context),
           alignment: Alignment.center,
-          child: Text("______________________________________________________"),
+          child:Row(
+            children: [
+              Flexible(
+                flex: 1,
+                fit: FlexFit.loose,
+                child: LayoutBuilder(
+                  builder: (BuildContext context,
+                      BoxConstraints constraints) {
+                    final boxWidth = constraints.constrainWidth();
+                    final dashWidth = 2.0;
+                    final dashHeight = 1.0;
+                    final dashCount =
+                    (boxWidth / (2 * dashWidth)).floor();
+                    return Flex(
+                      children: List.generate(dashCount, (_) {
+                        return SizedBox(
+                          width: dashWidth,
+                          height: dashHeight,
+                          child: const DecoratedBox(
+                            decoration:
+                            BoxDecoration(color: AppStyle.darkGrey),
+                          ),
+                        );
+                      }),
+                      mainAxisAlignment:
+                      MainAxisAlignment.spaceBetween,
+                      direction: Axis.horizontal,
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
         SizedBox(height: 20),
         Padding(
@@ -309,7 +341,6 @@ class Checkout extends StatelessWidget {
                 spreadRadius: 1,
                 offset: Offset(1,3),
               ),
-              height: AppStyle.getDeviceHeightPercent(8, context),
               child1: Row(
                 children: [
                   Container(
@@ -355,7 +386,6 @@ class Checkout extends StatelessWidget {
               spreadRadius: 1,
               offset: Offset(1,3),
             ),
-            height: AppStyle.getDeviceHeightPercent(8, context),
             child1: Row(
               children: [
                 Container(
@@ -392,165 +422,169 @@ class Checkout extends StatelessWidget {
   _addressesList(BuildContext context) {
     return Stack(
       children: [
-        Container(
-          width: AppStyle.getDeviceWidthPercent(90, context),
-          height: AppStyle.getDeviceHeightPercent(60, context),
-          child:  ListView.builder(
-            itemCount: addressesController.addresses.length,
-            shrinkWrap: true,
-            itemBuilder: (context,index){
-              return GestureDetector(
-                onTap: () {
-                  checkoutController.selectAddress.value = index;
-                },
-                child: Container(
-                    width: AppStyle.getDeviceWidthPercent(85, context),
-                    margin: EdgeInsets.symmetric(vertical: 10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                      boxShadow: [
-                        BoxShadow(
-                          color:  Colors.grey.withOpacity(0.3),
-                          blurRadius: 2,
-                          spreadRadius: 1,
-                          offset: Offset(1,3),
-                        ),
-                      ],
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Obx(() => Container(
-                                    width: 18,
-                                    height: 18,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      border: Border.all(color: AppStyle.grey),
-                                    ),
-                                    child: Center(
-                                        child: Container(
-                                          width: 13,
-                                          height: 13,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: checkoutController.selectAddress.value == index ?
-                                            AppStyle.primary
-                                                : Colors.white,
-                                          ),
-                                        )
-                                    ),
-                                  ),),
-                                  SizedBox(width: 10,),
-                                  Text(addressesController.addresses[index].firstName.toUpperCase(),
-                                    style: CommonTextStyle.textStyleForWhiteMediumButton,
-                                  ),
-                                ],
-                              ),
-                              CustomButton(
-                                  text: "Default Address",
-                                  onPressed: () {
-                                    if(addressesController.addresses[index].isDefault == 1) {
-                                      print(addressesController.addresses[index].isDefault);
-                                    }
-                                    else {
-                                      addressesController.setDefault(addressesController.addresses[index]);
-                                    }
-                                  },
-                                  color: addressesController.addresses[index].isDefault == 1 ?
-                                  AppStyle.primary : Colors.grey.withOpacity(0.5),
-                                  borderRadius: 30,
-                                  border: addressesController.addresses[index].isDefault == 1 ?
-                                  AppStyle.primary : Colors.grey.withOpacity(0.5),
-                                  width: 100,
-                                  height: 30,
-                                  textStyle: CommonTextStyle.textStyleForOrangeBigButton
-                              )
-                            ],
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Container(
+            width: AppStyle.getDeviceWidthPercent(100, context),
+            height: AppStyle.getDeviceHeightPercent(60, context),
+            child:  ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: addressesController.addresses.length,
+              shrinkWrap: true,
+              itemBuilder: (context,index){
+                return GestureDetector(
+                  onTap: () {
+                    checkoutController.selectAddress.value = index;
+                  },
+                  child: Container(
+                      width: AppStyle.getDeviceWidthPercent(85, context),
+                      margin: EdgeInsets.symmetric(vertical: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color:  Colors.grey.withOpacity(0.3),
+                            blurRadius: 2,
+                            spreadRadius: 1,
+                            offset: Offset(1,3),
                           ),
-                          Row(
-                            children: [
-                              Text(addressesController.addresses[index].address1,
-                                style: CommonTextStyle.textStyleForDarkGreyMediumButton,
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 5,),
-                          Row(
-                            children: [
-                              Text(addressesController.addresses[index].address2,
-                                style: CommonTextStyle.textStyleForDarkGreyMediumButton,
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 5,),
-                          Row(
-                            children: [
-                              Text(addressesController.addresses[index].country,
-                                style: CommonTextStyle.textStyleForGreySmallButton,
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 5,),
-                          Container(
-                            width: AppStyle.getDeviceWidthPercent(70, context),
-                            child: Row(
+                        ],
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(addressesController.addresses[index].apartment + "  " + addressesController.addresses[index].state,
+                                Row(
+                                  children: [
+                                    Obx(() => Container(
+                                      width: 18,
+                                      height: 18,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        border: Border.all(color: AppStyle.grey),
+                                      ),
+                                      child: Center(
+                                          child: Container(
+                                            width: 13,
+                                            height: 13,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: checkoutController.selectAddress.value == index ?
+                                              AppStyle.primary
+                                                  : Colors.white,
+                                            ),
+                                          )
+                                      ),
+                                    ),),
+                                    SizedBox(width: 10,),
+                                    Text(addressesController.addresses[index].firstName.toUpperCase(),
+                                      style: CommonTextStyle.textStyleForWhiteMediumButton,
+                                    ),
+                                  ],
+                                ),
+                                CustomButton(
+                                    text: "Default Address",
+                                    onPressed: () {
+                                      if(addressesController.addresses[index].isDefault == 1) {
+                                        print(addressesController.addresses[index].isDefault);
+                                      }
+                                      else {
+                                        addressesController.setDefault(addressesController.addresses[index]);
+                                      }
+                                    },
+                                    color: addressesController.addresses[index].isDefault == 1 ?
+                                    AppStyle.primary : Colors.grey.withOpacity(0.5),
+                                    borderRadius: 30,
+                                    border: addressesController.addresses[index].isDefault == 1 ?
+                                    AppStyle.primary : Colors.grey.withOpacity(0.5),
+                                    width: 100,
+                                    height: 30,
+                                    textStyle: CommonTextStyle.textStyleForOrangeBigButton
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text(addressesController.addresses[index].address1,
+                                  style: CommonTextStyle.textStyleForDarkGreyMediumButton,
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 5,),
+                            Row(
+                              children: [
+                                Text(addressesController.addresses[index].address2,
+                                  style: CommonTextStyle.textStyleForDarkGreyMediumButton,
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 5,),
+                            Row(
+                              children: [
+                                Text(addressesController.addresses[index].country,
                                   style: CommonTextStyle.textStyleForGreySmallButton,
                                 ),
                               ],
                             ),
-                          ),
-                          SizedBox(height: 5,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(addressesController.addresses[index].phone,
-                                style: CommonTextStyle.textStyleForGreySmallButton,
-                              ),
-                              Row(
+                            SizedBox(height: 5,),
+                            Container(
+                              width: AppStyle.getDeviceWidthPercent(70, context),
+                              child: Row(
                                 children: [
-                                  GestureDetector(
-                                      onTap: () {
-                                        addressesController.selectEdit.value = 1;
-                                        Get.to(() => CreateAddress(
-                                          addressesController.addresses[index].id,
-                                          1,
-                                          addressesController.addresses[index].firstName,
-                                          addressesController.addresses[index].isDefault,
-                                          addressesController.addresses[index].address1,
-                                          addressesController.addresses[index].address2,
-                                          addressesController.addresses[index].apartment,
-                                          addressesController.addresses[index].phone,
-                                          addressesController.addresses[index].country,
-                                          addressesController.addresses[index].state,
-                                        ));
-                                      },
-                                      child: Icon(Icons.edit,color: AppStyle.primary)),
-                                  SizedBox(width: 10,),
-                                  GestureDetector(
-                                      onTap: () {
-                                        addressesController.deleteAddress(context, addressesController.addresses[index]);
-                                      },
-                                      child: Icon(Icons.delete,color: Colors.red,))
+                                  Text(addressesController.addresses[index].apartment + "  " + addressesController.addresses[index].state,
+                                    style: CommonTextStyle.textStyleForGreySmallButton,
+                                  ),
                                 ],
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    )
-                ),
-              );
-            },
+                              ),
+                            ),
+                            SizedBox(height: 5,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(addressesController.addresses[index].phone,
+                                  style: CommonTextStyle.textStyleForGreySmallButton,
+                                ),
+                                Row(
+                                  children: [
+                                    GestureDetector(
+                                        onTap: () {
+                                          addressesController.selectEdit.value = 1;
+                                          Get.to(() => CreateAddress(
+                                            addressesController.addresses[index].id,
+                                            1,
+                                            addressesController.addresses[index].firstName,
+                                            addressesController.addresses[index].isDefault,
+                                            addressesController.addresses[index].address1,
+                                            addressesController.addresses[index].address2,
+                                            addressesController.addresses[index].apartment,
+                                            addressesController.addresses[index].phone,
+                                            addressesController.addresses[index].country,
+                                            addressesController.addresses[index].state,
+                                          ));
+                                        },
+                                        child: Icon(Icons.edit,color: AppStyle.primary)),
+                                    SizedBox(width: 10,),
+                                    GestureDetector(
+                                        onTap: () {
+                                          addressesController.deleteAddress(context, addressesController.addresses[index]);
+                                        },
+                                        child: Icon(Icons.delete,color: Colors.red,))
+                                  ],
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
+                  ),
+                );
+              },
+            ),
           ),
         ),
       ],

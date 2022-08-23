@@ -171,7 +171,6 @@ class AboutUs extends StatelessWidget {
         ),
         Container(
           width: AppStyle.getDeviceWidthPercent(100, context),
-          height: AppStyle.getDeviceHeightPercent(25, context),
           color: AppStyle.green,
           child: Center(
             child: Container(

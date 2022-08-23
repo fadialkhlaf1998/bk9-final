@@ -38,14 +38,14 @@ class ForgetPassword extends StatelessWidget {
                       ),
                     ),
                     ContainerWithImage(
-                      width: AppStyle.getDeviceWidthPercent(50, context),
-                      height: AppStyle.getDeviceHeightPercent(30, context),
+                      width: AppStyle.getDeviceWidthPercent(40, context),
+                      height: AppStyle.getDeviceHeightPercent(25, context),
                       image: "assets/icons/logo.svg",
                       option: 0,
                     ),
                     Container(
                       width: AppStyle.getDeviceWidthPercent(80, context),
-                      height: AppStyle.getDeviceHeightPercent(5.5, context),
+                      // height: AppStyle.getDeviceHeightPercent(5.5, context),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -56,7 +56,8 @@ class ForgetPassword extends StatelessWidget {
                         ],
                       ),
                     ),
-                    normalTextField(80,6.5,"Email",forgotPasswordController.email,Text(""),"assets/icons/verification_code.svg",2,forgotPasswordController.emailValidate.value,context),
+                    SizedBox(height: 20),
+                    normalTextField(80,6.5,"Email",forgotPasswordController.email,Text(""),"assets/icons/email.svg",2,forgotPasswordController.emailValidate.value,context),
                     SizedBox(height: 15),
                     CustomButton(
                         text: "Submit",
@@ -104,7 +105,7 @@ class ForgetPassword extends StatelessWidget {
           prefixIcon: Container(
             width: 60,
             child: Padding(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.all(MediaQuery.of(context).size.height * ((height - 4.7) / 100),),
               child: SvgPicture.asset(prefix,
                 color: AppStyle.darkGrey,),
             ),

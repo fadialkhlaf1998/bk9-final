@@ -106,9 +106,12 @@ class SubCategoriesProducts extends StatelessWidget {
                     child: Icon(Icons.arrow_back,size: 23,)
                 ),
                 SizedBox(width: 25,),
-                Text(introController.superCategory[shopController.selectedSuperCategory.value].posts![index].title!,
-                    style: CommonTextStyle.textStyleForDarkGreyMediumButton
-                ),
+                Container(
+                  width: AppStyle.getDeviceWidthPercent(50, context),
+                  child: Text(introController.superCategory[shopController.selectedSuperCategory.value].posts![index].title!,
+                      style: CommonTextStyle.textStyleForDarkGreyMediumButton
+                  ),
+                )
               ],
             ),
             Row(
@@ -200,7 +203,7 @@ class SubCategoriesProducts extends StatelessWidget {
                         ),
                       ),
                       Expanded(
-                        flex: 1,
+                        flex: 2,
                         child: Container(
                           width: AppStyle.getDeviceWidthPercent(30, context),
                           child: Center(
@@ -210,6 +213,7 @@ class SubCategoriesProducts extends StatelessWidget {
                                 color: AppStyle.grey,
                                 fontWeight: FontWeight.normal,
                                 fontSize: CommonTextStyle.tinyTextStyle,
+                                overflow: TextOverflow.ellipsis
                               ),
                               textAlign: TextAlign.center,
                             ),

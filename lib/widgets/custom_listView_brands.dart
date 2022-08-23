@@ -15,14 +15,14 @@ class CustomListViewBrands extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      padding: EdgeInsets.symmetric(horizontal: 15),
       width: AppStyle.getDeviceWidthPercent(100, context),
-      height: AppStyle.getDeviceHeightPercent(16, context)+30,
+      height: AppStyle.getDeviceHeightPercent(16, context)+20,
       color: AppStyle.lightGrey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-         SizedBox(height: 30,),
+         SizedBox(height: 10,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

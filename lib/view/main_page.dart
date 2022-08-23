@@ -34,7 +34,7 @@ class MainPage extends StatelessWidget {
   _bottomBar(context){
     return Container(
       width: AppStyle.getDeviceWidthPercent(100, context),
-      height: AppStyle.getDeviceHeightPercent(7, context),
+      height: 55,
       margin: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
       child: Row(
         children: [
@@ -57,7 +57,7 @@ class MainPage extends StatelessWidget {
           duration: const Duration(milliseconds: 200),
           padding: const EdgeInsets.symmetric(horizontal: 10),
           width: AppStyle.getDeviceWidthPercent(20, context),
-          height: AppStyle.getDeviceHeightPercent(7, context),
+          height: 55,
           decoration: BoxDecoration(
               border: Border(
                   top: BorderSide( width: mainPageController.selectedIndex.value == index ? 3 : 0,

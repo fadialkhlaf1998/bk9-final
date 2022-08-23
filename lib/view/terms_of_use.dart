@@ -68,7 +68,7 @@ class TermsOfUse extends StatelessWidget {
               SizedBox(width: 25),
               Container(
                 width: AppStyle.getDeviceWidthPercent(45, context),
-                child: Text("Privacy Policy",
+                child: Text("Terms Of Use",
                     style: TextStyle(
                       fontSize: CommonTextStyle.mediumTextStyle,
                       color: AppStyle.darkGrey,

@@ -1,7 +1,6 @@
 import 'package:bk9/const/app-style.dart';
 import 'package:bk9/controller/intro_screen_controller.dart';
 import 'package:bk9/widgets/background_image.dart';
-import 'package:bk9/widgets/container_with_image.dart';
 import 'package:bk9/widgets/custom_button.dart';
 import 'package:bk9/widgets/text_app.dart';
 import 'package:bk9/widgets/text_for_desc_intro_screen.dart';
@@ -27,7 +26,7 @@ class IntroScreen extends StatelessWidget {
               children: [
                 Container(
                     width: AppStyle.getDeviceWidthPercent(100, context),
-                    height: AppStyle.getDeviceHeightPercent(70, context),
+                    height: AppStyle.getDeviceHeightPercent(80, context),
                     child: ScrollablePositionedList.builder(
                       itemScrollController: introScreenController.itemScrollController,
                       physics: NeverScrollableScrollPhysics(),
@@ -38,9 +37,9 @@ class IntroScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            SizedBox(height: 70),
+                            SizedBox(height: 60),
                             Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 15),
+                              padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 15),
                               child: SvgPicture.asset(introScreenController.screens[index]["image"],height: AppStyle.getDeviceWidthPercent(50, context),)
                             ),
                             SizedBox(height: 60,),
@@ -54,87 +53,69 @@ class IntroScreen extends StatelessWidget {
                                 height: AppStyle.getDeviceWidthPercent(20, context),
                                 textStyle: CommonTextStyle.textStyleForGreySmallButton
                             ),
+                            SizedBox(height: 10,),
+                            Obx(() => DotsIndicator(
+                              dotsCount: introScreenController.screens.length,
+                              position: double.parse(introScreenController.nextValue.value.toString()),
+                              decorator: DotsDecorator(
+                                activeColor: AppStyle.darkGrey,
+                                color: AppStyle.grey.withOpacity(0.5),
+                              ),
+                            ),),
                           ],
                         );
                       },
                     )
                 ),
-                Obx(() => DotsIndicator(
-                  dotsCount: introScreenController.screens.length,
-                  position: double.parse(introScreenController.nextValue.value.toString()),
-                  decorator: DotsDecorator(
-                    activeColor: AppStyle.darkGrey,
-                    color: AppStyle.grey.withOpacity(0.5),
-                  ),
-                ),),
-                SizedBox(height: 30),
-                Container(
-                  width: AppStyle.getDeviceWidthPercent(80, context),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CustomButton(
-                          text: "Back",
-                          onPressed: () {
-                           introScreenController.goToPreviousPage();
-                          },
-                          color: AppStyle.greyButton,
-                          borderRadius: 30,
-                          border: Colors.transparent,
-                          width: AppStyle.getDeviceWidthPercent(35, context),
-                          height: AppStyle.getDeviceHeightPercent(6, context),
-                          textStyle: CommonTextStyle.textStyleForDarkGreyMediumButton
-                      ),
-                      CustomButton(
-                          text: "Next",
-                          onPressed: () {
-                            introScreenController.goToNextPage();
-                          },
-                          color: AppStyle.primary,
-                          borderRadius: 30,
-                          border: Colors.transparent,
-                          width: AppStyle.getDeviceWidthPercent(35, context),
-                          height: AppStyle.getDeviceHeightPercent(6, context),
-                          textStyle: CommonTextStyle.textStyleForOrangeMediumButtonBold
-                      ),
-                    ],
-                  ),
-                ),
               ],
-            )
+            ),
+            Positioned(
+              bottom: 0,
+              child: backAndNextButtom(context)
+            ),
           ],
         ),
       ),
     );
   }
-}
-
-
-class ContainerWithImageWithFit extends StatelessWidget {
-  final double width;
-  final double height;
-  final String image;
-  final BoxFit fit;
-  final int option; /// 0 SVG /// 1 png
-  final Color? color;
-
-  const ContainerWithImageWithFit({
-    required this.width,
-    required this.height,
-    required this.image,
-    required this.option,
-    required this.fit,
-    this.color
-  });
-
-  @override
-  Widget build(BuildContext context) {
+  backAndNextButtom(BuildContext context) {
     return Container(
-        width: width,
-        height: height,
-        child: option == 0 ?
-        color == null ? SvgPicture.asset(image,fit: BoxFit.cover,height: height,)  :  SvgPicture.asset(image,fit: BoxFit.cover,color: color,height: height,) :
-        Image.asset(image, fit: fit)
+      width: AppStyle.getDeviceWidthPercent(100, context),
+      child: Column(
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              CustomButton(
+                  text: "Back",
+                  onPressed: () {
+                    introScreenController.goToPreviousPage();
+                  },
+                  color: AppStyle.greyButton,
+                  borderRadius: 30,
+                  border: Colors.transparent,
+                  width: AppStyle.getDeviceWidthPercent(35, context),
+                  height: AppStyle.getDeviceHeightPercent(6, context),
+                  textStyle: CommonTextStyle.textStyleForDarkGreyMediumButton
+              ),
+              CustomButton(
+                  text: "Next",
+                  onPressed: () {
+                    introScreenController.goToNextPage();
+                  },
+                  color: AppStyle.primary,
+                  borderRadius: 30,
+                  border: Colors.transparent,
+                  width: AppStyle.getDeviceWidthPercent(35, context),
+                  height: AppStyle.getDeviceHeightPercent(6, context),
+                  textStyle: CommonTextStyle.textStyleForOrangeMediumButtonBold
+              ),
+            ],
+          ),
+          SizedBox(height: 30)
+        ],
+      )
     );
   }
 }

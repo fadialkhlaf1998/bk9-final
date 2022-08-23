@@ -77,7 +77,7 @@ class CustomGridViewServices extends StatelessWidget {
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: CommonTextStyle.tinyTextStyle
+                                      fontSize: CommonTextStyle.tinyTextStyle - 1
                                   ),
                                 ),
                               ),

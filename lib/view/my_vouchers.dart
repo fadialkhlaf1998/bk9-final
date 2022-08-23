@@ -127,9 +127,10 @@ class MyVouchers extends StatelessWidget {
               API.discount == 0.0 ?
               "No Discount Code" :
               API.discount.toStringAsFixed(2) + "% OFF",
+              textAlign: TextAlign.center,
               style: TextStyle(
-                  color: Colors.white,
-                  fontSize: CommonTextStyle.mediumTextStyle
+                color: Colors.white,
+                fontSize: CommonTextStyle.mediumTextStyle,
               ),
             ),
           ),

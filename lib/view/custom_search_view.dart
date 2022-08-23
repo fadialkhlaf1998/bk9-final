@@ -6,6 +6,7 @@ import 'package:bk9/view/product_info.dart';
 import 'package:bk9/view/services_details.dart';
 import 'package:bk9/widgets/background_image.dart';
 import 'package:bk9/widgets/container_with_image.dart';
+import 'package:bk9/widgets/custom_gridView_services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -112,70 +113,17 @@ class CustomSearchView extends StatelessWidget {
     );
   }
   _servicesList(BuildContext context) {
-    return GridView.builder(
-        padding: const EdgeInsets.symmetric(vertical: 30,horizontal: 30),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10,
-          childAspectRatio: 1,
-          crossAxisCount: 3,
-        ),
-        physics: NeverScrollableScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        itemCount: service.length,
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-              onTap:  (){
-                Get.to(()=>ServicesDetails(service[index]));
-              },
-              child: Container(
-                padding: EdgeInsets.all(1),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20)),
-                ),
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: Hero(
-                        tag: "service" + introController.service[index].id.toString(),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(20),
-                                topLeft: Radius.circular(20)
-                            ),
-                            image: DecorationImage(
-                                image: NetworkImage(introController.service[index].image!),
-                                fit: BoxFit.cover
-                            ),
-                          ),
-                          child: Align(
-                            alignment: AlignmentDirectional.bottomCenter,
-                            child: Container(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 4),
-                                child: Text(introController.service[index].title!,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: CommonTextStyle.tinyTextStyle
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-
-                  ],
-                ),
-              )
-          );
-        });
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: CustomGridViewServices(
+        count: 3,
+        mainAxisSpacing: 10,
+        crossAxisSpacing: 10,
+        childAspectRatio: 1,
+        padding: 4,
+        introController: introController,
+      ),
+    );
   }
   _productList(BuildContext context) {
     return Container(
@@ -277,7 +225,7 @@ class CustomSearchView extends StatelessWidget {
   }
   _posts(BuildContext context){
     return Container(
-      width: AppStyle.getDeviceWidthPercent(80, context),
+      width: AppStyle.getDeviceWidthPercent(85, context),
       height: AppStyle.getDeviceHeightPercent(4, context),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

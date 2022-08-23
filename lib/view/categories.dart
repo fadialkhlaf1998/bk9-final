@@ -4,7 +4,6 @@ import 'package:bk9/controller/shop_controller.dart';
 import 'package:bk9/model/post.dart';
 import 'package:bk9/view/sub_categories_products.dart';
 import 'package:bk9/widgets/background_image.dart';
-import 'package:bk9/widgets/custom_filter_sort.dart';
 import 'package:bk9/widgets/headers/three_items_header.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,7 +28,6 @@ class Categories extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // SizedBox(height: AppStyle.getDeviceHeightPercent(13, context),),
                     SizedBox(height: 80),
                     _cartegoryList(context),
                     SizedBox(height: 20),
