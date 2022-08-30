@@ -227,7 +227,7 @@ class Checkout extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: ShippingMethod(
             onTap: () {
-              checkoutController.shippingMethod.value = 1;
+              checkoutController.shippingMethod.value = 2;
             },
             color: checkoutController.shippingMethod.value != 0 ? Colors.white : Colors.transparent,
             boxShadow: BoxShadow(

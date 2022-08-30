@@ -72,7 +72,7 @@ class MyAddress extends StatelessWidget {
                     Container(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height * 0.8,
-                      color: Colors.white.withOpacity(0.5),
+                      // color: Colors.white.withOpacity(0.5),
                       child: Center(
                         child: CircularProgressIndicator(color: AppStyle.primary,),
                       ),

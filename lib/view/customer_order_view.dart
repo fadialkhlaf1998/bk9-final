@@ -20,17 +20,19 @@ class CustomerOrderView extends StatelessWidget {
   //   customerOrderController.orders = orders;
   // }
   RxBool loading = false.obs;
+  RxBool inStoreSelected = false.obs;
   CustomerOrderView(int id) {
     loading.value = true;
     API.checkInternet().then((internet) async {
       if (internet) {
         API.getCustomerOrders(API.customer_id).then((value) {
           loading.value = false;
-          if (value.isNotEmpty) {
-            customerOrderController.orders = value;
-          } else {
-            //AppStyle.errorMsg(context,"You don't have any orders yet");
+          if(value!=null){
+            customerOrderController.orders = value.customerOrder!;
+            customerOrderController.inStore = value.inStoreOrder!;
           }
+
+
         });
       } else {
         Get.to(() => NoInternet())!.then((value) {
@@ -55,57 +57,37 @@ class CustomerOrderView extends StatelessWidget {
               BackgroundImage(),
               loading.value ?
               Positioned(
-                  child: Column(
-                    children: [
-                      _header(context),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * 0.8,
-                        color: Colors.white.withOpacity(0.5),
-                        child: Center(
-                          child: CircularProgressIndicator(color: AppStyle.primary,),
-                        ),
-                      ),
-                ],
-              )) :  SingleChildScrollView(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        _header(context),
+                        Stack(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height * 0.8,
+                              // color: Colors.white.withOpacity(0.5),
+                              child: Center(
+                                child: CircularProgressIndicator(color: AppStyle.primary,),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  )
+              ) :  SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     _header(context),
                     SizedBox(height: 30),
-                    customerOrderController.orders.isEmpty ?
-                    Column(
-                      children: [
-                        TextApp(text: "You don't have any orders yet",
-                            width: AppStyle.getDeviceWidthPercent(80, context),
-                            height: AppStyle.getDeviceHeightPercent(8, context),
-                            textStyle: CommonTextStyle.textStyleForDarkGreySmallButtonBold
-                        ),
-                        SizedBox(height: 10),
-                        CustomButton(
-                            text: "Continue Shopping",
-                            onPressed: () {
-                              Get.back();
-                              mainPageController.changeIndexOfBottomBar(1);
-                            },
-                            color: AppStyle.primary,
-                            borderRadius: 30,
-                            border: Colors.transparent,
-                            width: AppStyle.getDeviceWidthPercent(80, context),
-                            height: AppStyle.getDeviceHeightPercent(6.5, context),
-                            textStyle: CommonTextStyle.textStyleForOrangeMediumButtonBold
-                        ),
-                      ],
-                    ) :
-                    Container(
-                        child: ListView.builder(
-                            itemCount: customerOrderController.orders.length,
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return items(context, customerOrderController.orders[index]);
-                            })),
-                    SizedBox(height: 20,)
+                    _selecter(context),
+                    SizedBox(height: 15),
+                    inStoreSelected.value
+                    ?_inStoreOrder(context)
+                        :_order(context),
+
                   ],
                 ),
               ),
@@ -113,6 +95,135 @@ class CustomerOrderView extends StatelessWidget {
           ),
         )
     ));
+  }
+  _selecter(BuildContext context){
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: 30,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          GestureDetector(
+            onTap: (){
+              inStoreSelected.value = false;
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text("Online Orders",
+                  style: TextStyle(
+                      color: !inStoreSelected.value ?
+                      AppStyle.primary:AppStyle.grey,
+                      fontSize: CommonTextStyle.mediumTextStyle,
+                      fontWeight: FontWeight.bold
+                  ),
+                ),
+                SizedBox(height: 2),
+                Container(height: 2,width: 120,color: !inStoreSelected.value ?AppStyle.primary:AppStyle.grey,)
+              ],
+            ),
+          ),
+          GestureDetector(
+            onTap: (){
+              inStoreSelected.value = true;
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text("In-Store Orders",
+                  style: TextStyle(
+                      color: inStoreSelected.value ?
+                      AppStyle.primary:AppStyle.grey,
+                      fontSize: CommonTextStyle.mediumTextStyle,
+                      fontWeight: FontWeight.bold
+                  ),
+                ),
+                SizedBox(height: 2),
+                Container(height: 2,width: 120,color: inStoreSelected.value ?AppStyle.primary:AppStyle.grey,)
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  _inStoreOrder(BuildContext context){
+    return Column(
+      children: [
+        customerOrderController.inStore.isEmpty ?
+        Column(
+          children: [
+            TextApp(text: "You don't have any orders yet",
+                width: AppStyle.getDeviceWidthPercent(80, context),
+                height: AppStyle.getDeviceHeightPercent(8, context),
+                textStyle: CommonTextStyle.textStyleForDarkGreySmallButtonBold
+            ),
+            SizedBox(height: 10),
+            CustomButton(
+                text: "Continue Shopping",
+                onPressed: () {
+                  Get.back();
+                  mainPageController.changeIndexOfBottomBar(1);
+                },
+                color: AppStyle.primary,
+                borderRadius: 30,
+                border: Colors.transparent,
+                width: AppStyle.getDeviceWidthPercent(80, context),
+                height: AppStyle.getDeviceHeightPercent(6.5, context),
+                textStyle: CommonTextStyle.textStyleForOrangeMediumButtonBold
+            ),
+          ],
+        ) :
+        Container(
+            child: ListView.builder(
+                itemCount: customerOrderController.inStore.length,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return items(context, customerOrderController.inStore[index]);
+                })),
+        SizedBox(height: 20,)
+      ],
+    );
+  }
+  _order(BuildContext context){
+    return Column(
+      children: [
+        customerOrderController.orders.isEmpty ?
+        Column(
+          children: [
+            TextApp(text: "You don't have any orders yet",
+                width: AppStyle.getDeviceWidthPercent(80, context),
+                height: AppStyle.getDeviceHeightPercent(8, context),
+                textStyle: CommonTextStyle.textStyleForDarkGreySmallButtonBold
+            ),
+            SizedBox(height: 10),
+            CustomButton(
+                text: "Continue Shopping",
+                onPressed: () {
+                  Get.back();
+                  mainPageController.changeIndexOfBottomBar(1);
+                },
+                color: AppStyle.primary,
+                borderRadius: 30,
+                border: Colors.transparent,
+                width: AppStyle.getDeviceWidthPercent(80, context),
+                height: AppStyle.getDeviceHeightPercent(6.5, context),
+                textStyle: CommonTextStyle.textStyleForOrangeMediumButtonBold
+            ),
+          ],
+        ) :
+        Container(
+            child: ListView.builder(
+                itemCount: customerOrderController.orders.length,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return items(context, customerOrderController.orders[index]);
+                })),
+        SizedBox(height: 20,)
+      ],
+    );
   }
   _header(BuildContext context) {
     return Container(
@@ -359,10 +470,29 @@ class CustomerOrderView extends StatelessWidget {
           ),
         ],
       );
-    } else {
+    } else if(state == 1){
       return Row(
         children: const [
           Text("delivered",
+              style: TextStyle(
+                  color: Colors.green,
+                  fontSize: CommonTextStyle.tinyTextStyle
+              )
+          ),
+          SizedBox(
+            width: 3,
+          ),
+          Icon(
+            Icons.check_circle,
+            color: AppStyle.grey,
+            size: CommonTextStyle.tinyTextStyle,
+          ),
+        ],
+      );
+    }else {
+      return Row(
+        children: const [
+          Text("In Store Order",
               style: TextStyle(
                   color: Colors.green,
                   fontSize: CommonTextStyle.tinyTextStyle

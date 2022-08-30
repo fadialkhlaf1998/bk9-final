@@ -61,8 +61,8 @@ class ProductInfoController extends GetxController {
           return i;
         }
     }
-    selectedOption.value = -1;
-    return -1;
+    selectedOption.value = 0;
+    return 0;
   }
 
   /// cart

@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
                     CustomButton(
                         text: "Login / Sign Up",
                         onPressed: () {
-                          Get.offAll(() => Login());
+                          Get.to(() => Login());
                         },
                         color: AppStyle.primary,
                         borderRadius: 30,

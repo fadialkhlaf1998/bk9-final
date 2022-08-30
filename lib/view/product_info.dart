@@ -18,12 +18,6 @@ import 'package:get/get.dart';
 class ProductInformation extends StatelessWidget {
 
   Product? product ;
-  // ProductInformation(this.product){
-  //   productInfoController.selectedColorIndex.value = 0;
-  //   productInfoController.product = product;
-  //   productInfoController.onStartInit();
-  //   productInfoController.onSelectOption();
-  // }
 
   ProductInformation(int id){
     productInfoController.loading.value=true;
@@ -267,7 +261,7 @@ class ProductInformation extends StatelessWidget {
                                     child: Padding(
                                       padding: EdgeInsets.symmetric(vertical: 5,horizontal: 15),
                                       child: Center(
-                                        child: Text("AED " + product!.price.toString(),
+                                        child: Text("AED " + (product!.price! + product!.options![productInfoController.selectedOption.value].additionalPrice).toString(),
                                           style: CommonTextStyle.textStyleForWhiteSmallButton,
                                         ),
                                       ),

@@ -24,6 +24,7 @@ class CartController extends GetxController {
   }
   getTotal(){
     discount.value = double.parse(API.discount.toString());
+    print(discount.value);
     total.value=0;
     subTotal.value=0;
     for(int i=0;i<cart.length;i++){
@@ -131,6 +132,8 @@ class CartController extends GetxController {
   clear() {
     cart.clear();
     discount.value = 0.0;
+    API.discount = 0;
+    getTotal();
   }
 
 

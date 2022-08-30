@@ -20,6 +20,10 @@ class Cart extends StatelessWidget {
   MainPageController mainPageController = Get.find();
   ProductInfoController productInfoController = Get.put(ProductInfoController());
 
+  Cart(){
+    cartController.getTotal();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -219,7 +223,7 @@ class Cart extends StatelessWidget {
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text(cartController.allPrice.value.toString() +  " " + "AED",
+                                            Text((cartController.cart[index].price+cartController.cart[index].additionalPrice).toStringAsFixed(2) +  " " + "AED",
                                               style: TextStyle(
                                                 color: AppStyle.productGrey,
                                                 fontSize: CommonTextStyle.smallTextStyle,

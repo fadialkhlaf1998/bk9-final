@@ -50,12 +50,22 @@ class OrderItems extends StatelessWidget {
                     _header(context),
                     SizedBox(height: 30),
                     loading.value?
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height*0.8,
-                      color: Colors.white.withOpacity(0.5),
-                      child: Center(
-                        child: CircularProgressIndicator(color: AppStyle.primary,),
+                    SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Stack(
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.height * 0.8,
+                                // color: Colors.white.withOpacity(0.5),
+                                child: Center(
+                                  child: CircularProgressIndicator(color: AppStyle.primary,),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
                       ),
                     )
                         :Container(

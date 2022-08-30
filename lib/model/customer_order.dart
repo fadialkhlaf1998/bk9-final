@@ -3,9 +3,11 @@ import 'dart:convert';
 class Order {
   Order({
     required this.customerOrder,
+    required this.inStoreOrder,
   });
 
   List<CustomerOrder>? customerOrder;
+  List<CustomerOrder>? inStoreOrder;
 
   factory Order.fromJson(String str) => Order.fromMap(json.decode(str));
 
@@ -13,10 +15,12 @@ class Order {
 
   factory Order.fromMap(Map<String, dynamic> json) => Order(
     customerOrder: json["orders"] == null ? null : List<CustomerOrder>.from(json["orders"].map((x) => CustomerOrder.fromMap(x))),
+    inStoreOrder: json["in_store_orders"] == null ? null : List<CustomerOrder>.from(json["in_store_orders"].map((x) => CustomerOrder.fromMap(x))),
   );
 
   Map<String, dynamic> toMap() => {
     "orders": customerOrder == null ? null : List<dynamic>.from(customerOrder!.map((x) => x.toJson())),
+    "in_store_orders": inStoreOrder == null ? null : List<dynamic>.from(inStoreOrder!.map((x) => x.toJson())),
   };
 }
 

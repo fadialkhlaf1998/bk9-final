@@ -52,7 +52,7 @@ class SignUpController extends GetxController {
                 API.email = emailTextField.text;
                 API.password = passwordTextField.text;
                 AppStyle.successMsg(context, "Signup has been successfully");
-                Get.to(() => VerificationCode());
+                Get.off(() => VerificationCode());
               } else {
                 loading.value = false;
                 AppStyle.errorMsg(context, "This email is already exist");

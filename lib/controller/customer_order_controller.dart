@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 class CustomerOrderController extends GetxController {
   var loading = false.obs;
   List<CustomerOrder> orders = <CustomerOrder>[];
+  List<CustomerOrder> inStore = <CustomerOrder>[];
 
   // viewOrder(int orderId, BuildContext context) {
   //   API.checkInternet().then((internet) async {

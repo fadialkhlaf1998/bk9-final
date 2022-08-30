@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:bk9/const/api.dart';
 import 'package:bk9/const/app-style.dart';
 import 'package:bk9/controller/addresses_controller.dart';
 import 'package:bk9/controller/cart_contoller.dart';
 import 'package:bk9/view/main_page.dart';
+import 'package:bk9/view/my_address.dart';
+import 'package:bk9/view/my_fatoraah.dart';
 import 'package:bk9/view/no_internet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,59 +26,80 @@ class CheckoutController extends GetxController {
   CartController cartController = Get.find();
   AddressesController addressesController = Get.find();
 
-
   next(BuildContext context){
     if(selected.value == 0){
-      if(shippingValidate.value && paymentValidate.value){
-        selectValue.value = true;
+      if(shippingMethod.value == 0) {
+        selected.value ++ ;
       }else{
-        selected.value ++;
-      }
-    }else{
-      if(!selectValue.value) {
-        if(addressValidate.value){
-          selectValue.value = true;
+        if(paymentMethod.value == 1){
+          selected.value  = 0 ;
+          Get.to(()=>MyFatoraahPage("BK9", cartController.total.value.toString()));
+          // selected.value = 2 ;
         }else{
-          addOrder(context, 0);
+          addOrder(context, paymentMethod.value);
         }
-      }else if(selectValue.value){
-        selected.value ++;
       }
-    }
-  }
-  back(){
-    selectValue.value = false;
-    if(selected.value == 0) {
-      Get.back();
-    }else if(selected.value == 1){
-      selected.value --;
     }else {
-      selected.value --;
+      if(paymentMethod.value == 1){
+        selected.value  = 0 ;
+        Get.to(()=>MyFatoraahPage("BK9", cartController.total.value.toString()));
+      }else{
+        addOrder(context, 0);
+      }
     }
   }
 
-  addOrder(BuildContext context, int isPaid,) {
+
+  back(){
+    if(selected.value == 0){
+      Get.back();
+    }
+    selected.value -- ;
+  }
+
+  addOrder(BuildContext context, int isPaid) {
     loading.value = true;
     API.checkInternet().then((value) async {
       if (value) {
-        API.addOrder(addressesController.nickName.text, addressesController.adddress1.text,
-            addressesController.adddress2.text,phonePref + " " + addressesController.phone.text,
-            addressesController.country.value,addressesController.apartment.text + " " + addressesController.emirate.value,
-            cartController.total.value,
-            cartController.subTotal.value,
-            cartController.shipping.value,
-            cartController.coupon.value,
-            isPaid,
-            cartController.cart.value).then((value) {
-              loading.value = false;
-              if (value) {
-                cartController.clear();
-                AppStyle.successMsg(context, "Order Placed Successfully");
-                Get.offAll(() => MainPage());
-              } else {
-                AppStyle.errorMsg(context, "something went wrong");
-              }
-            });
+        if(shippingMethod.value == 2){
+          API.addOrder(API.customer!.firstname, "",
+              "","",
+              "","",
+              cartController.total.value-cartController.shipping.value,
+              cartController.subTotal.value,
+              0,
+              cartController.coupon.value,
+              isPaid,
+              cartController.cart.value,shippingMethod.value).then((value) {
+            loading.value = false;
+            if (value) {
+              cartController.clear();
+              AppStyle.successMsg(context, "Order Placed Successfully");
+              Get.offAll(() => MainPage());
+            } else {
+              addOrder(context,isPaid);
+            }
+          });
+        }else{
+
+          API.addOrderByAddressId(addressesController.addresses[selectAddress.value].id,API.customer!.firstname,
+              cartController.total.value,
+              cartController.subTotal.value,
+              cartController.shipping.value,
+              cartController.coupon.value,
+              isPaid,
+              cartController.cart.value,shippingMethod.value).then((value) {
+            loading.value = false;
+            if (value) {
+              cartController.clear();
+              AppStyle.successMsg(context, "Order Placed Successfully");
+              Get.offAll(() => MainPage());
+            } else {
+              addOrder(context,isPaid);
+            }
+          });
+        }
+
       } else {
         Get.to(() => NoInternet())!.then((value) {
           addOrder(context, isPaid);

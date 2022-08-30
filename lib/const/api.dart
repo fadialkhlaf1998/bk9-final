@@ -484,19 +484,19 @@ class API {
   }
 
   ///order
-  static Future<bool> addOrder(String nickName, String address1, String address2, String phone, String country, String emirate, double total, double subTotal, double shipping, double discount, int isPaid, List<CartItem> cart) async {
+  static Future<bool> addOrder(String firstName, String address1, String address2, String phone, String country, String emirate, double total, double subTotal, double shipping, double discount, int isPaid, List<CartItem> cart,int state) async {
     var headers = {'Content-Type': 'application/json',};
     var request = http.Request('POST', Uri.parse(url + '/api/v2/order'));
     request.body = json.encode({
       "customer_id": customer_id,
-      "first_name": nickName,
+      "first_name": firstName,
       "last_name": "",
       "address_1": address1,
       "address_2": address2,
-      "phone": phone,
+      "phone": "+971 "+phone,
       "country": country,
       "state": emirate,
-      "order_state": 0,
+      "order_state": state,
       "is_paid": isPaid,
       "total": total,
       "sub_total": subTotal,
@@ -515,7 +515,42 @@ class API {
       return false;
     }
   }
-  static Future<List<CustomerOrder>> getCustomerOrders(int customerId) async {
+
+  static Future<bool> addOrderByAddressId(int address_id,String firstname, double total, double subTotal, double shipping, double discount, int isPaid, List<CartItem> cart,int state) async {
+    var headers = {
+      'Content-Type': 'application/json',
+    };
+    var request = http.Request('POST', Uri.parse(url+'/api/v3/order'));
+    request.body = json.encode({
+      "customer_id": customer_id,
+      "first_name": firstname,
+      "last_name": "",
+      "address_id":address_id,
+      "order_state": state,
+      "is_paid": isPaid,
+      "total": total,
+      "sub_total": subTotal,
+      "shipping": shipping,
+      "discount": discount,
+      "isPaid" : isPaid,
+      "lineItems": List<dynamic>.from(cart.map((x) => x.toMap()))
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var data = await response.stream.bytesToString();
+      Store.clearCode();
+      return true;
+    }
+    else {
+      print(response.reasonPhrase);
+      return false;
+    }
+
+  }
+  static Future<Order?> getCustomerOrders(int customerId) async {
     var headers = {'Content-Type': 'application/json',};
     var request = http.Request('Get', Uri.parse(url + '/api/v2/customer_orders/'+customerId.toString()));
     request.headers.addAll(headers);
@@ -525,9 +560,9 @@ class API {
     if (response.statusCode == 200) {
       var data = await response.stream.bytesToString();
       // print(data);
-      return Order.fromMap(jsonDecode(data)).customerOrder!;
+      return Order.fromMap(jsonDecode(data));
     } else {
-      return <CustomerOrder>[];
+      return null;
     }
   }
   static Future<List<OrderItem>> orderItems(int orderId) async {
@@ -811,5 +846,35 @@ class API {
 
 
   }
+  static getLineItems(List<CartItem> cart){
+    List<MyLineItems> list = <MyLineItems>[];
+    for(int i=0;i<cart.length;i++){
+      list.add(MyLineItems(product_options_id: cart[i].productOptionsId, count: cart[i].count));
+    }
+    return list;
+  }
+}
+class MyLineItems{
+  int product_options_id;
+  int count;
 
+  MyLineItems({
+    required this.product_options_id,
+    required this.count
+  });
+
+  factory MyLineItems.fromJson(String str) => MyLineItems.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory MyLineItems.fromMap(Map<String, dynamic> json) => MyLineItems(
+
+    product_options_id: json["product_options_id"] == null ? 0 : json["product_options_id"],
+    count: json["count"] == null ? 0 : json["count"],
+  );
+
+  Map<String, dynamic> toMap() => {
+    "product_options_id": product_options_id,
+    "count": count
+  };
 }

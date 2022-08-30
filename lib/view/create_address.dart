@@ -210,7 +210,7 @@ class CreateAddress extends StatelessWidget {
         SizedBox(height: 20),
         Container(
             width: AppStyle.getDeviceWidthPercent(80, context),
-            height: AppStyle.getDeviceHeightPercent(6.5, context),
+            height: AppStyle.getDeviceHeightPercent(6.5, context)+20,
             child: Stack(
               children: [
                 TextField(
@@ -218,6 +218,7 @@ class CreateAddress extends StatelessWidget {
                   cursorColor: AppStyle.darkGrey,
                   style: TextStyle(color: AppStyle.darkGrey,fontWeight: FontWeight.bold,fontSize: CommonTextStyle.smallTextStyle),
                   keyboardType: TextInputType.number,
+                  maxLength: 9,
                   decoration: InputDecoration(
                     fillColor: Colors.white,
                     filled: true,

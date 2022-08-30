@@ -1,5 +1,6 @@
 import 'package:bk9/const/app-style.dart';
 import 'package:bk9/controller/verification_code_controller.dart';
+import 'package:bk9/view/main_page.dart';
 import 'package:bk9/widgets/background_image.dart';
 import 'package:bk9/widgets/container_with_image.dart';
 import 'package:bk9/widgets/custom_button.dart';
@@ -89,6 +90,20 @@ class VerificationCode extends StatelessWidget {
                         width: AppStyle.getDeviceWidthPercent(80, context),
                         height: AppStyle.getDeviceHeightPercent(6.5, context),
                         textStyle: CommonTextStyle.textStyleForOrangeMediumButtonBold
+                    ),
+
+                    SizedBox(height: 10,),
+                    CustomButton(
+                        text: "Start Shopping",
+                        onPressed: () {
+                          Get.offAll(() => MainPage());
+                        },
+                        color: Colors.white,
+                        borderRadius: 30,
+                        border: AppStyle.primary,
+                        width: AppStyle.getDeviceWidthPercent(80, context),
+                        height: AppStyle.getDeviceHeightPercent(6.5, context),
+                        textStyle: CommonTextStyle.textStyleForWhiteMediumButton
                     ),
                     SizedBox(height: 20,),
                   ],

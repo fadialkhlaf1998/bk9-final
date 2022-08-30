@@ -27,6 +27,19 @@ class SignUp extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15,right: 15,top: 10),
+                          child: GestureDetector(
+                            onTap: (){
+                              Get.back();
+                            },
+                            child: Icon(Icons.arrow_back_ios),
+                          ),
+                        )
+                      ],
+                    ),
                     SizedBox(height: MediaQuery.of(context).viewPadding.top - 20),
                     ContainerWithImage(
                       width: AppStyle.getDeviceWidthPercent(40, context),
