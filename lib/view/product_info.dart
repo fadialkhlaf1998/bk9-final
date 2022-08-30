@@ -45,7 +45,6 @@ class ProductInformation extends StatelessWidget {
       productInfoController.onSelectOption();
       productInfoController.loading.value = false;
     });
-
   }
 
   MainPageController mainPageController = Get.find();
