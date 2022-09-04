@@ -327,6 +327,7 @@ class Login extends StatelessWidget {
         GestureDetector(
           onTap: () {
             /// todo login apple
+            loginController.appleSignIn(context);
           },
           child: Container(
             width: AppStyle.getDeviceWidthPercent(80, context),

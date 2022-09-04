@@ -121,7 +121,7 @@ class ProductInformation extends StatelessWidget {
                       margin: EdgeInsets.only(
                         bottom: AppStyle.getDeviceHeightPercent(10, context),
                       ),
-                      child:  (product!.colorsImages!.length ==0 || product!.colorsImages![productInfoController.getIndexColorImages(product!.colors![productInfoController.selectedColorIndex.value].colorId,product!.colorsImages!)].images!.length == 0)
+                      child:  (product!.colorsImages!.length ==0 ||product!.colors == null || product!.colors!.length == 0 || product!.colorsImages![productInfoController.getIndexColorImages(product!.colors![productInfoController.selectedColorIndex.value].colorId,product!.colorsImages!)].images!.length == 0)
                           && product!.media!.length == 0  ? Container(
                         width: AppStyle.getDeviceWidthPercent(85, context),
                         height: AppStyle.getDeviceWidthPercent(60, context),
@@ -260,8 +260,14 @@ class ProductInformation extends StatelessWidget {
                                     ),
                                     child: Padding(
                                       padding: EdgeInsets.symmetric(vertical: 5,horizontal: 15),
-                                      child: Center(
-                                        child: Text("AED " + (product!.price! + product!.options![productInfoController.selectedOption.value].additionalPrice).toString(),
+                                      child: product!.options!=null && product!.options!.length > 0?
+                                      Center(
+                                        child: Text("AED " + (product!.price! + product!.options![productInfoController.selectedOption.value].additionalPrice ).toString(),
+                                          style: CommonTextStyle.textStyleForWhiteSmallButton,
+                                        ),
+                                      )
+                                          : Center(
+                                        child: Text("AED " + (product!.price! ).toString(),
                                           style: CommonTextStyle.textStyleForWhiteSmallButton,
                                         ),
                                       ),
@@ -483,7 +489,7 @@ class ProductInformation extends StatelessWidget {
                     onPageChanged: (index2, reason) {
                       productInfoController.setIndex(index2);
                     }),
-                itemCount: product!.colorsImages!.length ==0 || product!.colorsImages![productInfoController.getIndexColorImages(product!.colors![productInfoController.selectedColorIndex.value].colorId,product!.colorsImages!)  ].images!.length == 0 ?
+                itemCount: product!.colorsImages!.length ==0 ||product!.colors == null || product!.colors!.length == 0 || product!.colorsImages![productInfoController.getIndexColorImages(product!.colors![productInfoController.selectedColorIndex.value].colorId,product!.colorsImages!)  ].images!.length == 0 ?
                     product!.media!.length :
                 product!.colorsImages![productInfoController.getIndexColorImages(product!.colors![productInfoController.selectedColorIndex.value].colorId,product!.colorsImages!)].images!.length,
                 itemBuilder: (BuildContext context, int photoIndex, int realIndex) {
@@ -496,7 +502,7 @@ class ProductInformation extends StatelessWidget {
                           topRight: Radius.circular(30)
                         ),
                         image: DecorationImage(
-                          image: NetworkImage(product!.colorsImages!.length ==0 || product!.colorsImages![productInfoController.getIndexColorImages(product!.colors![productInfoController.selectedColorIndex.value].colorId,product!.colorsImages!)  ].images!.length == 0 ?
+                          image: NetworkImage(product!.colorsImages!.length ==0 ||product!.colors == null || product!.colors!.length == 0 || product!.colorsImages![productInfoController.getIndexColorImages(product!.colors![productInfoController.selectedColorIndex.value].colorId,product!.colorsImages!)  ].images!.length == 0 ?
                           product!.media![photoIndex].link :
                               product!.colorsImages![productInfoController.getIndexColorImages(product!.colors![productInfoController.selectedColorIndex.value].colorId,product!.colorsImages!)  ].images![photoIndex].link),
                           fit: BoxFit.fill,

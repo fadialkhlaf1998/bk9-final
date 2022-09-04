@@ -5,6 +5,7 @@ import 'package:bk9/view/no_internet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class LoginController extends GetxController {
 
@@ -59,10 +60,45 @@ class LoginController extends GetxController {
     }
   }
 
+
+  loginVerify(BuildContext context,String email,String pass){
+    try {
+      API.checkInternet().then((net) {
+        if (net){
+          loading.value=true;
+          API.password = pass;
+          API.email = email;
+          API.login().then((value) {
+            loading.value = false;
+            if (value != null) {
+              AppStyle.successMsg(context,"Login has been successfully");
+              Get.offAll(() => MainPage());
+            } else {
+              loading.value=false;
+              AppStyle.errorMsg(context, "Wrong Email or Password please try again");
+            }
+          });
+        } else {
+          Get.to(() => NoInternet())!.then((value) {
+            loginVerify(context,email,pass);
+          });
+        }
+      }).catchError((err) {
+        loading.value = false;
+        err.printError();
+      });
+
+    }catch (e){
+      print(e.toString());
+      loading.value= false;
+      AppStyle.errorMsg(context, "Something went wrong");
+    }
+  }
+
   signUpVerifyThenLogIn(BuildContext context,String name , String email ,String pass,String image)async{
     loading.value =true;
     await API.signUpVerify(name, email, pass,image);
-    login(context, email, pass);
+    loginVerify(context, email, pass);
   }
 
   googleSignIn(BuildContext context)async{
@@ -75,6 +111,28 @@ class LoginController extends GetxController {
     }else{
       AppStyle.errorMsg(context, "oops SomeThing Went Wrong");
     }
+  }
+
+  appleSignIn(BuildContext context)async{
+    final credential = await SignInWithApple.getAppleIDCredential(
+      scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
+    );
+    if(credential.email != null){
+      String email = credential.email!;
+      String pass = credential.email!.split("@")[0]+secrit;
+      String name = "";
+      if(credential.givenName !=null && credential.familyName !=null){
+        name = credential.givenName! +" "+credential.familyName!;
+      }
+      signUpVerifyThenLogIn(context,name, email, pass,"");
+    }else{
+      AppStyle.errorMsg(context, "oops SomeThing Went Wrong");
+    }
+
+
   }
 
 }

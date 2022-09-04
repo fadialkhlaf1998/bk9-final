@@ -47,7 +47,7 @@ class API {
     }
   }
 
-  static Future<bool> signUpVerify(String name,String email,String pass,String image) async {
+  static Future<bool> signUpVerify(String name,String myEmail,String pass,String image) async {
     var headers = {
       'Content-Type': 'application/json',
     };
@@ -55,7 +55,7 @@ class API {
     request.body = json.encode({
       "firstname": name,
       "lastname": "",
-      "email": email,
+      "email": myEmail,
       "password": pass,
       "token": "",
       "image": image,
@@ -67,7 +67,9 @@ class API {
 
     if (response.statusCode == 200) {
       print(await response.stream.bytesToString());
-      Store.saveLogInInfo(email, password, 1.toString());
+      password = pass;
+      email = myEmail;
+      Store.saveLogInInfo(myEmail, pass, 1.toString());
       return true;
     }
     else {
