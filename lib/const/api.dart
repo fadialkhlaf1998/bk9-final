@@ -46,6 +46,36 @@ class API {
       return -1;
     }
   }
+
+  static Future<bool> signUpVerify(String name,String email,String pass,String image) async {
+    var headers = {
+      'Content-Type': 'application/json',
+    };
+    var request = http.Request('POST', Uri.parse(url+'/api/v2/customer-signup-verify'));
+    request.body = json.encode({
+      "firstname": name,
+      "lastname": "",
+      "email": email,
+      "password": pass,
+      "token": "",
+      "image": image,
+      "phone": ""
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+      Store.saveLogInInfo(email, password, 1.toString());
+      return true;
+    }
+    else {
+      print(response.reasonPhrase);
+      return false;
+    }
+
+  }
   static Future<int> getCompanyIdTo() async {
     print('--*****---');
     var headers = {'Content-Type': 'application/json'};

@@ -324,99 +324,102 @@ class Login extends StatelessWidget {
           ),
         ),
         SizedBox(height: 20),
-        // GestureDetector(
-        //   onTap: () {
-        //     /// todo login apple
-        //   },
-        //   child: Container(
-        //     width: AppStyle.getDeviceWidthPercent(80, context),
-        //     decoration: BoxDecoration(
-        //       color: Colors.white,
-        //       border: Border.all(color: AppStyle.grey.withOpacity(0.5)),
-        //       borderRadius: BorderRadius.circular(30)
-        //     ),
-        //     child: Padding(
-        //       padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-        //       child: Row(
-        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //         children: [
-        //           Image.asset("assets/images/apple-logo.png",width: 23,height: 23),
-        //           Text("Continue with Apple",
-        //             style: TextStyle(
-        //                 color: AppStyle.grey,
-        //                 fontSize: CommonTextStyle.mediumTextStyle,
-        //                 fontWeight: FontWeight.normal
-        //             ),
-        //           ),
-        //           Container()
-        //         ],
-        //       ),
-        //     ),
-        //   ),
-        // ),
-        // SizedBox(height: 10,),
-        // GestureDetector(
-        //   onTap: () {
-        //     /// todo login google
-        //   },
-        //   child: Container(
-        //     width: AppStyle.getDeviceWidthPercent(80, context),
-        //     decoration: BoxDecoration(
-        //         color: Colors.white,
-        //         border: Border.all(color: AppStyle.grey.withOpacity(0.5)),
-        //         borderRadius: BorderRadius.circular(30)
-        //     ),
-        //     child: Padding(
-        //       padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-        //       child: Row(
-        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //         children: [
-        //           SvgPicture.asset("assets/icons/google.svg",width: 25,height: 25),
-        //           Text("Continue with Google",
-        //             style: TextStyle(
-        //                 color: AppStyle.grey,
-        //                 fontSize: CommonTextStyle.mediumTextStyle,
-        //                 fontWeight: FontWeight.normal
-        //             ),
-        //           ),
-        //           Container()
-        //         ],
-        //       ),
-        //     ),
-        //   ),
-        // ),
-        // SizedBox(height: 10,),
-        // GestureDetector(
-        //   onTap: () {
-        //     /// todo login facebook
-        //   },
-        //   child: Container(
-        //     width: AppStyle.getDeviceWidthPercent(80, context),
-        //     decoration: BoxDecoration(
-        //         color: Colors.white,
-        //         border: Border.all(color: AppStyle.grey.withOpacity(0.5)),
-        //         borderRadius: BorderRadius.circular(30)
-        //     ),
-        //     child: Padding(
-        //       padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-        //       child: Row(
-        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //         children: [
-        //           SvgPicture.asset("assets/icons/facebook.svg",width: 25,height: 25),
-        //           Text("Continue with Facebook",
-        //             style: TextStyle(
-        //                 color: AppStyle.grey,
-        //                 fontSize: CommonTextStyle.mediumTextStyle,
-        //                 fontWeight: FontWeight.normal
-        //             ),
-        //           ),
-        //           Container()
-        //         ],
-        //       ),
-        //     ),
-        //   ),
-        // ),
+        GestureDetector(
+          onTap: () {
+            /// todo login apple
+          },
+          child: Container(
+            width: AppStyle.getDeviceWidthPercent(80, context),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(color: AppStyle.grey.withOpacity(0.5)),
+              borderRadius: BorderRadius.circular(30)
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Image.asset("assets/images/apple-logo.png",width: 23,height: 23),
+                  Text("Continue with Apple",
+                    style: TextStyle(
+                        color: AppStyle.grey,
+                        fontSize: CommonTextStyle.mediumTextStyle,
+                        fontWeight: FontWeight.normal
+                    ),
+                  ),
+                  Container()
+                ],
+              ),
+            ),
+          ),
+        ),
+        SizedBox(height: 10,),
+        GestureDetector(
+          onTap: () {
+            /// todo login google
+            loginController.googleSignIn(context);
+          },
+          child: Container(
+            width: AppStyle.getDeviceWidthPercent(80, context),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: AppStyle.grey.withOpacity(0.5)),
+                borderRadius: BorderRadius.circular(30)
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SvgPicture.asset("assets/icons/google.svg",width: 25,height: 25),
+                  Text("Continue with Google",
+                    style: TextStyle(
+                        color: AppStyle.grey,
+                        fontSize: CommonTextStyle.mediumTextStyle,
+                        fontWeight: FontWeight.normal
+                    ),
+                  ),
+                  Container()
+                ],
+              ),
+            ),
+          ),
+        ),
+        SizedBox(height: 10,),
+        GestureDetector(
+          onTap: () {
+            /// todo login facebook
+          },
+          child: Container(
+            width: AppStyle.getDeviceWidthPercent(80, context),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: AppStyle.grey.withOpacity(0.5)),
+                borderRadius: BorderRadius.circular(30)
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SvgPicture.asset("assets/icons/facebook.svg",width: 25,height: 25),
+                  Text("Continue with Facebook",
+                    style: TextStyle(
+                        color: AppStyle.grey,
+                        fontSize: CommonTextStyle.mediumTextStyle,
+                        fontWeight: FontWeight.normal
+                    ),
+                  ),
+                  Container()
+                ],
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }
+
+
 }
