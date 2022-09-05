@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bk9/const/app-style.dart';
 import 'package:bk9/controller/login_controller.dart';
 import 'package:bk9/view/forget_password.dart';
@@ -323,8 +325,8 @@ class Login extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: 20),
-        GestureDetector(
+        Platform.isIOS? SizedBox(height: 20):Center(),
+        Platform.isIOS? GestureDetector(
           onTap: () {
             /// todo login apple
             loginController.appleSignIn(context);
@@ -354,7 +356,7 @@ class Login extends StatelessWidget {
               ),
             ),
           ),
-        ),
+        ):Center(),
         SizedBox(height: 10,),
         GestureDetector(
           onTap: () {
@@ -391,6 +393,7 @@ class Login extends StatelessWidget {
         GestureDetector(
           onTap: () {
             /// todo login facebook
+            loginController.facebookSignIn(context);
           },
           child: Container(
             width: AppStyle.getDeviceWidthPercent(80, context),
@@ -404,7 +407,7 @@ class Login extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SvgPicture.asset("assets/icons/facebook.svg",width: 25,height: 25),
+                  SvgPicture.asset("assets/icons/facebook.svg",width: 25,height: 25,color: Colors.blue,),
                   Text("Continue with Facebook",
                     style: TextStyle(
                         color: AppStyle.grey,

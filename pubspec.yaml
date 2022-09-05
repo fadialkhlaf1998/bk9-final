@@ -60,6 +60,7 @@ dependencies:
   fluttertoast: ^8.0.9
   google_sign_in: ^5.4.1
   sign_in_with_apple: ^4.1.0
+  flutter_facebook_auth: ^4.4.1
 
 dev_dependencies:
   flutter_test:

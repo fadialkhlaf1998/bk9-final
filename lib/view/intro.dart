@@ -2,6 +2,7 @@ import 'package:bk9/const/app-style.dart';
 import 'package:bk9/controller/intro_controller.dart';
 import 'package:bk9/widgets/container_with_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
@@ -12,6 +13,10 @@ class Intro extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return Scaffold(
       body: SafeArea(
         child: ContainerWithImage(

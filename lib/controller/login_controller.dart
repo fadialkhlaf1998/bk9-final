@@ -3,6 +3,7 @@ import 'package:bk9/const/app-style.dart';
 import 'package:bk9/view/main_page.dart';
 import 'package:bk9/view/no_internet.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
@@ -134,5 +135,25 @@ class LoginController extends GetxController {
 
 
   }
-
+  facebookSignIn(BuildContext context)async{
+    //todo  facebook
+    final result = await FacebookAuth.i.login(permissions: ["public_profile","email"]);
+    if(result.status == LoginStatus.success){
+      final credential = await FacebookAuth.i.getUserData();
+      print(credential);
+      if(credential['email'] != null){
+        String email = credential['email'];
+        String pass = credential['email'].split("@")[0]+secrit;
+        String name = "";
+        if(credential['name'] !=null ){
+          name = credential['name'];
+        }
+        signUpVerifyThenLogIn(context,name, email, pass, credential['picture']['data']['url']??"");
+      }else{
+        AppStyle.errorMsg(context, "oops SomeThing Went Wrong");
+      }
+    }else{
+      AppStyle.errorMsg(context, "oops SomeThing Went Wrong");
+    }
+  }
 }

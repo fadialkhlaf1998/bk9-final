@@ -620,9 +620,9 @@ class _MyHomePageState extends State<MyFatoraahPage> {
                   Padding(
                     padding: EdgeInsets.all(5.0),
                   ),
-                  RaisedButton(
-                    color: AppStyle.primary,
-                    textColor: Colors.white,
+                  TextButton(
+                    // color: AppStyle.primary,
+                    // textColor: Colors.white,
                     child: Text('Pay'),
                     onPressed: pay,
                   ),

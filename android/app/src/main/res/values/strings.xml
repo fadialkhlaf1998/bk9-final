@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="facebook_app_id">1112046023079577</string>
+    <string name="fb_login_protocol_scheme">fb1112046023079577</string>
+    <string name="facebook_client_token">316d93043229030c78d812f0c4b8dc6b</string>
+    <string name="app_name">Barkley K9</string>
+</resources>
