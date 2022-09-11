@@ -83,7 +83,7 @@ class Login extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Text("forget password?",
+                            Text("Forgot password?",
                               style: TextStyle(
                                   color: AppStyle.grey,
                                   fontSize: 14

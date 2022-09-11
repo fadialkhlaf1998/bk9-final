@@ -35,7 +35,7 @@ class Account extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
         floatingActionButton:
-        accountController.visibleFloatingButton.value ? null :
+        accountController.visibleFloatingButton.value || API.customer_id == -1 ? null :
             GestureDetector(
               onTap: () {
                 scrollController.animateTo(scrollController.position.maxScrollExtent, duration: Duration(milliseconds: 1000), curve: Curves.fastOutSlowIn);

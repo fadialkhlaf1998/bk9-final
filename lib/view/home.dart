@@ -87,7 +87,7 @@ class Home extends StatelessWidget {
         _brands(context,introController),
         SizedBox(height: 20),
         Container(
-            width: AppStyle.getDeviceWidthPercent(85, context),
+            width: AppStyle.getDeviceWidthPercent(90, context),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

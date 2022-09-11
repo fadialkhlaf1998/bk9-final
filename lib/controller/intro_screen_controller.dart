@@ -16,7 +16,7 @@ class IntroScreenController extends GetxController {
 
   RxList screens = [
     {"image":"assets/icons/book_boarding.svg","title":"Book a Boarding","description":"Professional Dog and Cat Boarding.  Available for Day Care, Daily, Weekly andMonthly boarding."},
-    {"image":"assets/icons/shop.svg","title":"Shop","description":"Check out our latest deals for your fur babies!"},
+    {"image":"assets/icons/shop2.svg","title":"Shop","description":"Check out our latest deals for your fur babies!"},
     {"image":"assets/icons/grooming.svg","title":"Grooming","description":"Book an in-store grooming session for your dog and cat."},
   ].obs;
 

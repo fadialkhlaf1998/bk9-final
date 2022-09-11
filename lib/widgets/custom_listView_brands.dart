@@ -1,7 +1,8 @@
 import 'package:bk9/const/app-style.dart';
 import 'package:bk9/controller/intro_controller.dart';
-import 'package:bk9/widgets/text_app.dart';
+import 'package:bk9/view/all_brands.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CustomListViewBrands extends StatelessWidget {
 
@@ -23,23 +24,32 @@ class CustomListViewBrands extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
          SizedBox(height: 10,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: AppStyle.getDeviceWidthPercent(90, context),
-                child: Text("Shop By Brands",
-                    style: CommonTextStyle.textStyleForDarkGreyBigButton
-                ),
-              ),
-            ],
-          ),
+         Container(
+             padding: EdgeInsets.symmetric(horizontal: 5),
+             width: AppStyle.getDeviceWidthPercent(100, context),
+             child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Shop By Brands",
+                      style: CommonTextStyle.textStyleForDarkGreyBigButton
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(()=> AllBrands());
+                    },
+                    child: Text("view all",
+                        style: CommonTextStyle.textStyleForWhiteMediumButton
+                    ),
+                  )
+                ],
+              )
+         ),
           SizedBox(height: 15,),
           Container(
             width: AppStyle.getDeviceWidthPercent(100, context),
             height: AppStyle.getDeviceHeightPercent(10, context),
             child: ListView.builder(
-              itemCount: introController.brand.length,
+              itemCount: 4,
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context,index) {
