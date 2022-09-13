@@ -416,18 +416,18 @@ class Account extends StatelessWidget {
             height: AppStyle.getDeviceHeightPercent(6.5, context),
             textStyle: CommonTextStyle.textStyleForOrangeMediumButtonBold
         ),
-        CustomButton(
-            text: "My Returns",
-            onPressed: () {
-              ///
-            },
-            color: AppStyle.primary,
-            borderRadius: 30,
-            border: Colors.transparent,
-            width: AppStyle.getDeviceWidthPercent(80, context),
-            height: AppStyle.getDeviceHeightPercent(6.5, context),
-            textStyle: CommonTextStyle.textStyleForOrangeMediumButtonBold
-        ),
+        // CustomButton(
+        //     text: "My Returns",
+        //     onPressed: () {
+        //       ///
+        //     },
+        //     color: AppStyle.primary,
+        //     borderRadius: 30,
+        //     border: Colors.transparent,
+        //     width: AppStyle.getDeviceWidthPercent(80, context),
+        //     height: AppStyle.getDeviceHeightPercent(6.5, context),
+        //     textStyle: CommonTextStyle.textStyleForOrangeMediumButtonBold
+        // ),
         CustomButton(
             text: "My Addresses",
             onPressed: () {
@@ -453,18 +453,18 @@ class Account extends StatelessWidget {
             height: AppStyle.getDeviceHeightPercent(6.5, context),
             textStyle: CommonTextStyle.textStyleForOrangeMediumButtonBold
         ),
-        CustomButton(
-            text: "My Payments",
-            onPressed: () {
-              ///
-            },
-            color: AppStyle.primary,
-            borderRadius: 30,
-            border: Colors.transparent,
-            width: AppStyle.getDeviceWidthPercent(80, context),
-            height: AppStyle.getDeviceHeightPercent(6.5, context),
-            textStyle: CommonTextStyle.textStyleForOrangeMediumButtonBold
-        ),
+        // CustomButton(
+        //     text: "My Payments",
+        //     onPressed: () {
+        //       ///
+        //     },
+        //     color: AppStyle.primary,
+        //     borderRadius: 30,
+        //     border: Colors.transparent,
+        //     width: AppStyle.getDeviceWidthPercent(80, context),
+        //     height: AppStyle.getDeviceHeightPercent(6.5, context),
+        //     textStyle: CommonTextStyle.textStyleForOrangeMediumButtonBold
+        // ),
         CustomButton(
             text: "My Vouchers",
             onPressed: () {

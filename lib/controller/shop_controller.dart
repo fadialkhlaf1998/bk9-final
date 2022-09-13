@@ -18,7 +18,8 @@ class ShopController extends GetxController{
       posts.sort((a,b)=>a.id.compareTo(b.id));
     }
     else if(sort_state.value == 1){
-      posts.sort((a,b)=>a.rate.compareTo(b.price));
+      posts.sort((a,b)=>a.rate.compareTo(b.rate));
+      posts = posts.reversed.toList();
     }
     else if(sort_state.value == 2){
       posts.sort((a,b)=>a.price.compareTo(b.price));
