@@ -70,6 +70,7 @@ class API {
       password = pass;
       email = myEmail;
       Store.saveLogInInfo(myEmail, pass, 1.toString());
+      Store.saveActive(true);
       return true;
     }
     else {
