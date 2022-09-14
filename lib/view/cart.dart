@@ -395,7 +395,7 @@ class Cart extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Row(
+                  API.discount>0?Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("Discount",
@@ -442,7 +442,7 @@ class Cart extends StatelessWidget {
                         ),
                       ),
                     ],
-                  ),
+                  ):Center(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
