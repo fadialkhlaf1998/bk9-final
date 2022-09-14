@@ -74,8 +74,8 @@ class Product {
   String image;
   String sku;
   String slug;
-  int? price;
-  int regularPrice;
+  double? price;
+  double regularPrice;
   int likes;
   int availability;
   int companyId;
@@ -112,8 +112,8 @@ class Product {
       image: json["image"] == null ? "" : json["image"],
       sku: json["sku"] == null ? "null" : json["sku"],
       slug: json["slug"] == null ? "null" : json["slug"],
-      price: json["price"] == null ? -1 : json["price"],
-      regularPrice: json["regular_price"] == null ? -1 : json["regular_price"],
+      price: json["price"] == null ? -1 : double.parse(json["price"].toString()),
+      regularPrice: json["regular_price"] == null ? -1 : double.parse(json["regular_price"].toString()),
       likes: json["likes"] == null ? -1 : json["likes"],
       availability: json["availability"] == null ? -1 : json["availability"],
       companyId: json["company_id"] == null ? -1 : json["company_id"],
@@ -338,7 +338,7 @@ class Option {
   int sizeId;
   int colorId;
   int productId;
-  int additionalPrice;
+  double additionalPrice;
   int stock;
   String weight;
   String size;
@@ -355,7 +355,7 @@ class Option {
     sizeId: json["size_id"] == null ? -1 : json["size_id"],
     colorId: json["color_id"] == null ? -1 : json["color_id"],
     productId: json["product_id"] == null ? -1 : json["product_id"],
-    additionalPrice: json["additional_price"] == null ? -1 : json["additional_price"],
+    additionalPrice: json["additional_price"] == null ? -1 : double.parse(json["additional_price"].toString()),
     stock: json["stouck"] == null ? -1 : json["stouck"],
     weight: json["weight"] == null ? "null" : json["weight"],
     size: json["size"] == null ? "null" : json["size"],
