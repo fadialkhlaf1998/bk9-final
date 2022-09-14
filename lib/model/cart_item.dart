@@ -31,10 +31,10 @@ class CartItem {
   int sizeId;
   int colorId;
   int productId;
-  int additionalPrice;
+  double additionalPrice;
   int stouck;
   String title;
-  int price;
+  double price;
   String image;
   String size;
   String weight;
@@ -78,10 +78,10 @@ class CartItem {
     sizeId: json["size_id"] == null ? -1 : json["size_id"],
     colorId: json["color_id"] == null ? -1 : json["color_id"],
     productId: json["product_id"] == null ? -1 : json["product_id"],
-    additionalPrice: json["additional_price"] == null ? -1 : json["additional_price"],
+    additionalPrice: json["additional_price"] == null ? -1 : double.parse(json["additional_price"]),
     stouck: json["stouck"] == null ? -1 : json["stouck"],
     title: json["title"] == null ? "" : json["title"],
-    price: json["price"] == null ? -1 : json["price"],
+    price: json["price"] == null ? -1 : double.parse(json["price"]),
     image: json["image"] == null ? "" : json["image"],
     size: json["size"] == null ? "" : json["size"],
     weight: json["weight"] == null ? "" : json["weight"],

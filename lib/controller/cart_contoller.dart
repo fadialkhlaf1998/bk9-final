@@ -28,8 +28,8 @@ class CartController extends GetxController {
     total.value=0;
     subTotal.value=0;
     for(int i=0;i<cart.length;i++){
-      int sumAllPrice = cart[i].price + cart[i].additionalPrice;
-      int sum = (cart[i].price + cart[i].additionalPrice)*cart[i].count;
+      double sumAllPrice = cart[i].price + cart[i].additionalPrice;
+      double sum = (cart[i].price + cart[i].additionalPrice)*cart[i].count;
       subTotal.value += sum;
       allPrice.value += sumAllPrice.toDouble();
     }
