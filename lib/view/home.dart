@@ -35,7 +35,7 @@ class Home extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  _header(context),
+                  SizedBox(height: 170,),
                   home(context)
                 ],
               ),
@@ -115,6 +115,7 @@ class Home extends StatelessWidget {
   _header(BuildContext context) {
     return Container(
       width: AppStyle.getDeviceWidthPercent(100, context),
+      height: 160,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
