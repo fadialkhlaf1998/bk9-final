@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:bk9/view/intro.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 ///for fadi
 void main() {
@@ -18,6 +19,10 @@ class _MyAppState extends State<MyApp> {
   /// after test
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return GetMaterialApp(
       title: 'K9',
       debugShowCheckedModeBanner: false,
