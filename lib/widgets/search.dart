@@ -22,7 +22,9 @@ class Search extends StatelessWidget {
       },
       child: Container(
         width: width,
-        height: AppStyle.getDeviceHeightPercent(6.5, context),
+        // height: AppStyle.getDeviceHeightPercent(6.5, context),
+        //todo new update
+        height: 60,
         decoration: BoxDecoration(
           color: AppStyle.greyButton,
           borderRadius: BorderRadius.circular(30),

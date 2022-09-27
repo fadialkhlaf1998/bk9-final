@@ -116,11 +116,16 @@ class ProductInformation extends StatelessWidget {
               children: [
                 Container(
                   width: AppStyle.getDeviceWidthPercent(100, context),
+                  height: AppStyle.getDeviceWidthPercent(60, context)+40,
+                ),
+                Container(
+                  width: AppStyle.getDeviceWidthPercent(100, context),
+                  height: AppStyle.getDeviceWidthPercent(60, context),
                   child: Center(
                     child: Container(
-                      margin: EdgeInsets.only(
-                        bottom: AppStyle.getDeviceHeightPercent(10, context),
-                      ),
+                      // margin: EdgeInsets.only(
+                      //   bottom: AppStyle.getDeviceHeightPercent(10, context),
+                      // ),
                       child:  (product!.colorsImages!.length ==0 ||product!.colors == null || product!.colors!.length == 0 || product!.colorsImages![productInfoController.getIndexColorImages(product!.colors![productInfoController.selectedColorIndex.value].colorId,product!.colorsImages!)].images!.length == 0)
                           && product!.media!.length == 0  ? Container(
                         width: AppStyle.getDeviceWidthPercent(85, context),
@@ -146,15 +151,16 @@ class ProductInformation extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        GestureDetector(
-                            onTap: () {
-                              /// share
-                            },
-                            child: Icon(
-                              Icons.share,
-                              color: AppStyle.darkGrey,
-                              size: 25,
-                            )),
+                        //todo share function
+                        // GestureDetector(
+                        //     onTap: () {
+                        //       /// share
+                        //     },
+                        //     child: Icon(
+                        //       Icons.share,
+                        //       color: AppStyle.darkGrey,
+                        //       size: 25,
+                        //     )),
                         SizedBox(width: 10,),
                         Obx(() => GestureDetector(
                             onTap: () {
@@ -201,7 +207,7 @@ class ProductInformation extends StatelessWidget {
                     )
                 ):const Text(""),
                 Positioned(
-                  top: AppStyle.getDeviceHeightPercent(25, context),
+                  bottom: AppStyle.getDeviceHeightPercent(0, context),
                   child: Container(
                     width: AppStyle.getDeviceWidthPercent(85, context),
                     decoration: BoxDecoration(
@@ -311,6 +317,7 @@ class ProductInformation extends StatelessWidget {
                 ),
               ],
             ),
+            SizedBox(height: 10,),
             _colorsSizedWeight(context),
             SizedBox(height: product!.sizes!.length == 0 ||product!.sizes==null ||
                 product!.colors!.length == 0 ||product!.colors==null ||
@@ -945,7 +952,8 @@ class ProductInformation extends StatelessWidget {
         children: [
           Container(
             width: AppStyle.getDeviceWidthPercent(25, context),
-            height: AppStyle.getDeviceHeightPercent(6, context),
+            // height: AppStyle.getDeviceHeightPercent(6, context),
+            height: 40,
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(30),
@@ -986,7 +994,8 @@ class ProductInformation extends StatelessWidget {
             padding: const EdgeInsets.only(top: 5, bottom: 5),
             child: Center(
               child: Container(
-                height: AppStyle.getDeviceHeightPercent(6, context),
+                // height: AppStyle.getDeviceHeightPercent(6, context),
+                height: 40,
                 width: AppStyle.getDeviceWidthPercent(57, context),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(

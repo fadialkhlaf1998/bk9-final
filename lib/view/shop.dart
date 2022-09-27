@@ -27,15 +27,19 @@ class Shop extends StatelessWidget {
           children: [
             BackgroundImage(),
             SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  _header(context),
-                  SizedBox(height: 20),
-                  _newArrivals(context),
-                  _super_category(context),
-                  SizedBox(height: 20),
-                ],
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                // color: Colors.black,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    _header(context),
+                    SizedBox(height: 20),
+                    _newArrivals(context),
+                    _super_category(context),
+                    SizedBox(height: 20),
+                  ],
+                ),
               ),
             ),
             Positioned(
@@ -107,26 +111,39 @@ class Shop extends StatelessWidget {
       },
       child: Stack(
         children: [
-          Positioned(
-            bottom: 20,
-            child: Container(
-              width: AppStyle.getDeviceWidthPercent(90, context),
-              height: AppStyle.getDeviceHeightPercent(14, context),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/background-shop.png",),
-                    fit: BoxFit.cover
-                  )
-              ),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: EdgeInsets.only(left: 40),
-                  child: Text("New Arrivals",
-                    style: CommonTextStyle.textStyleForOrangeMediumButtonBold),
-                )
-              ),
+          Container(
+            // width: AppStyle.getDeviceWidthPercent(100, context),
+            child: Positioned(
+              bottom: 20,
+              child: Container(
+                width: AppStyle.getDeviceWidthPercent(100, context),
+                // color: Colors.black,
+                child: Row(
+
+                  children: [
+                    Container(
+                      width: AppStyle.getDeviceWidthPercent(90, context),
+                      height: AppStyle.getDeviceHeightPercent(14, context),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          // color: Colors.red
+                          image: DecorationImage(
+                              image: AssetImage("assets/images/background-shop.png",),
+                              fit: BoxFit.cover
+                          )
+                      ),
+                      child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 40),
+                            child: Text("New Arrivals",
+                                style: CommonTextStyle.textStyleForOrangeMediumButtonBold),
+                          )
+                      ),
+                    ),
+                  ],
+                ),
+              )
             ),
           ),
           Container(
@@ -165,27 +182,32 @@ class Shop extends StatelessWidget {
                 child: Stack(
                   children: [
                     Positioned(
-                      left: 20,
+                      // left: 20,
                       bottom: 15,
                       child: Container(
-                        width: AppStyle.getDeviceWidthPercent(90, context),
-                        height: AppStyle.getDeviceHeightPercent(15, context),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            image: DecorationImage(
-                                image: AssetImage("assets/images/background-shop.png",),
-                                fit: BoxFit.cover
-                            )
+                        width: AppStyle.getDeviceWidthPercent(100, context),
+                        child: Center(
+                          child: Container(
+                            width: AppStyle.getDeviceWidthPercent(90, context),
+                            height: AppStyle.getDeviceHeightPercent(15, context),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                image: DecorationImage(
+                                    image: AssetImage("assets/images/background-shop.png",),
+                                    fit: BoxFit.cover
+                                )
+                            ),
+                            child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 40),
+                                  child: Text(introController.superCategory[index].title!,
+                                      style: CommonTextStyle.textStyleForOrangeMediumButtonBold),
+                                )
+                            ),
+                          ),
                         ),
-                        child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 40),
-                              child: Text(introController.superCategory[index].title!,
-                                  style: CommonTextStyle.textStyleForOrangeMediumButtonBold),
-                            )
-                        ),
-                      ),
+                      )
                     ),
                     Container(
                       width: AppStyle.getDeviceWidthPercent(90, context),

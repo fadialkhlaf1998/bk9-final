@@ -71,7 +71,9 @@ class MainPage extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.all(5),
                 width: AppStyle.getDeviceWidthPercent(18, context),
-                height: AppStyle.getDeviceHeightPercent(3, context),
+                // height: AppStyle.getDeviceHeightPercent(3, context),
+                //todo new update
+                height: 30,
                 child: SvgPicture.asset(
                   'assets/icons/${mainPageController.iconList[index]}.svg',
                   fit: BoxFit.contain,

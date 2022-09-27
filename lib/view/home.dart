@@ -115,7 +115,7 @@ class Home extends StatelessWidget {
   _header(BuildContext context) {
     return Container(
       width: AppStyle.getDeviceWidthPercent(100, context),
-      height: 160,
+      height: 165,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
