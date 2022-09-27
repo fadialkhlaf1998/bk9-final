@@ -266,7 +266,7 @@ class ProductInformation extends StatelessWidget {
                                     ),
                                     child: Padding(
                                       padding: EdgeInsets.symmetric(vertical: 5,horizontal: 15),
-                                      child: product!.options!=null && product!.options!.length > 0?
+                                      child: product!.options!=null && product!.options!.length > 0  && productInfoController.selectedOption.value !=-1 ?
                                       Center(
                                         child: Text("AED " + (product!.price! + product!.options![productInfoController.selectedOption.value].additionalPrice ).toString(),
                                           style: CommonTextStyle.textStyleForWhiteSmallButton,
@@ -496,6 +496,7 @@ class ProductInformation extends StatelessWidget {
                     onPageChanged: (index2, reason) {
                       productInfoController.setIndex(index2);
                     }),
+
                 itemCount: product!.colorsImages!.length ==0 ||product!.colors == null || product!.colors!.length == 0 || product!.colorsImages![productInfoController.getIndexColorImages(product!.colors![productInfoController.selectedColorIndex.value].colorId,product!.colorsImages!)  ].images!.length == 0 ?
                     product!.media!.length :
                 product!.colorsImages![productInfoController.getIndexColorImages(product!.colors![productInfoController.selectedColorIndex.value].colorId,product!.colorsImages!)].images!.length,
@@ -801,16 +802,16 @@ class ProductInformation extends StatelessWidget {
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: Container(
+                      child: Obx(() => Container(
                         width: 100,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: productInfoController.selectedSizeId.value == product!.sizes![index].sizeId?AppStyle.primary:Colors.grey)
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(color: productInfoController.selectedSizeId.value == product!.sizes![index].sizeId?AppStyle.primary:Colors.grey)
                         ),
                         child: Center(
                           child: Text(product!.sizes![index].title,style: TextStyle(color: productInfoController.selectedSizeId.value == product!.sizes![index].sizeId?AppStyle.primary:Colors.grey),),
                         ),
-                      ),
+                      ),)
                     ),
                   );
             }),
@@ -839,12 +840,15 @@ class ProductInformation extends StatelessWidget {
                     onTap: (){
                       productInfoController.selectedColorIndex.value =  productInfoController.selectedColorIndex.value =  productInfoController.getIndex(product!.colors![index].title.toString(),product!.colors!);
                       productInfoController.selectedColorId.value =  product!.colors![index].colorId;
+                      print("productInfoController.selectedColorId.value");
+                      print(productInfoController.selectedColorId.value);
                       // productInfoController.colorValue.value = newValue.toString();
                       productInfoController.onSelectOption();
+                      
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: Container(
+                      child: Obx(() => Container(
                         width: 100,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
@@ -853,7 +857,7 @@ class ProductInformation extends StatelessWidget {
                         child: Center(
                           child: Text(product!.colors![index].title,style: TextStyle(color: productInfoController.selectedColorId.value == product!.colors![index].colorId?AppStyle.primary:Colors.grey),),
                         ),
-                      ),
+                      )),
                     ),
                   );
                 }),

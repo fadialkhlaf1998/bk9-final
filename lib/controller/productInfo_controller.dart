@@ -61,7 +61,7 @@ class ProductInfoController extends GetxController {
           return i;
         }
     }
-    selectedOption.value = 0;
+    selectedOption.value = -1;
     return 0;
   }
 
