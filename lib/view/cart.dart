@@ -233,12 +233,12 @@ class Cart extends StatelessWidget {
                                               padding: EdgeInsets.symmetric(horizontal: 8),
                                               width: AppStyle.getDeviceWidthPercent(25, context),
                                               decoration: BoxDecoration(
-                                                  color: AppStyle.primary,
+                                                  color: cartController.cart[index].count>0?AppStyle.primary:Colors.red,
                                                   borderRadius: BorderRadius.circular(30),
-                                                  border: Border.all(color: AppStyle.primary)
+                                                  // border: Border.all(color: AppStyle.primary)
                                               ),
                                               child: Center(
-                                                child: Row(
+                                                child: cartController.cart[index].count>0?Row(
                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [
                                                     GestureDetector(
@@ -261,7 +261,7 @@ class Cart extends StatelessWidget {
                                                       child: Icon(Icons.add,color: Colors.white,size: 18,),
                                                     ),
                                                   ],
-                                                ),
+                                                ):Text("Out Of Stock",style: TextStyle(color: Colors.white,fontSize: 12),),
                                               ),
                                             ),
                                           ],

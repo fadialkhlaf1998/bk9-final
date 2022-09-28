@@ -4,6 +4,7 @@ import 'package:bk9/const/api.dart';
 import 'package:bk9/const/app-style.dart';
 import 'package:bk9/controller/addresses_controller.dart';
 import 'package:bk9/controller/cart_contoller.dart';
+import 'package:bk9/model/cart_item.dart';
 import 'package:bk9/view/main_page.dart';
 import 'package:bk9/view/my_address.dart';
 import 'package:bk9/view/my_fatoraah.dart';
@@ -59,56 +60,69 @@ class CheckoutController extends GetxController {
 
   addOrder(BuildContext context, int isPaid) {
     loading.value = true;
-    API.checkInternet().then((value) async {
-      if (value) {
-        if(shippingMethod.value == 2){
-          API.addOrder(API.customer!.firstname, "",
-              "","",
-              "","",
-              cartController.total.value-cartController.shipping.value,
-              cartController.subTotal.value,
-              0,
-              cartController.coupon.value,
-              isPaid,
-              cartController.cart.value,shippingMethod.value).then((value) {
-            loading.value = false;
-            if (value) {
-              cartController.clear();
-              AppStyle.successMsg(context, "Order Placed Successfully");
-              Get.offAll(() => MainPage());
-            } else {
-              addOrder(context,isPaid);
-            }
-          });
-        }else{
+    List<CartItem> cart = <CartItem>[];
+    for(int i = 0 ; i < cartController.cart.value.length ; i ++){
+      if(cartController.cart[i].count <=0){
+        cartController.cart.removeAt(i);
+      }
+    }
+    print("cartController.cart.value.length");
+    print(cartController.cart.value.length);
+    if(cartController.cart.value.length > 0){
+      API.checkInternet().then((value) async {
+        if (value) {
+          if(shippingMethod.value == 2){
+            API.addOrder(API.customer!.firstname, "",
+                "","",
+                "","",
+                cartController.total.value-cartController.shipping.value,
+                cartController.subTotal.value,
+                0,
+                cartController.coupon.value,
+                isPaid,
+                cartController.cart.value,shippingMethod.value).then((value) {
+              loading.value = false;
+              if (value) {
+                cartController.clear();
+                AppStyle.successMsg(context, "Order Placed Successfully");
+                Get.offAll(() => MainPage());
+              } else {
+                addOrder(context,isPaid);
+              }
+            });
+          }else{
 
-          API.addOrderByAddressId(addressesController.addresses[selectAddress.value].id,API.customer!.firstname,
-              cartController.total.value,
-              cartController.subTotal.value,
-              cartController.shipping.value,
-              cartController.coupon.value,
-              isPaid,
-              cartController.cart.value,shippingMethod.value).then((value) {
-            loading.value = false;
-            if (value) {
-              cartController.clear();
-              AppStyle.successMsg(context, "Order Placed Successfully");
-              Get.offAll(() => MainPage());
-            } else {
-              addOrder(context,isPaid);
-            }
+            API.addOrderByAddressId(addressesController.addresses[selectAddress.value].id,API.customer!.firstname,
+                cartController.total.value,
+                cartController.subTotal.value,
+                cartController.shipping.value,
+                cartController.coupon.value,
+                isPaid,
+                cartController.cart.value,shippingMethod.value).then((value) {
+              loading.value = false;
+              if (value) {
+                cartController.clear();
+                AppStyle.successMsg(context, "Order Placed Successfully");
+                Get.offAll(() => MainPage());
+              } else {
+                addOrder(context,isPaid);
+              }
+            });
+          }
+
+        } else {
+          Get.to(() => NoInternet())!.then((value) {
+            addOrder(context, isPaid);
           });
         }
+      }).catchError((err) {
+        loading.value = false;
+        err.printError();
+      });
+    }else{
+      AppStyle.errorMsg(context, "Oops Something Went Wrong");
+    }
 
-      } else {
-        Get.to(() => NoInternet())!.then((value) {
-          addOrder(context, isPaid);
-        });
-      }
-    }).catchError((err) {
-      loading.value = false;
-      err.printError();
-    });
   }
 
 }
