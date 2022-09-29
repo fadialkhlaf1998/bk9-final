@@ -101,13 +101,42 @@ class LoginController extends GetxController {
     await API.signUpVerify(name, email, pass,image);
     loginVerify(context, email, pass);
   }
-
+  generatePassword(String email) {
+      String output = "";
+      output = email.replaceAll("a", "m")
+      .replaceAll("b", "i")
+      .replaceAll("c", "d")
+      .replaceAll("d", "g")
+      .replaceAll("e", "h")
+      .replaceAll("f", "w")
+      .replaceAll("g", "r")
+      .replaceAll("h", "j")
+      .replaceAll("i", "q")
+      .replaceAll("j", "p")
+      .replaceAll("k", "z")
+      .replaceAll("l", "s")
+      .replaceAll("m", "t")
+      .replaceAll("n", "y")
+      .replaceAll("o", "j")
+      .replaceAll("p", "s")
+      .replaceAll("q", "b")
+      .replaceAll("r", "c")
+      .replaceAll("s", "k")
+      .replaceAll("t", "e")
+      .replaceAll("u", "l")
+      .replaceAll("w", "a")
+      .replaceAll("y", "b")
+      .replaceAll("z", "m");
+    return output;
+  }
   googleSignIn(BuildContext context)async{
     GoogleSignIn googleSignIn = GoogleSignIn();
     var googleData = await googleSignIn.signIn();
     if(googleData != null){
       String email = googleData.email;
-      String pass = googleData.email.split("@")[0]+secrit;
+      String pass = generatePassword(googleData.email.split("@")[0]);
+      // print(pass);
+      // print(generatePassword(pass));
       signUpVerifyThenLogIn(context,googleData.displayName??"", email, pass, googleData.photoUrl??"");
     }else{
       AppStyle.errorMsg(context, "oops SomeThing Went Wrong");
@@ -123,7 +152,7 @@ class LoginController extends GetxController {
     );
     if(credential.email != null){
       String email = credential.email!;
-      String pass = credential.email!.split("@")[0]+secrit;
+      String pass =  generatePassword(credential.email!.split("@")[0]);
       String name = "";
       if(credential.givenName !=null && credential.familyName !=null){
         name = credential.givenName! +" "+credential.familyName!;
@@ -143,7 +172,7 @@ class LoginController extends GetxController {
       print(credential);
       if(credential['email'] != null){
         String email = credential['email'];
-        String pass = credential['email'].split("@")[0]+secrit;
+        String pass = generatePassword(credential['email'].split("@")[0]);
         String name = "";
         if(credential['name'] !=null ){
           name = credential['name'];
