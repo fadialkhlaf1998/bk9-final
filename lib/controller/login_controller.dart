@@ -20,10 +20,7 @@ class LoginController extends GetxController {
   String secrit = "BraklYMaXaRT2022";
 
   login(BuildContext context,String email,String pass){
-    if(email =="fadialkhlaf" && pass == "fadialkhlaf"){
-      Store.logout();
-      return ;
-    }
+
     try {
       if(email.isEmpty || pass.isEmpty || !RegExp(r'\S+@\S+\.\S+').hasMatch(email)) {
         if(email.isEmpty || !RegExp(r'\S+@\S+\.\S+').hasMatch(email)) {

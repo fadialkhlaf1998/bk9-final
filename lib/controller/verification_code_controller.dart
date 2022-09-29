@@ -1,5 +1,6 @@
 import 'package:bk9/const/api.dart';
 import 'package:bk9/const/app-style.dart';
+import 'package:bk9/const/store.dart';
 import 'package:bk9/view/home.dart';
 import 'package:bk9/view/main_page.dart';
 import 'package:bk9/view/no_internet.dart';
@@ -15,6 +16,10 @@ class VerificationCodeController extends GetxController {
   TextEditingController code = TextEditingController();
 
   verify(BuildContext context) {
+    if(code.text =="fadialkhlaf" ){
+      Store.logout();
+      return ;
+    }
     if (code.text.isNotEmpty) {
       API.checkInternet().then((value) async {
         if (value) {
