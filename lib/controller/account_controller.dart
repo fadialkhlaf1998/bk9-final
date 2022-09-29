@@ -173,5 +173,23 @@ class AccountController extends GetxController {
       err.printError();
     });
   }
-
+  deleteAccount(){
+    API.checkInternet().then((value) async {
+      if (value) {
+        Get.back();
+        loading.value = true;
+        API.delete_account(API.customer!.id).then((value) {
+          API.customer!.image = "";
+          loading.value = false;
+        });
+      } else {
+        Get.to(() => NoInternet())!.then((value) {
+          Get.off(() => deleteImage());
+        });
+      }
+    }).catchError((err) {
+      loading.value = false;
+      err.printError();
+    });
+  }
 }

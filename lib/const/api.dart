@@ -46,7 +46,29 @@ class API {
       return -1;
     }
   }
+  static Future<bool> delete_account(int id)async{
+    var headers = {
+      'Content-Type': 'application/json',
+    };
+    var request = http.Request('DELETE', Uri.parse(url+'/api/v2/customer-delete-account'));
+    request.body = json.encode({
+      "id": id
+    });
+    request.headers.addAll(headers);
 
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+      Store.logout();
+      return true;
+    }
+    else {
+    print(response.reasonPhrase);
+    return false;
+    }
+
+  }
   static Future<bool> signUpVerify(String name,String myEmail,String pass,String image) async {
     var headers = {
       'Content-Type': 'application/json',

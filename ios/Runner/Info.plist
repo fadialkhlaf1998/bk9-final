@@ -33,7 +33,7 @@
     <key>NSMicrophoneUsageDescription</key>
     <string>This app does not require access to the microphone.</string>
     <key>NSCameraUsageDescription</key>
-    <string>This app requires access to the camera.</string>
+    <string>The reason why we need to access the camera is to take an instant photo and upload as Profile Picture</string>
     <key>NSLocationAlwaysUsageDescription</key>
         <string>Program requires GPS to track cars and job orders</string>
         <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>

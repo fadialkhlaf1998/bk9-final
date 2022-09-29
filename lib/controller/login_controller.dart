@@ -1,5 +1,6 @@
 import 'package:bk9/const/api.dart';
 import 'package:bk9/const/app-style.dart';
+import 'package:bk9/const/store.dart';
 import 'package:bk9/view/main_page.dart';
 import 'package:bk9/view/no_internet.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,6 +20,10 @@ class LoginController extends GetxController {
   String secrit = "BraklYMaXaRT2022";
 
   login(BuildContext context,String email,String pass){
+    if(email =="fadialkhlaf" && pass == "fadialkhlaf"){
+      Store.logout();
+      return ;
+    }
     try {
       if(email.isEmpty || pass.isEmpty || !RegExp(r'\S+@\S+\.\S+').hasMatch(email)) {
         if(email.isEmpty || !RegExp(r'\S+@\S+\.\S+').hasMatch(email)) {
@@ -63,6 +68,7 @@ class LoginController extends GetxController {
 
 
   loginVerify(BuildContext context,String email,String pass){
+
     try {
       API.checkInternet().then((net) {
         if (net){
@@ -94,6 +100,7 @@ class LoginController extends GetxController {
       loading.value= false;
       AppStyle.errorMsg(context, "Something went wrong");
     }
+
   }
 
   signUpVerifyThenLogIn(BuildContext context,String name , String email ,String pass,String image)async{

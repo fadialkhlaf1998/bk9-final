@@ -489,6 +489,18 @@ class Account extends StatelessWidget {
             height: AppStyle.getDeviceHeightPercent(6.5, context),
             textStyle: CommonTextStyle.textStyleForOrangeMediumButtonBold
         ),
+        CustomButton(
+            text: "Delete Account",
+            onPressed: () {
+              accountController.deleteAccount();
+            },
+            color: AppStyle.primary,
+            borderRadius: 30,
+            border: Colors.transparent,
+            width: AppStyle.getDeviceWidthPercent(80, context),
+            height: AppStyle.getDeviceHeightPercent(6.5, context),
+            textStyle: CommonTextStyle.textStyleForOrangeMediumButtonBold
+        ),
         SizedBox(height: 20),
         CustomButton(
             text: "Log Out",
