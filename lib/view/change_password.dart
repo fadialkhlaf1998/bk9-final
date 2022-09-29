@@ -31,7 +31,7 @@ class ChangePassword extends StatelessWidget {
                           width: AppStyle.getDeviceWidthPercent(90, context),
                           child: Row(
                             children: [
-                              Icon(Icons.arrow_back,size: 23,color: AppStyle.darkGrey,),
+                              Icon(Icons.arrow_back_ios,size: 23,color: AppStyle.darkGrey,),
                             ],
                           )
                       ),
