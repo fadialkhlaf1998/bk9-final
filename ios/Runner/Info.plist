@@ -29,7 +29,7 @@
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-    <string>This app requires access to the photo library.</string>
+    <string>The reason why we need to access the photo library is to get a photo and upload as Profile Picture.</string>
     <key>NSMicrophoneUsageDescription</key>
     <string>This app does not require access to the microphone.</string>
     <key>NSCameraUsageDescription</key>
