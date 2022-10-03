@@ -335,7 +335,7 @@ class ProductInformation extends StatelessWidget {
     );
   }
   _rate(BuildContext context){
-    return RatingBar.builder(
+    return product!.checkout_count>0?RatingBar.builder(
       initialRating: product!.myRate.toDouble(),
       minRating: 1,
       direction: Axis.horizontal,
@@ -351,7 +351,7 @@ class ProductInformation extends StatelessWidget {
         print(rating.toInt());
         productInfoController.rateProduct(rating.toInt());
       },
-    );
+    ):Center();
   }
   _review(BuildContext context){
     return Container(
@@ -361,7 +361,7 @@ class ProductInformation extends StatelessWidget {
           width: AppStyle.getDeviceWidthPercent(85, context),
           child: Column(
             children: [
-              Stack(
+              product!.checkout_count>0?Stack(
                 children: [
                   Container(
                     height: 55,
@@ -419,7 +419,7 @@ class ProductInformation extends StatelessWidget {
                   ),
                       ),)
                 ],
-              ),
+              ):Center(),
               SizedBox(height: 20,),
               ListView.builder(
                 shrinkWrap: true,

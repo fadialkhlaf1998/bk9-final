@@ -71,7 +71,7 @@ class ServicesDetails extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 30),
+                    SizedBox(height: 10),
                     CustomButton(
                         text: "Book Now",
                         onPressed: () {
@@ -84,6 +84,13 @@ class ServicesDetails extends StatelessWidget {
                         height: AppStyle.getDeviceHeightPercent(6.5, context),
                         textStyle: CommonTextStyle.textStyleForOrangeMediumButtonBold
                     ),
+                    SizedBox(height: 10),
+                    Container(
+                        width: AppStyle.getDeviceWidthPercent(100, context),
+                        height: AppStyle.getDeviceHeightPercent(30, context),
+                        child: Image.network(service!.media!.first.link,fit: BoxFit.contain,alignment: Alignment.topCenter,)
+                    ),
+
                     SizedBox(height: 20),
                   ],
                 ),

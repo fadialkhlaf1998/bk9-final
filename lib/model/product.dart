@@ -64,6 +64,7 @@ class Product {
     required this.colors,
     required this.sizes,
     required this.weights,
+    required this.checkout_count,
     required this.favorite,
   });
 
@@ -77,6 +78,7 @@ class Product {
   double? price;
   double regularPrice;
   int likes;
+  int checkout_count;
   int availability;
   int companyId;
   String metaTitle;
@@ -106,6 +108,7 @@ class Product {
     print(json["my_rate"]);
     return Product(
       id: json["id"] == null ? -1 : json["id"],
+      checkout_count: json["checkout_count"] == null ? -1 : json["checkout_count"],
       postTypeId: json["post_type_id"] == null ? -1 : json["post_type_id"],
       title: json["title"] == null ? "null" : json["title"],
       subTitle: json["sub_title"] == null ? "null" : json["sub_title"],
@@ -334,9 +337,9 @@ class Option {
   });
 
   int id;
-  int weightId;
-  int sizeId;
-  int colorId;
+  int? weightId;
+  int? sizeId;
+  int? colorId;
   int productId;
   double additionalPrice;
   int stock;
@@ -351,9 +354,9 @@ class Option {
 
   factory Option.fromMap(Map<String, dynamic> json) => Option(
     id: json["id"] == null ? -1 : json["id"],
-    weightId: json["weight_id"] == null ? -1 : json["weight_id"],
-    sizeId: json["size_id"] == null ? -1 : json["size_id"],
-    colorId: json["color_id"] == null ? -1 : json["color_id"],
+    weightId:  json["weight_id"],
+    sizeId: json["size_id"],
+    colorId: json["color_id"],
     productId: json["product_id"] == null ? -1 : json["product_id"],
     additionalPrice: json["additional_price"] == null ? -1 : double.parse(json["additional_price"].toString()),
     stock: json["stouck"] == null ? -1 : json["stouck"],

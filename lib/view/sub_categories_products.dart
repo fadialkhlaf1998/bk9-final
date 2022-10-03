@@ -35,6 +35,7 @@ class SubCategoriesProducts extends StatelessWidget {
             children: [
               BackgroundImage(),
               SingleChildScrollView(
+                physics: NeverScrollableScrollPhysics(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -231,9 +232,11 @@ class SubCategoriesProducts extends StatelessWidget {
   }
   _productsList(BuildContext context) {
     return Container(
+      height: Get.height*0.85-170,
       child: ListView.builder(
           scrollDirection: Axis.vertical,
           itemCount: shopController.productsView.length,
+          // physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemBuilder: (context, index) {
             // print( subCategories[shopController.selectedSubCategory.value].posts!.length);
