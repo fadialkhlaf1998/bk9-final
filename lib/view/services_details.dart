@@ -85,11 +85,17 @@ class ServicesDetails extends StatelessWidget {
                         textStyle: CommonTextStyle.textStyleForOrangeMediumButtonBold
                     ),
                     SizedBox(height: 10),
-                    Container(
-                        width: AppStyle.getDeviceWidthPercent(100, context),
-                        height: AppStyle.getDeviceHeightPercent(30, context),
-                        child: Image.network(service!.media!.first.link,fit: BoxFit.contain,alignment: Alignment.topCenter,)
+                    service!.media==null?Center(): Column(
+                      children: service!.media!.map((e) => Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Container(
+                            width: AppStyle.getDeviceWidthPercent(90, context),
+                            // height: AppStyle.getDeviceHeightPercent(30, context),
+                            child: Image.network(e.link,fit: BoxFit.contain,alignment: Alignment.topCenter,)
+                        ),
+                      )).toList(),
                     ),
+
 
                     SizedBox(height: 20),
                   ],
