@@ -156,7 +156,7 @@ class Shop extends StatelessWidget {
                   margin: EdgeInsets.only(bottom: 25,right: 30),
                   width: AppStyle.getDeviceWidthPercent(30, context),
                   height: AppStyle.getDeviceHeightPercent(15, context),
-                  child: SvgPicture.asset("assets/icons/new_arrivals.svg",fit: BoxFit.cover),
+                  child: Image.asset("assets/images/new_arrivals.png",fit: BoxFit.cover),
                 ),
               ],
             ),
