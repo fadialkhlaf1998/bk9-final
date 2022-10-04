@@ -504,6 +504,7 @@ class Cart extends StatelessWidget {
                       height: AppStyle.getDeviceHeightPercent(6, context),
                       textStyle: CommonTextStyle.textStyleForOrangeMediumButtonBold
                   ),
+                  SizedBox(height: Get.bottomBarHeight,)
                 ],
               ),
             )

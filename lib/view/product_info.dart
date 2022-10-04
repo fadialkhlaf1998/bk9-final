@@ -65,7 +65,8 @@ class ProductInformation extends StatelessWidget {
                 ),
               ),
             ],
-          ) : Stack(
+          )
+              : Stack(
             children: [
               BackgroundImage(),
               SingleChildScrollView(
@@ -480,45 +481,53 @@ class ProductInformation extends StatelessWidget {
     return Container(
       width: AppStyle.getDeviceWidthPercent(85, context),
       height: AppStyle.getDeviceWidthPercent(60, context),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30)
+        ),
+      ),
       child: Column(
         children: [
-          Stack(
-            children: [
-              CarouselSlider.builder(
-                carouselController: productInfoController.carouselController,
-                options: CarouselOptions(
-                    height: AppStyle.getDeviceWidthPercent(60, context),
-                    autoPlay: true,
-                    enlargeCenterPage: true,
-                    viewportFraction: 1,
-                    enlargeStrategy: CenterPageEnlargeStrategy.height,
-                    autoPlayInterval: Duration(seconds: 2),
-                    onPageChanged: (index2, reason) {
-                      productInfoController.setIndex(index2);
-                    }),
-
-                itemCount: product!.colorsImages!.length ==0 ||product!.colors == null || product!.colors!.length == 0 || product!.colorsImages![productInfoController.getIndexColorImages(product!.colors![productInfoController.selectedColorIndex.value].colorId,product!.colorsImages!)  ].images!.length == 0 ?
-                    product!.media!.length :
-                product!.colorsImages![productInfoController.getIndexColorImages(product!.colors![productInfoController.selectedColorIndex.value].colorId,product!.colorsImages!)].images!.length,
-                itemBuilder: (BuildContext context, int photoIndex, int realIndex) {
-                  return Container(
-                    width: AppStyle.getDeviceWidthPercent(85, context),
-                    height: AppStyle.getDeviceWidthPercent(60, context),
-                    decoration:BoxDecoration(
-                        borderRadius: BorderRadius.only(
+          ClipRRect(
+            borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30)
+            ),
+            child: CarouselSlider.builder(
+              carouselController: productInfoController.carouselController,
+              options: CarouselOptions(
+                  height: AppStyle.getDeviceWidthPercent(60, context),
+                  autoPlay: false,
+                  enlargeCenterPage: false,
+                  viewportFraction: 1,
+                  enlargeStrategy: CenterPageEnlargeStrategy.height,
+                  autoPlayInterval: Duration(seconds: 2),
+                  onPageChanged: (index2, reason) {
+                    productInfoController.setIndex(index2);
+                  }),
+              itemCount: product!.colorsImages!.length ==0 ||product!.colors == null || product!.colors!.length == 0 || product!.colorsImages![productInfoController.getIndexColorImages(product!.colors![productInfoController.selectedColorIndex.value].colorId,product!.colorsImages!)  ].images!.length == 0 ?
+              product!.media!.length :
+              product!.colorsImages![productInfoController.getIndexColorImages(product!.colors![productInfoController.selectedColorIndex.value].colorId,product!.colorsImages!)].images!.length,
+              itemBuilder: (BuildContext context, int photoIndex, int realIndex) {
+                return Container(
+                  width: AppStyle.getDeviceWidthPercent(85, context),
+                  height: AppStyle.getDeviceWidthPercent(60, context),
+                  decoration:BoxDecoration(
+                      borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(30),
                           topRight: Radius.circular(30)
-                        ),
-                        image: DecorationImage(
-                          image: NetworkImage(product!.colorsImages!.length ==0 ||product!.colors == null || product!.colors!.length == 0 || product!.colorsImages![productInfoController.getIndexColorImages(product!.colors![productInfoController.selectedColorIndex.value].colorId,product!.colorsImages!)  ].images!.length == 0 ?
-                          product!.media![photoIndex].link :
-                              product!.colorsImages![productInfoController.getIndexColorImages(product!.colors![productInfoController.selectedColorIndex.value].colorId,product!.colorsImages!)  ].images![photoIndex].link),
-                          fit: BoxFit.fill,
-                        )),
-                  );
-                },
-              ),
-            ],
+                      ),
+                      image: DecorationImage(
+                        image: NetworkImage(product!.colorsImages!.length ==0 ||product!.colors == null || product!.colors!.length == 0 || product!.colorsImages![productInfoController.getIndexColorImages(product!.colors![productInfoController.selectedColorIndex.value].colorId,product!.colorsImages!)  ].images!.length == 0 ?
+                        product!.media![photoIndex].link :
+                        product!.colorsImages![productInfoController.getIndexColorImages(product!.colors![productInfoController.selectedColorIndex.value].colorId,product!.colorsImages!)  ].images![photoIndex].link),
+                        fit: BoxFit.fill,
+                      )),
+                );
+              },
+            ),
           ),
         ],
       ),
