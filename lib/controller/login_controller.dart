@@ -155,7 +155,7 @@ class LoginController extends GetxController {
       ],
     );
     if(credential.email != null){
-      AppStyle.successMsg(context, credential.email!);
+      // AppStyle.successMsg(context, credential.email!);
       String email = credential.email!;
       String pass =  generatePassword(credential.email!.split("@")[0]);
       String name = "";
@@ -164,7 +164,7 @@ class LoginController extends GetxController {
       }
       signUpVerifyThenLogIn(context,name, email, pass,"");
     }else if(credential.identityToken != null){
-      AppStyle.successMsg(context, credential.identityToken!.substring(0,15));
+      // AppStyle.successMsg(context, credential.identityToken!.substring(0,15));
       String email = credential.identityToken!.substring(0,15);
       String pass =  generatePassword(credential.identityToken!.substring(0,15));
       String name = "";
