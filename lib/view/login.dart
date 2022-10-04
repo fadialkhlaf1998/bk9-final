@@ -357,8 +357,8 @@ class Login extends StatelessWidget {
             ),
           ),
         ):Center(),
-        SizedBox(height: 10,),
-        GestureDetector(
+        Platform.isIOS?Center():SizedBox(height: 10,),
+        Platform.isIOS?Center():GestureDetector(
           onTap: () {
             /// todo login google
             loginController.googleSignIn(context);
@@ -389,8 +389,8 @@ class Login extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 10,),
-        GestureDetector(
+        Platform.isIOS?Center():SizedBox(height: 10,),
+        Platform.isIOS?Center():GestureDetector(
           onTap: () {
             /// todo login facebook
             loginController.facebookSignIn(context);
