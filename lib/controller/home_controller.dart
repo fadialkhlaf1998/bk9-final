@@ -12,6 +12,7 @@ class HomeController extends GetxController {
   TextEditingController search = TextEditingController();
   var activeIndex = 0.obs;
   var selectedServices = 0.obs;
+  var videoLoading = true.obs;
 
   set_index(int selected){
     activeIndex.value=selected;

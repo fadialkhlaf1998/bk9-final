@@ -17,9 +17,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:video_player/video_player.dart';
 
 class Home extends StatelessWidget {
-  Home({Key? key}) : super(key: key);
+  // Home({Key? key}) : super(key: key);
 
   HomeController homeController = Get.put(HomeController());
   IntroController introController = Get.find();
@@ -201,6 +202,7 @@ class Home extends StatelessWidget {
       ),
     );
   }
+  late VideoPlayerController _controller;
   _imagesSlider(BuildContext context) {
     return Obx(() => Container(
       height: AppStyle.getDeviceHeightPercent(25, context),
@@ -213,17 +215,43 @@ class Home extends StatelessWidget {
                 carouselController: homeController.carouselController,
                 options: CarouselOptions(
                     height: AppStyle.getDeviceHeightPercent(25, context),
-                    autoPlay: true,
+                    // autoPlay: true,
                     enlargeCenterPage: true,
                     viewportFraction: 1,
                     enlargeStrategy: CenterPageEnlargeStrategy.height,
                     autoPlayInterval: Duration(seconds: 2),
                     onPageChanged: (index, reason) {
+                      homeController.videoLoading.value = true;
+
+                      if(introController.banner[index].image!.toLowerCase().endsWith(".mp4")){
+                        // _controller.dispose();
+                        _controller = VideoPlayerController.network(
+                            introController.banner[index].image!)
+                          ..initialize().then((_) {
+                            // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+                            // setState(() {});
+                            print(introController.banner[index].image!);
+                            print('--------------------End Loading-----------------');
+                            homeController.videoLoading.value = false;
+                            _controller.play();
+                            _controller.setLooping(true);
+                          });
+                      }
+
                       homeController.set_index(index);
                     }),
                 itemCount: introController.banner.length,
                 itemBuilder: (BuildContext context, int index, int realIndex) {
-                  return Container(
+                  return introController.banner[index].image!.toLowerCase().endsWith(".mp4")
+                      ?Container(
+                    color: Colors.white,
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    width: MediaQuery.of(context).size.width,
+                    child: Obx(() => !homeController.videoLoading.value
+                        ? VideoPlayer(_controller)
+                        : Center(child: CircularProgressIndicator(),),)
+                  )
+                      :Container(
                     height: MediaQuery.of(context).size.height * 0.3,
                     width: MediaQuery.of(context).size.width,
                     decoration:BoxDecoration(
