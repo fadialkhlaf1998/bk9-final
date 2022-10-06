@@ -1,6 +1,7 @@
 import 'package:bk9/const/api.dart';
 import 'package:bk9/const/app-style.dart';
 import 'package:bk9/const/store.dart';
+import 'package:bk9/controller/addresses_controller.dart';
 import 'package:bk9/view/main_page.dart';
 import 'package:bk9/view/no_internet.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,6 +14,7 @@ class LoginController extends GetxController {
 
   TextEditingController emailTextField = TextEditingController();
   TextEditingController passwordTextField = TextEditingController();
+  AddressesController addressesController = Get.find();
   RxBool showPassword = false.obs;
   Rx<bool> emailValidate = true.obs;
   Rx<bool> passwordValidate = true.obs;
@@ -39,6 +41,7 @@ class LoginController extends GetxController {
               loading.value = false;
               if (value != null) {
                 AppStyle.successMsg(context,"Login has been successfully");
+                addressesController.getAddress();
                 Get.offAll(() => MainPage());
               } else {
                 loading.value=false;

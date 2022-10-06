@@ -38,16 +38,16 @@ class Checkout extends StatelessWidget {
               Positioned(
                 top: 0,
                 child: _header(context),
-              )
-              // addressesController.loading.value?
-              // Positioned(child: Container(
-              //   width: MediaQuery.of(context).size.width,
-              //   height: MediaQuery.of(context).size.height,
-              //   color: Colors.white.withOpacity(0.5),
-              //   child: Center(
-              //     child: CircularProgressIndicator(color: AppStyle.primary,),
-              //   ),
-              // )) : Center()
+              ),
+              checkoutController.loading.value?
+              Positioned(child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                color: Colors.white.withOpacity(0.5),
+                child: Center(
+                  child: CircularProgressIndicator(color: AppStyle.primary,),
+                ),
+              )) : Center()
             ],
           ),
         ))

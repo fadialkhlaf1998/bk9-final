@@ -37,12 +37,18 @@ class ProductInfoController extends GetxController {
     if(product!.colors!=null&&product!.colors!.isNotEmpty){
       selectedColorId.value = product!.colors![0].colorId;
       selectedColorIndex.value = getIndexColorImages(selectedColorId.value,product!.colorsImages!);
+    }else{
+      selectedColorId.value = 0;
     }
     if(product!.weights!=null&&product!.weights!.isNotEmpty){
       selectedWeightId.value = product!.weights![0].weightId;
+    }else{
+      selectedWeightId.value = 0;
     }
     if(product!.sizes!=null&&product!.sizes!.isNotEmpty){
       selectedSizeId.value = product!.sizes![0].sizeId;
+    }else{
+      selectedSizeId.value = 0;
     }
   }
 
