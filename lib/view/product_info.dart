@@ -74,7 +74,7 @@ class ProductInformation extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(height: 90),
+                      SizedBox(height: 80),
                       _body(context),
                       SizedBox(height: 20),
                     ],
@@ -187,14 +187,20 @@ class ProductInformation extends StatelessWidget {
                 ),
                 product!.regularPrice >0?
                 Positioned(
-                    top: 25,
+                    top: 20,
                     child: Container(
                       width: AppStyle.getDeviceWidthPercent(85, context),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Container(
-                            color: AppStyle.red,
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(30),
+
+                              ),
+                            ),
                             child: const Center(
                               child: Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 20,vertical: 4),

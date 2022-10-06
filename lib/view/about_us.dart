@@ -1,4 +1,3 @@
-import 'package:bk9/const/api.dart';
 import 'package:bk9/const/app-style.dart';
 import 'package:bk9/const/store.dart';
 import 'package:bk9/controller/account_controller.dart';
@@ -28,12 +27,15 @@ class AboutUs extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    _header(context),
-                    SizedBox(height: 20),
+                    SizedBox(height: 90),
                     _body(context),
                   ],
                 ),
               ),
+              Positioned(
+                top: 0,
+                child: _header(context),
+              )
             ],
           ),
         )
@@ -44,6 +46,7 @@ class AboutUs extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15),
       width: AppStyle.getDeviceWidthPercent(100, context),
+      height: 70,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(

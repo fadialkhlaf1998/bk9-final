@@ -21,12 +21,15 @@ class FAQ extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    _header(context),
-                    SizedBox(height: 30),
+                    SizedBox(height: 100),
                     _body(context),
                     SizedBox(height: 20,)
                   ],
                 ),
+              ),
+              Positioned(
+                top: 0,
+                child: _header(context),
               )
             ],
           ),
@@ -37,6 +40,7 @@ class FAQ extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15),
       width: AppStyle.getDeviceWidthPercent(100, context),
+      height: 70,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(

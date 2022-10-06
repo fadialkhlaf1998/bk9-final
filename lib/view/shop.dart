@@ -33,8 +33,7 @@ class Shop extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    _header(context),
-                    SizedBox(height: 20),
+                    SizedBox(height: 95),
                     _newArrivals(context),
                     _super_category(context),
                     SizedBox(height: 20),
@@ -54,6 +53,7 @@ class Shop extends StatelessWidget {
   _header(BuildContext context) {
     return Container(
       width: AppStyle.getDeviceWidthPercent(100, context),
+      height: 75,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(

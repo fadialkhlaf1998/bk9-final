@@ -27,14 +27,7 @@ class ServicesDetails extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    TwoItemsHeader(
-                      text: service!.title!,
-                      textStyle: CommonTextStyle.textStyleForDarkGreyMediumButton,
-                      onTap: () {
-                        Get.back();
-                      },
-                    ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 90),
                     Stack(
                         children: [
                           Container(
@@ -95,10 +88,18 @@ class ServicesDetails extends StatelessWidget {
                         ),
                       )).toList(),
                     ),
-
-
                     SizedBox(height: 20),
                   ],
+                ),
+              ),
+              Positioned(
+                top: 0,
+                child: TwoItemsHeader(
+                  text: service!.title!,
+                  textStyle: CommonTextStyle.textStyleForDarkGreyMediumButton,
+                  onTap: () {
+                    Get.back();
+                  },
                 ),
               )
             ],

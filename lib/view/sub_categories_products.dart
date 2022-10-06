@@ -232,7 +232,7 @@ class SubCategoriesProducts extends StatelessWidget {
   }
   _productsList(BuildContext context) {
     return Container(
-      height: Get.height*0.85-170,
+      height: Get.height * 0.85-170,
       child: ListView.builder(
           scrollDirection: Axis.vertical,
           itemCount: shopController.productsView.length,

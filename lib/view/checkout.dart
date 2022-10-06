@@ -29,13 +29,16 @@ class Checkout extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    _header(context),
-                    SizedBox(height: 30),
+                    SizedBox(height: 100),
                     _body(context),
                     SizedBox(height: 20,)
                   ],
                 ),
               ),
+              Positioned(
+                top: 0,
+                child: _header(context),
+              )
               // addressesController.loading.value?
               // Positioned(child: Container(
               //   width: MediaQuery.of(context).size.width,
@@ -55,6 +58,7 @@ class Checkout extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15),
       width: AppStyle.getDeviceWidthPercent(100, context),
+      height: 70,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(

@@ -143,7 +143,7 @@ class ProductFilter extends StatelessWidget {
   }
   _productsList(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height-150,
+      height: (MediaQuery.of(context).size.height - 150) - Get.bottomBarHeight,
       child: ListView.builder(
           scrollDirection: Axis.vertical,
           itemCount: productFilterController.posts.length,

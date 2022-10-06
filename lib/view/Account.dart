@@ -66,14 +66,12 @@ class Account extends StatelessWidget {
                 }
                 return true;
               },
-
               child: SingleChildScrollView(
                 controller: scrollController,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    _header(context),
-                    SizedBox(height: 10,),
+                    SizedBox(height: 70),
                     _body(context),
                     SizedBox(height: 20,)
                   ],
@@ -88,7 +86,11 @@ class Account extends StatelessWidget {
               child: Center(
                 child: CircularProgressIndicator(color: AppStyle.primary,),
               ),
-            )) : Center()
+            )) : Center(),
+            Positioned(
+              top: 0,
+              child: _header(context),
+            )
           ],
         )
     ));
@@ -98,7 +100,7 @@ class Account extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15),
       width: AppStyle.getDeviceWidthPercent(100, context),
-      height: AppStyle.getDeviceHeightPercent(9, context),
+      height: 70,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
@@ -264,7 +266,7 @@ class Account extends StatelessWidget {
   login(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 25),
+        SizedBox(height: 20),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

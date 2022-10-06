@@ -25,15 +25,7 @@ class Services extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  ThreeItemsHeader(
-                      onTap: () {
-                        mainPageController.changeIndexOfBottomBar(0);
-                      },
-                      introController: introController,
-                      text: "Services",
-                      textStyle: CommonTextStyle.textStyleForGreyMediumButtonBold
-                  ),
-                  SizedBox(height: 10,),
+                  SizedBox(height: 70,),
                   _servicesList(context,introController),
                   SizedBox(height: 20),
                 ],

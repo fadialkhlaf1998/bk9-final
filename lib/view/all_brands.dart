@@ -37,7 +37,10 @@ class AllBrands extends StatelessWidget {
                   child: CircularProgressIndicator(color: AppStyle.primary,),
                 ),
               )) : Center(),
-              _header(context),
+              Positioned(
+                top: 0,
+                child: _header(context),
+              )
             ],
           ),
         ))

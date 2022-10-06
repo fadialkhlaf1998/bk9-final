@@ -47,8 +47,7 @@ class OrderItems extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    _header(context),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 100),
                     loading.value?
                     SingleChildScrollView(
                       child: Column(
@@ -68,8 +67,9 @@ class OrderItems extends StatelessWidget {
                         ],
                       ),
                     )
-                        :Container(
+                        : Container(
                         child: ListView.builder(
+                            padding: EdgeInsets.only(bottom: Get.bottomBarHeight),
                             itemCount: orderItem.length,
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
@@ -80,6 +80,10 @@ class OrderItems extends StatelessWidget {
                   ],
                 ),
               ),
+              Positioned(
+                top: 0,
+                child: _header(context),
+              )
             ],
           )),
         )
@@ -89,6 +93,7 @@ class OrderItems extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15),
       width: AppStyle.getDeviceWidthPercent(100, context),
+      height: 70,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(

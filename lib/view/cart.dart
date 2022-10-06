@@ -35,8 +35,7 @@ class Cart extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  _header(context),
-                  SizedBox(height: 30),
+                  SizedBox(height: 100),
                   API.customer_id == -1 || cartController.cart.isEmpty ?
                   _emptyCart(context) :
                   _notEmptyCart(context),
@@ -52,7 +51,11 @@ class Cart extends StatelessWidget {
               child: Center(
                 child: CircularProgressIndicator(color: AppStyle.primary,),
               ),
-            )) : Center()
+            )) : Center(),
+            Positioned(
+              top: 0,
+              child: _header(context),
+            )
           ],
         ))
     );

@@ -62,13 +62,14 @@ class MyAddress extends StatelessWidget {
         ),
         body: Obx(() => SafeArea(
           child: Stack(
+            alignment: Alignment.topCenter,
             children: [
               BackgroundImage(),
               addressesController.loading.value?
               Positioned(
                 child: Column(
                   children: [
-                    _header(context),
+                    SizedBox(height: 70,),
                     Container(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height * 0.8,
@@ -81,17 +82,20 @@ class MyAddress extends StatelessWidget {
                 ),
               ) :
               SingleChildScrollView(
-                physics: NeverScrollableScrollPhysics(),
+                // physics: NeverScrollableScrollPhysics(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    _header(context),
-                    SizedBox(height: 30),
+                    SizedBox(height: 100),
                     _body(context),
                     SizedBox(height: 20,)
                   ],
                 ),
               ),
+              Positioned(
+                top: 0,
+                child: _header(context),
+              )
             ],
           ),
         ))
@@ -102,6 +106,7 @@ class MyAddress extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15),
       width: AppStyle.getDeviceWidthPercent(100, context),
+      height: 70,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
@@ -199,10 +204,12 @@ class MyAddress extends StatelessWidget {
   _addressesList(BuildContext context) {
     return Container(
       width: AppStyle.getDeviceWidthPercent(90, context),
-      height: AppStyle.getDeviceHeightPercent(60, context),
+      // height: AppStyle.getDeviceHeightPercent(60, context),
       child:  ListView.builder(
+        padding: EdgeInsets.only(bottom: Get.bottomBarHeight),
         itemCount: addressesController.addresses.length,
         shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
         itemBuilder: (context,index){
           return Container(
               width: AppStyle.getDeviceWidthPercent(85, context),

@@ -23,6 +23,7 @@ class Wishlist extends StatelessWidget {
     return Obx(() => Scaffold(
         body: SafeArea(
           child: Stack(
+            alignment: Alignment.center,
             children: [
               BackgroundImage(),
               wishListController.fake.value ? Center() : Center(),
@@ -30,15 +31,18 @@ class Wishlist extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    _header(context),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 90),
                     API.customer_id == -1 ?
                     _notLogin(context) : wishListController.wishlist.isEmpty ?
                     _emptyWishlist(context) :
                     _notEmptyWishlist(context),
-                    SizedBox(height: 20,)
+                    const SizedBox(height: 20,)
                   ],
                 ),
+              ),
+              Positioned(
+                top: 0,
+                child: _header(context)
               )
             ],
           ),
@@ -49,6 +53,7 @@ class Wishlist extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15),
       width: AppStyle.getDeviceWidthPercent(100, context),
+      height: 70,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(

@@ -75,6 +75,7 @@ class Store {
     API.email = "";
     API.password = "";
     API.customer_id = -1;
+    API.customer = null;
     Get.offAll(() => HomeScreen());
   }
 

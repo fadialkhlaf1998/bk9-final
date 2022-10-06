@@ -40,13 +40,16 @@ class CreateAddress extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    _header(context),
-                    SizedBox(height: 30,),
+                    const SizedBox(height: 100,),
                     _add_address(context),
-                    SizedBox(height: 20,)
+                    const SizedBox(height: 20,)
                   ],
                 ),
               ),
+              Positioned(
+                top: 0,
+                child: _header(context),
+              )
             ],
           ),
         ))
@@ -57,6 +60,7 @@ class CreateAddress extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15),
       width: AppStyle.getDeviceWidthPercent(100, context),
+      height: 70,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
