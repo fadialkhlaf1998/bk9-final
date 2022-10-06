@@ -50,6 +50,7 @@ class ProductInfoController extends GetxController {
     }else{
       selectedSizeId.value = 0;
     }
+
   }
 
   onSelectOption() {
