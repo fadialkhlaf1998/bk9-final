@@ -194,32 +194,59 @@ class Cart extends StatelessWidget {
                             Expanded(
                               flex: 2,
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                                padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Expanded(
                                       flex: 1,
-                                      child: Align(
-                                        alignment: Alignment.topRight,
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            print(index);
-                                              cartController.deleteFromCart(index, context);
-                                          },
-                                            child: Icon(Icons.close,size: 23,color: Colors.grey,)),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            width: Get.width * 2 / 3 - 25 -20,
+                                            child: Text(cartController.cart[index].title,
+                                              maxLines: 1,
+                                              style: TextStyle(
+                                                  color: AppStyle.darkGrey,
+                                                  fontSize: CommonTextStyle.smallTextStyle,
+                                                  fontWeight: FontWeight.w500,
+                                                overflow: TextOverflow.ellipsis
+                                              ),
+                                            ),
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              print(index);
+                                                cartController.deleteFromCart(index, context);
+                                            },
+                                              child: Icon(Icons.close,size: 23,color: Colors.grey,)),
+                                        ],
                                       ),
                                     ),
+                                    // cartController.cart[index].size.isEmpty&&
+                                    //     cartController.cart[index].weight.isEmpty&&
+                                    //     cartController.cart[index].degree.isEmpty?Center():
                                     Expanded(
-                                      flex: 2,
-                                      child: Text(cartController.cart[index].title,
-                                        maxLines: 2,
-                                        style: TextStyle(
-                                            color: AppStyle.darkGrey,
-                                            fontSize: CommonTextStyle.smallTextStyle,
-                                            fontWeight: FontWeight.w500
-                                        ),
-                                      ),
+                                      flex: 1,
+                                      child: Row(
+                                        children: [
+                                          cartController.cart[index].degree.isEmpty?Center():Container(
+                                            width: 15,
+                                            height: 15,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Color(fromHex(cartController.cart[index].degree))
+                                            ),
+                                          ),
+                                          cartController.cart[index].size.isEmpty?Center():SizedBox(width: 10,),
+                                          cartController.cart[index].size.isEmpty?Center()
+                                              :Text(cartController.cart[index].size,style: TextStyle(color: Colors.grey),),
+                                          cartController.cart[index].weight.isEmpty?Center():SizedBox(width: 10,),
+                                          cartController.cart[index].weight.isEmpty?Center()
+                                              :Text(cartController.cart[index].weight,style: TextStyle(color: Colors.grey),)
+                                        ],
+                                      )
                                     ),
                                     Expanded(
                                         flex: 1,
@@ -515,6 +542,11 @@ class Cart extends StatelessWidget {
       ],
     );
   }
-
+  fromHex(String hexString) {
+    final buffer = StringBuffer();
+    if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
+    buffer.write(hexString.replaceFirst('#', ''));
+    return int.parse(buffer.toString(), radix: 16);
+  }
 
 }
