@@ -23,7 +23,7 @@ class Wishlist extends StatelessWidget {
     return Obx(() => Scaffold(
         body: SafeArea(
           child: Stack(
-            alignment: Alignment.center,
+            alignment: Alignment.topCenter,
             children: [
               BackgroundImage(),
               wishListController.fake.value ? Center() : Center(),
