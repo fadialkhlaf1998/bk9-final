@@ -390,37 +390,37 @@ class Login extends StatelessWidget {
           ),
         ),
         Platform.isIOS?Center():SizedBox(height: 10,),
-        Platform.isIOS?Center():GestureDetector(
-          onTap: () {
-            /// todo login facebook
-            loginController.facebookSignIn(context);
-          },
-          child: Container(
-            width: AppStyle.getDeviceWidthPercent(80, context),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(color: AppStyle.grey.withOpacity(0.5)),
-                borderRadius: BorderRadius.circular(30)
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SvgPicture.asset("assets/icons/facebook.svg",width: 25,height: 25,color: Colors.blue,),
-                  Text("Continue with Facebook",
-                    style: TextStyle(
-                        color: AppStyle.grey,
-                        fontSize: CommonTextStyle.mediumTextStyle,
-                        fontWeight: FontWeight.normal
-                    ),
-                  ),
-                  Container()
-                ],
-              ),
-            ),
-          ),
-        ),
+        // Platform.isIOS?Center():GestureDetector(
+        //   onTap: () {
+        //     /// todo login facebook
+        //     loginController.facebookSignIn(context);
+        //   },
+        //   child: Container(
+        //     width: AppStyle.getDeviceWidthPercent(80, context),
+        //     decoration: BoxDecoration(
+        //         color: Colors.white,
+        //         border: Border.all(color: AppStyle.grey.withOpacity(0.5)),
+        //         borderRadius: BorderRadius.circular(30)
+        //     ),
+        //     child: Padding(
+        //       padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+        //       child: Row(
+        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //         children: [
+        //           SvgPicture.asset("assets/icons/facebook.svg",width: 25,height: 25,color: Colors.blue,),
+        //           Text("Continue with Facebook",
+        //             style: TextStyle(
+        //                 color: AppStyle.grey,
+        //                 fontSize: CommonTextStyle.mediumTextStyle,
+        //                 fontWeight: FontWeight.normal
+        //             ),
+        //           ),
+        //           Container()
+        //         ],
+        //       ),
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }
