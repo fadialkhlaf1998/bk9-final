@@ -178,8 +178,6 @@ class LoginController extends GetxController {
     }else{
       AppStyle.errorMsg(context, "oops SomeThing Went Wrong");
     }
-
-
   }
   facebookSignIn(BuildContext context)async{
     //todo  facebook
